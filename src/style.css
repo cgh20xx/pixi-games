@@ -7,3 +7,9 @@
 body {
   background-color: #C7EDCC; /* 護眼綠 */
 }
+
+canvas {
+  position: fixed;
+  left: 0;
+  top: 0;
+}
