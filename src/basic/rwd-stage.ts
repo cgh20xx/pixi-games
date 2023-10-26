@@ -33,7 +33,7 @@ function redrawStageFrame(): void {
  * @param width 舞台寬
  * @param height 舞台高
  */
-function setStageSize(width: number, height: number): void {
+export function setStageSize(width: number, height: number): void {
   stageSize.width = width
   stageSize.height = height
   redrawStageFrame()
@@ -74,8 +74,22 @@ function refreshCanvasAndStage(): void {
   )
 }
 
-// 設定舞台尺寸
-setStageSize(64, 96)
+/**
+ * 設定外框顯示與否
+ */
+export function setStageFrameVisible(visible: boolean): void {
+  stageFrame.visible = visible
+}
+
+/**
+ * 取得舞台尺寸
+ */
+export function getStageSize() {
+  return {
+    width: stageSize.width,
+    height: stageSize.height
+  }
+}
 
 // 偵聽視窗的 resize 事件
 window.addEventListener('resize', refreshCanvasAndStage);
