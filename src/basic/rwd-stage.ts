@@ -76,3 +76,6 @@ function refreshCanvasAndStage(): void {
 
 // 設定舞台尺寸
 setStageSize(64, 96)
+
+// 偵聽視窗的 resize 事件
+window.addEventListener('resize', refreshCanvasAndStage);
