@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tree": "tree --dirsfirst -I 'node_modules' --sort=name"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
