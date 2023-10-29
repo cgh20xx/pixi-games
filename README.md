@@ -6,10 +6,12 @@
 - PixiJS
 - TypeScript
 - Vite
+- Vitest
 
 ## 📁 專案結構：
 
 ```
+.
 ├── public
 │   └── vite.svg
 ├── src
@@ -19,7 +21,10 @@
 │   ├── games
 │   │   └── DiceGame.ts
 │   ├── lib
+│   │   ├── ArrayUtils.ts
 │   │   └── Dice.ts
+│   ├── test
+│   │   └── ArrayUtils.test.ts
 │   ├── main.ts
 │   ├── style.css
 │   └── vite-env.d.ts
