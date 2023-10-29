@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "tree": "tree --dirsfirst -I 'node_modules' --sort=name"
+    "tree": "tree --dirsfirst -I 'node_modules' --sort=name",
+    "test": "vitest"
   },
   "devDependencies": {
     "typescript": "^5.0.2",
