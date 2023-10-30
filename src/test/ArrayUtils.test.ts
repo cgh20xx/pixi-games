@@ -22,7 +22,7 @@ test('removeItem: 把一個元素從陣列中移除', () => {
 
 test('getRandomItem: 從陣列中隨機取得一個元素', () => {
   let array1 = ['a', 'b', 'c']
-  
+
   // 從陣列中隨機取得一個元素
   const randomItem1 = ArrayUtils.getRandomItem(array1)
   expect(array1).toContain(randomItem1)
@@ -36,4 +36,16 @@ test('getRandomItem: 從陣列中隨機取得一個元素', () => {
   // 從空陣列中隨機取得一個元素會拋出錯誤
   let array2: any[] = []
   expect(() => ArrayUtils.getRandomItem(array2)).toThrowError('無法從空陣列取得元素')
+})
+
+test('sortNumeric: 排序數字陣列 (預設小到大)', () => {
+  let array = [2, 1, 3, 5, 4]
+
+  // 預設排序由小到大
+  ArrayUtils.sortNumeric(array)
+  expect(array).toEqual([1, 2, 3, 4, 5])
+
+  // 設定排序由大到小
+  ArrayUtils.sortNumeric(array, true)
+  expect(array).toEqual([5, 4, 3, 2, 1])
 })
