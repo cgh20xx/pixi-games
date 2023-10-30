@@ -51,4 +51,18 @@ export class ArrayUtils {
     }
     return item
   }
+
+
+  /**
+   * 排序數字陣列 (預設小到大)
+   * @param array 目標陣列
+   * @param descending [可選] 是否由大到小排序
+   */
+  static sortNumeric(array: number[], descending?: boolean): void {
+    if (descending) {
+      array.sort((a, b) => b - a)
+    } else {
+      array.sort((a, b) => a - b)
+    }
+  }
 }
