@@ -49,3 +49,45 @@ test('sortNumeric: 排序數字陣列 (預設小到大)', () => {
   ArrayUtils.sortNumeric(array, true)
   expect(array).toEqual([5, 4, 3, 2, 1])
 })
+
+test('sortNumericOn: 排序物件陣列 (預設小到大)', () => {
+  let array = [
+    {
+      id: 'p1', name: 'alpha', power: 1
+    },
+    {
+      id: 'p2', name: 'beta', power: 99
+    },
+    {
+      id: 'p3', name: 'gamma', power: 5
+    }
+  ]
+
+  // 預設排序由小到大
+  ArrayUtils.sortNumericOn(array, 'power')
+  expect(array).toEqual([
+    {
+      id: 'p1', name: 'alpha', power: 1
+    },
+    {
+      id: 'p3', name: 'gamma', power: 5
+    },
+    {
+      id: 'p2', name: 'beta', power: 99
+    },
+  ])
+
+  // 測試排序由大到小
+  ArrayUtils.sortNumericOn(array, 'power', true)
+  expect(array).toEqual([
+    {
+      id: 'p2', name: 'beta', power: 99
+    },
+    {
+      id: 'p3', name: 'gamma', power: 5
+    },
+    {
+      id: 'p1', name: 'alpha', power: 1
+    }
+  ])
+})
