@@ -95,25 +95,3 @@ export class ArrayUtils {
     }
   }
 }
-
-// const arr = [
-//   {id: 'aa', hp: 1},
-//   {id: 'bb', hp: 2}
-// ]
-
-
-
-
-// ArrayUtils.sortNumericOn(arr)
-
-// type Getters<Type> = {
-//   [Property in keyof Type as `get${Capitalize<string & Property>}`]: () => Type[Property]
-// };
-
-// interface Person {
-//   name: string;
-//   age: number;
-//   location: string;
-// }
-
-// type LazyPerson = Getters<Person>;
