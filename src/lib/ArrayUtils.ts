@@ -72,11 +72,16 @@ export class ArrayUtils {
    * @param key 依物件指定的屬性排序
    * @param descending [可選] 是否由大到小排序
    */
-  static sortNumericOn(array: any[], key: string, descending?: boolean) {
-    if (descending) {
-      array.sort((a, b) => b[key] - a[key])
+  static sortNumericOn<T extends Object>(array: T[], key: Extract<keyof T, string>, descending?: boolean) {
+    // 若 key 存在於 object 中
+    if (typeof array[0][key] === 'number') {
+      if (descending) {
+        array.sort((a, b) => (b[key] as number) - (a[key] as number))
+      } else {
+        array.sort((a, b) => (a[key] as number) - (b[key] as number))
+      }
     } else {
-      array.sort((a, b) => a[key] - b[key])
+      throw new Error(`object['${key}'] 不是 number 類型`);
     }
   }
 }

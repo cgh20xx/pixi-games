@@ -90,4 +90,7 @@ test('sortNumericOn: 排序物件陣列 (預設小到大)', () => {
       id: 'p1', name: 'alpha', power: 1
     }
   ])
+
+  // 測試輸入 key 的值代入物件不是 number 類型
+  expect(() => ArrayUtils.sortNumericOn(array, 'id')).toThrowError(/不是 number 類型$/)
 })
