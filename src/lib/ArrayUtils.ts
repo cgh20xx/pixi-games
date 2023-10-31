@@ -1,16 +1,8 @@
+import { GetNumberKeys } from "../types"
+
 /**
  * 常用陣列函式庫
  */
-
-/**
- * 取得 value 為 number 的 key
- */
-type GetNumberKeys<T> = keyof {
-  [K in keyof T as T[K] extends number ? K : never]: T[K];
-} & string
-// type NumKeys = GetNumberKeys<{ id: 'aa'; hp: 1, age: 99 }>
-// result type NumKeys = "hp" | "age"
-
 export class ArrayUtils {
 
   /**
