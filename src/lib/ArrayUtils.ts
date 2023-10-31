@@ -65,4 +65,18 @@ export class ArrayUtils {
       array.sort((a, b) => a - b)
     }
   }
+
+  /**
+   * 排序物件陣列 (預設小到大)
+   * @param array 目標陣列
+   * @param key 依物件指定的屬性排序
+   * @param descending [可選] 是否由大到小排序
+   */
+  static sortNumericOn(array: any[], key: string, descending?: boolean) {
+    if (descending) {
+      array.sort((a, b) => b[key] - a[key])
+    } else {
+      array.sort((a, b) => a[key] - b[key])
+    }
+  }
 }
