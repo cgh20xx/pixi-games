@@ -86,4 +86,16 @@ export class ArrayUtils {
       throw new Error(`object['${key}'] 不是 number 類型`);
     }
   }
+
+  /**
+   * 交換兩個陣列元素的位置
+   * @param array 目標陣列
+   * @param index1 第一個元素位置
+   * @param index2 第二個元素位置
+   */
+  static swapAt(array: unknown[], index1: number, index2: number): void {
+    let temp = array[index1]
+    array[index1] = array[index2]
+    array[index2] = temp
+  }
 }
