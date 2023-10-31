@@ -92,5 +92,6 @@ test('sortNumericOn: 排序物件陣列 (預設小到大)', () => {
   ])
 
   // 測試輸入 key 的值代入物件不是 number 類型
-  expect(() => ArrayUtils.sortNumericOn(array, 'id')).toThrowError(/不是 number 類型$/)
+  // 因新增 type GetNumberKeys 可以限制 sortNumericOn 第二個參數 key 必需為值為 number，故不需進行測試。
+  // expect(() => ArrayUtils.sortNumericOn(array, 'id')).toThrowError(/不是 number 類型$/)
 })
