@@ -95,3 +95,14 @@ test('sortNumericOn: 排序物件陣列 (預設小到大)', () => {
   // 因新增 type GetNumberKeys 可以限制 sortNumericOn 第二個參數 key 必需為值為 number，故不需進行測試。
   // expect(() => ArrayUtils.sortNumericOn(array, 'id')).toThrowError(/不是 number 類型$/)
 })
+
+test('swapAt: 交換兩個陣列元素的位置', () => {
+  let array = ['a', 'b', 'c']
+
+  // 交換前兩個位置
+  ArrayUtils.swapAt(array, 0, 1)
+  expect(array).toEqual(['b', 'a', 'c'])
+
+  // 交換的陣列位置超出陣列長度
+  expect(() => ArrayUtils.swapAt(array, -10, 10)).toThrowError('index 超出陣列長度')
+})

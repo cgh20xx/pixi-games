@@ -94,6 +94,9 @@ export class ArrayUtils {
    * @param index2 第二個元素位置
    */
   static swapAt(array: unknown[], index1: number, index2: number): void {
+    if (array[index1] === undefined || array[index2] === undefined) {
+      throw new Error('index 超出陣列長度');
+    }
     let temp = array[index1]
     array[index1] = array[index2]
     array[index2] = temp
