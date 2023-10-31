@@ -7,7 +7,7 @@
  */
 type GetNumberKeys<T> = keyof {
   [K in keyof T as T[K] extends number ? K : never]: T[K];
-}
+} & string
 // type NumKeys = GetNumberKeys<{ id: 'aa'; hp: 1, age: 99 }>
 // result type NumKeys = "hp" | "age"
 
@@ -82,7 +82,7 @@ export class ArrayUtils {
    * @param key 依物件指定的屬性排序
    * @param descending [可選] 是否由大到小排序
    */
-  static sortNumericOn<T extends Object>(array: T[], key: GetNumberKeys<T> & string, descending?: boolean) {
+  static sortNumericOn<T extends Object>(array: T[], key: GetNumberKeys<T>, descending?: boolean) {
     // 若 key 存在於 object 中
     if (typeof array[0][key] === 'number') {
       if (descending) {
