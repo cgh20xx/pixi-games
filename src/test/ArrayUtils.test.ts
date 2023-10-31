@@ -104,5 +104,5 @@ test('swapAt: 交換兩個陣列元素的位置', () => {
   expect(array).toEqual(['b', 'a', 'c'])
 
   // 交換的陣列位置超出陣列長度
-  expect(() => ArrayUtils.swapAt(array, -10, 10)).toThrowError('index 超出陣列長度')
+  expect(() => ArrayUtils.swapAt(array, -1, 99)).toThrowError('index 超出陣列長度')
 })
