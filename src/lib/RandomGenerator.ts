@@ -31,4 +31,14 @@ export class RandomGenerator {
     this.seed = (this.seed * 16807) % m
     return this.seed / m
   }
+
+  /**
+   * 產生介於 min 首 max 的亂數
+   * @param min 最小值
+   * @param max 最大值
+   * @returns 介於 min 和 max 的亂數
+   */
+  public nextBetween(min: number, max: number): number {
+    return this.next() * (max - min) + min
+  }
 }
