@@ -17,6 +17,10 @@ export class RandomGenerator {
     this.next()
   }
 
+  /**
+   * 產生下一個介於 0 ~ 1 的亂數
+   * @returns 亂數
+   */
   public next(): number {
     // seed 不可為 0，不然後面算出來會是 0 的循環數列
     if (this.seed === 0) {
@@ -25,7 +29,6 @@ export class RandomGenerator {
     }
     // 實作 Lehmer RNG 演算法
     this.seed = (this.seed * 16807) % m
-    // 回傳一個介於 0 ~ 1 的亂數
     return this.seed / m
   }
 }
