@@ -60,4 +60,24 @@ export class RandomGenerator {
   public nextIntBetween(min: number, max: number): number {
     return Math.floor(this.next() * (max - min + 1) + min)
   }
+
+  /**
+   * 產生一個長度為 length 的随機字串
+   * @param length 回傳的字串長度
+   * @param includeNumber 回傳字串是否包含數字
+   * @returns 隨機字串
+   */
+  public getRandomString(length: number, includeNumber?: boolean): string {
+    let chars = 'abcdefghijklmnopqrstuvwxyz'
+    if (includeNumber) {
+      chars += '0123456789'
+    }
+    let charLength = chars.length
+    let output = ''
+    while (output.length < length) {
+      let index = Math.floor(this.next() * charLength)
+      output += chars[index]
+    }
+    return output
+  }
 }
