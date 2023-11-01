@@ -51,4 +51,13 @@ export class RandomGenerator {
     return Math.floor(this.next() * (max + 1))
   }
 
+  /**
+   * 產生介於 min 到 max 的亂整數，min 和 max 都是可能的回傳值。
+   * @param min 最小可能值
+   * @param max 最大可能值
+   * @returns 介於 min 到 max 的亂整數
+   */
+  public nextIntBetween(min: number, max: number): number {
+    return Math.floor(this.next() * (max - min + 1) + min)
+  }
 }
