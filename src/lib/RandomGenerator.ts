@@ -1,3 +1,5 @@
+import { ArrayUtils } from "./ArrayUtils"
+
 const m = 2147483647 // m = 2**31 − 1
 const DEFAULT_SEED = 123456789 // 預設亂數種子(最好8位以上)
 
@@ -79,5 +81,18 @@ export class RandomGenerator {
       output += chars[index]
     }
     return output
+  }
+
+  /**
+   * 隨機排列陣列中的元素
+   * @param array 目標陣列
+   */
+  public randomizeArray(array: unknown[]): void {
+    let length = array.length
+    let swapTo
+    for (let i = 0; i < length; i++) {
+      swapTo = Math.floor(this.next() * length)
+      ArrayUtils.swapAt(array, i, swapTo)
+    }
   }
 }
