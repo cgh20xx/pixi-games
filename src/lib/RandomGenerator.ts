@@ -41,4 +41,14 @@ export class RandomGenerator {
   public nextBetween(min: number, max: number): number {
     return this.next() * (max - min) + min
   }
+
+  /**
+   * 產生介於 0 到 max 的亂整數，0 和 max 都是可能的回傳值。
+   * @param max 最大可能值
+   * @returns 介於 0 到 max 的亂整數
+   */
+  public nextInt(max: number): number {
+    return Math.floor(this.next() * (max + 1))
+  }
+
 }
