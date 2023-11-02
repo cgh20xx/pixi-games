@@ -2,15 +2,17 @@ import { test, expect } from 'vitest'
 import { RandomGenerator } from '../lib/RandomGenerator'
 // 參考：https://cn.vitest.dev/api/#test
 
+
 test('next: 輸出範圍是否介於 0 到 1', () => {
   const rng = new RandomGenerator(Date.now())
-  let tries = 100 // 測試 100 次
+  let tries = 10000 // 測試 10000 次
   while (tries--) {
     let output = rng.next()
     // 期望亂數值 >= 0 且 < 1
     expect(output).greaterThanOrEqual(0).lessThan(1)
   }
 })
+// 補充：同樣是範圍類的 nextBetween() 及 nextIntBetween() 就不再測試
 
 test('nextInt: 測試數字分佈是否平均', () => {
   const rng = new RandomGenerator(Date.now())
