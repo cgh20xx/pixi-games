@@ -53,3 +53,19 @@ test('nextInt: 測試數字分佈是否平均', () => {
     expect(diffPercent).toBeLessThan(.1)
   }
 })
+
+test('getRandomString: 產生一個長度為 length 的随機字串', () => {
+  const rng = new RandomGenerator(Date.now())
+  const length = 1000
+  // 產生長度 1000 並不含數字的英文隨機字串
+  let output1 = rng.getRandomString(length)
+  // 檢查字串長度是否為 1000
+  expect(output1.length).toBe(length)
+  // 檢查字串是否只有 1000 個英文字母
+  expect(output1).toMatch(/^[a-z]{1000}$/)
+
+  // 產生另一個含數字的隨機字串
+  let output2 = rng.getRandomString(length, true)
+  // 檢查字串是含有數字
+  expect(output2).toMatch(/[0-9]/)
+})
