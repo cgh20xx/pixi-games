@@ -1,4 +1,4 @@
-import { Point } from 'pixi.js'
+import { ObservablePoint, Point } from 'pixi.js'
 /**
  * 擴充 PIXI.Point 的函式庫
  */
@@ -20,6 +20,8 @@ declare module 'pixi.js' {
 Point.prototype.length = function() {
   return Math.sqrt(this.x * this.x + this.y + this.y)
 }
+// 因 ObservablePoint 也有實作 IPoint 介面，所以也要增加對應的方法。
+ObservablePoint.prototype.length = Point.prototype.length
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
