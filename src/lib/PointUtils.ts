@@ -28,6 +28,12 @@ declare module 'pixi.js' {
      * @returns 新的向量
      */
     sub(other: IPoint): Point
+
+    /**
+     * 縮放向量
+     * @param value 縮放的數值
+     */
+    scale(value: number): void
   }
 }
 
@@ -46,6 +52,12 @@ Point.prototype.sub = function(other: IPoint) {
   return new Point(this.x - other.x, this.y - other.y)
 }
 ObservablePoint.prototype.sub = Point.prototype.sub
+
+Point.prototype.scale = function(value: number) {
+  this.x *= value
+  this.y *= value
+}
+ObservablePoint.prototype.scale = Point.prototype.scale
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
