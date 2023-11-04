@@ -63,6 +63,13 @@ declare module 'pixi.js' {
      * @returns 向量的內積
      */
     dot(other: IPoint): number
+
+    /**
+     * 計算向量的行列式 (determinant)
+     * @param other
+     * @returns 向量的行列式結果
+     */
+    det(other: IPoint): number
   }
 }
 
@@ -135,6 +142,11 @@ Point.prototype.dot = function(other: IPoint) {
   return this.x * other.x + this.y * other.y
 }
 ObservablePoint.prototype.dot = Point.prototype.dot
+
+Point.prototype.det = function(other: IPoint) {
+  return this.x * other.y - this.y * other.y
+}
+ObservablePoint.prototype.det = Point.prototype.det
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
