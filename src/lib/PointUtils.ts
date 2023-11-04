@@ -21,6 +21,13 @@ declare module 'pixi.js' {
      * @returns 新的向量
      */
     add(other: IPoint): Point
+
+    /**
+     * 減另一個向量，回傳新的向量
+     * @param other 另一個向量
+     * @returns 新的向量
+     */
+    sub(other: IPoint): Point
   }
 }
 
@@ -34,6 +41,11 @@ Point.prototype.add = function(other: IPoint) {
   return new Point(this.x + other.x, this.y + other.y)
 }
 ObservablePoint.prototype.add = Point.prototype.add
+
+Point.prototype.sub = function(other: IPoint) {
+  return new Point(this.x - other.x, this.y - other.y)
+}
+ObservablePoint.prototype.sub = Point.prototype.sub
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
