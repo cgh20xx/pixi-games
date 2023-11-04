@@ -32,6 +32,7 @@ declare module 'pixi.js' {
     /**
      * 縮放向量
      * @param value 縮放的數值
+     * @returns this
      */
     scale(value: number): this
 
@@ -55,6 +56,13 @@ declare module 'pixi.js' {
      * @returns this
      */
     rotate(rotation: number): this
+
+    /**
+     * 計算向量的內積 (dot)
+     * @param other
+     * @returns 向量的內積
+     */
+    dot(other: IPoint): number
   }
 }
 
@@ -122,6 +130,11 @@ Point.prototype.rotate = function(rotation: number) {
 ObservablePoint.prototype.rotate = function(rotation: number) {
   return vectorRotate(this, rotation)
 }
+
+Point.prototype.dot = function(other: IPoint) {
+  return this.x * other.x + this.y * other.y
+}
+ObservablePoint.prototype.dot = Point.prototype.dot
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
