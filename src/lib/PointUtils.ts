@@ -33,7 +33,7 @@ declare module 'pixi.js' {
      * 縮放向量
      * @param value 縮放的數值
      */
-    scale(value: number): void
+    scale(value: number): this
 
     /**
      * 將向量正規化，並回傳原本的向量長度
@@ -74,11 +74,19 @@ Point.prototype.sub = function(other: IPoint) {
 }
 ObservablePoint.prototype.sub = Point.prototype.sub
 
-Point.prototype.scale = function(value: number) {
-  this.x *= value
-  this.y *= value
+// 用泛型定義一個通用的縮放函式
+function vectorScale<T extends IPoint>(vector: T, value: number): T {
+  vector.x *= value
+  vector.y *= value
+  return vector
 }
-ObservablePoint.prototype.scale = Point.prototype.scale
+
+Point.prototype.scale = function(value: number) {
+  return vectorScale(this, value)
+}
+ObservablePoint.prototype.scale = function(value: number) {
+  return vectorScale(this, value)
+}
 
 Point.prototype.normalize = function(length: number = 1) {
   const originLength = this.length()
