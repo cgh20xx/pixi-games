@@ -41,6 +41,13 @@ declare module 'pixi.js' {
      * @returns 原本的向量長度
      */
     normalize(length?: number): number
+
+    /**
+     * 計算距離另一個座標(Point)的距離
+     * @param other 另一個座標(Point)
+     * @returns 與另一個座標(Point)的距離
+     */
+    distanceTo(other: IPoint): number
   }
 }
 
@@ -75,6 +82,13 @@ Point.prototype.normalize = function(length: number = 1) {
   return originLength
 }
 ObservablePoint.prototype.normalize = Point.prototype.normalize
+
+Point.prototype.distanceTo = function(other: IPoint) {
+  const dx = this.x - other.x
+  const dy = this.x - other.y
+  return Math.sqrt(dx * dx + dy * dy)
+}
+ObservablePoint.prototype.distanceTo = Point.prototype.distanceTo
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
