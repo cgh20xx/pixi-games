@@ -34,6 +34,13 @@ declare module 'pixi.js' {
      * @param value 縮放的數值
      */
     scale(value: number): void
+
+    /**
+     * 將向量正規化，並回傳原本的向量長度
+     * @param length [可選] 要正規化的長度 default: 1
+     * @returns 原本的向量長度
+     */
+    normalize(length?: number): number
   }
 }
 
@@ -58,6 +65,16 @@ Point.prototype.scale = function(value: number) {
   this.y *= value
 }
 ObservablePoint.prototype.scale = Point.prototype.scale
+
+Point.prototype.normalize = function(length: number = 1) {
+  const originLength = this.length()
+  // 如果向量原長不是 0 才有辦法調整長度
+  if (length !== 0) {
+    this.scale(length / originLength)
+  }
+  return originLength
+}
+ObservablePoint.prototype.normalize = Point.prototype.normalize
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
