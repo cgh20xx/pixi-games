@@ -48,6 +48,13 @@ declare module 'pixi.js' {
      * @returns 與另一個座標(Point)的距離
      */
     distanceTo(other: IPoint): number
+
+    /**
+     * 將向量旋轉一個弧度 (radian)
+     * @param rotation 弧度 (radian)
+     * @returns this
+     */
+    rotate(rotation: number): this
   }
 }
 
@@ -89,6 +96,24 @@ Point.prototype.distanceTo = function(other: IPoint) {
   return Math.sqrt(dx * dx + dy * dy)
 }
 ObservablePoint.prototype.distanceTo = Point.prototype.distanceTo
+
+// 用泛型定義一個通用的旋轉函式
+function vectorRotate<T extends IPoint>(vector: T, rotation: number): T {
+  const cos = Math.cos(rotation)
+  const sin = Math.sin(rotation)
+  vector.set(
+    vector.x * cos - vector.y * sin,
+    vector.y * cos + vector.x * sin
+  )
+  return vector
+}
+
+Point.prototype.rotate = function(rotation: number) {
+  return vectorRotate(this, rotation)
+}
+ObservablePoint.prototype.rotate = function(rotation: number) {
+  return vectorRotate(this, rotation)
+}
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
