@@ -1,4 +1,4 @@
-import { ObservablePoint, Point } from 'pixi.js'
+import { IPoint, ObservablePoint, Point } from 'pixi.js'
 /**
  * 擴充 PIXI.Point 的函式庫
  */
@@ -14,6 +14,13 @@ declare module 'pixi.js' {
      * @returns 向量的長度
      */
     length(): number
+
+    /**
+     * 加另一個向量，回傳新的向量
+     * @param other 另一個向量
+     * @returns 新的向量
+     */
+    add(other: IPoint): Point
   }
 }
 
@@ -22,6 +29,11 @@ Point.prototype.length = function() {
 }
 // 因 ObservablePoint 也有實作 IPoint 介面，所以也要增加對應的方法。
 ObservablePoint.prototype.length = Point.prototype.length
+
+Point.prototype.add = function(other: IPoint) {
+  return new Point(this.x + other.x, this.y + other.y)
+}
+ObservablePoint.prototype.add = Point.prototype.add
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
