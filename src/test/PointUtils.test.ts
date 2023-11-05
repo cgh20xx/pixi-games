@@ -19,4 +19,16 @@ describe('Point', () => {
       expect(obPoint.length()).toBe(18541)
     })
   })
+
+  describe('add', () => {
+    test('向量加法', () => {
+      let point = new Point(3, 4)
+      point = point.add(new Point(10, 10))
+      expect(point).toEqual(new Point(13, 14))
+    })
+  })
+
+  // describe('sub', () => {
+
+  // })
 })
