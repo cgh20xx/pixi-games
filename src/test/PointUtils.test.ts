@@ -28,7 +28,11 @@ describe('Point', () => {
     })
   })
 
-  // describe('sub', () => {
-
-  // })
+  describe('sub', () => {
+    test('向量減法', () => {
+      let point = new Point(3, 4)
+      point = point.sub(new Point(1, 1))
+      expect(point).toEqual(new Point(2, 3))
+    })
+  })
 })
