@@ -42,4 +42,19 @@ describe('Point', () => {
       expect(point).toEqual(new Point(6, 8))
     })
   })
+
+  describe('scale', () => {
+    test('向量縮放', () => {
+      let point = new Point(3, 4).scale(2)
+      expect(point).toEqual(new Point(6, 8))
+    })
+  })
+
+  describe('normalize', () => {
+    test('向量正規化', () => {
+      let point = new Point(3, 4)
+      expect(point.normalize(100)).toBe(5)
+      expect(point.length()).toBe(100)
+    })
+  })
 })
