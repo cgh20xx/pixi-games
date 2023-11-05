@@ -57,4 +57,12 @@ describe('Point', () => {
       expect(point.length()).toBe(100)
     })
   })
+
+  describe('distanceTo', () => {
+    test('計算距離另一個座標(Point)的距離', () => {
+      let point1 = new Point(0, 0)
+      let distance = point1.distanceTo(new Point(3, 4))
+      expect(distance).toBe(5)
+    })
+  })
 })
