@@ -144,7 +144,7 @@ Point.prototype.dot = function(other: IPoint) {
 ObservablePoint.prototype.dot = Point.prototype.dot
 
 Point.prototype.det = function(other: IPoint) {
-  return this.x * other.y - this.y * other.y
+  return this.x * other.y - this.y * other.x
 }
 ObservablePoint.prototype.det = Point.prototype.det
 

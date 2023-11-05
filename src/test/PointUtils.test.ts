@@ -81,4 +81,11 @@ describe('Point', () => {
       expect(point.dot(new Point(1, 2))).toBe(11)
     })
   })
+
+  describe('det', () => {
+    test('向量行列式', () => {
+      let point = new Point(3, 4)
+      expect(point.det(new Point(1, 2))).toBe(2)
+    })
+  })
 })
