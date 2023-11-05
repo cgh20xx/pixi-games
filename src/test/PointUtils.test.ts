@@ -74,4 +74,11 @@ describe('Point', () => {
       expect(point.y).toBeCloseTo(3)
     })
   })
+
+  describe('dot', () => {
+    test('向量內積', () => {
+      let point = new Point(3, 4)
+      expect(point.dot(new Point(1, 2))).toBe(11)
+    })
+  })
 })
