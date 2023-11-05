@@ -22,9 +22,19 @@
 │   │   └── DiceGame.ts
 │   ├── lib
 │   │   ├── ArrayUtils.ts
-│   │   └── Dice.ts
+│   │   ├── Dice.ts
+│   │   ├── PointUtils.ts
+│   │   ├── RandomGenerator.ts
+│   │   ├── RectUtils.ts
+│   │   └── StringUtils.ts
 │   ├── test
-│   │   └── ArrayUtils.test.ts
+│   │   ├── ArrayUtils.test.ts
+│   │   ├── PointUtils.test.ts
+│   │   ├── RandomGenerator.test.ts
+│   │   ├── RectUtils.test.ts
+│   │   └── StringUtils.test.ts
+│   ├── types
+│   │   └── index.ts
 │   ├── main.ts
 │   ├── style.css
 │   └── vite-env.d.ts
