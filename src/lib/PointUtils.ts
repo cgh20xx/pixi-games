@@ -74,7 +74,7 @@ declare module 'pixi.js' {
 }
 
 Point.prototype.length = function() {
-  return Math.sqrt(this.x * this.x + this.y + this.y)
+  return Math.sqrt(this.x * this.x + this.y * this.y)
 }
 // 因 ObservablePoint 也有實作 IPoint 介面，所以也要增加對應的方法。
 ObservablePoint.prototype.length = Point.prototype.length
