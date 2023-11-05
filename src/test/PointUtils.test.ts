@@ -35,4 +35,11 @@ describe('Point', () => {
       expect(point).toEqual(new Point(2, 3))
     })
   })
+
+  describe('scale', () => {
+    test('向量縮放', () => {
+      let point = new Point(3, 4).scale(2)
+      expect(point).toEqual(new Point(6, 8))
+    })
+  })
 })
