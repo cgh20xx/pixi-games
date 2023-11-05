@@ -60,9 +60,18 @@ describe('Point', () => {
 
   describe('distanceTo', () => {
     test('計算距離另一個座標(Point)的距離', () => {
-      let point1 = new Point(0, 0)
-      let distance = point1.distanceTo(new Point(3, 4))
+      let point = new Point(0, 0)
+      let distance = point.distanceTo(new Point(3, 4))
       expect(distance).toBe(5)
+    })
+  })
+
+  describe('rotate', () => {
+    test('向量旋轉', () => {
+      let point = new Point(3, 4)
+      point.rotate(Math.PI / 2)
+      expect(point.x).toBeCloseTo(-4)
+      expect(point.y).toBeCloseTo(3)
     })
   })
 })
