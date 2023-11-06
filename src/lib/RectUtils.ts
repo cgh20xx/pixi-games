@@ -11,18 +11,18 @@ declare module 'pixi.js' {
      * @param other 另一個矩形
      * @returns boolean
      */
-    public containsRect(other: Rectangle): boolean
+    public containsRect(other: Rectangle): boolean;
   }
 }
 
-Rectangle.prototype.containsRect = function(other) {
+Rectangle.prototype.containsRect = function (other) {
   return (
     other.x >= this.x &&
     other.y >= this.y &&
     other.right <= this.right &&
     other.bottom <= this.bottom
-  )
-}
+  );
+};
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法

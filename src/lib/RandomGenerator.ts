@@ -1,22 +1,22 @@
-import { ArrayUtils } from "./ArrayUtils"
+import { ArrayUtils } from './ArrayUtils';
 
-const m = 2147483647 // m = 2**31 − 1
-const DEFAULT_SEED = 123456789 // 預設亂數種子(最好8位以上)
+const m = 2147483647; // m = 2**31 − 1
+const DEFAULT_SEED = 123456789; // 預設亂數種子(最好8位以上)
 
 /**
  * 假亂數產生器：相同的 seed 可以產出相同的亂數
  */
 export class RandomGenerator {
-  public seed: number
+  public seed: number;
 
   /**
    * 要給一個亂數種子 default seed = 1
    * @param seed 亂數種子
    */
   constructor(seed = DEFAULT_SEED) {
-    this.seed = seed
+    this.seed = seed;
     // 丟棄第一個種子，因第一個亂數很容易有很高的規則性。
-    this.next()
+    this.next();
   }
 
   /**
@@ -27,11 +27,11 @@ export class RandomGenerator {
     // seed 不可為 0，不然後面算出來會是 0 的循環數列
     if (this.seed === 0) {
       // 如果 seed = 0，就用一個自訂的種子
-      this.seed = DEFAULT_SEED
+      this.seed = DEFAULT_SEED;
     }
     // 實作 Lehmer RNG 演算法
-    this.seed = (this.seed * 16807) % m
-    return this.seed / m
+    this.seed = (this.seed * 16807) % m;
+    return this.seed / m;
   }
 
   /**
@@ -41,7 +41,7 @@ export class RandomGenerator {
    * @returns 介於 min 和 max 的亂數
    */
   public nextBetween(min: number, max: number): number {
-    return this.next() * (max - min) + min
+    return this.next() * (max - min) + min;
   }
 
   /**
@@ -50,7 +50,7 @@ export class RandomGenerator {
    * @returns 介於 0 到 max 的亂整數
    */
   public nextInt(max: number): number {
-    return Math.floor(this.next() * (max + 1))
+    return Math.floor(this.next() * (max + 1));
   }
 
   /**
@@ -60,7 +60,7 @@ export class RandomGenerator {
    * @returns 介於 min 到 max 的亂整數
    */
   public nextIntBetween(min: number, max: number): number {
-    return Math.floor(this.next() * (max - min + 1) + min)
+    return Math.floor(this.next() * (max - min + 1) + min);
   }
 
   /**
@@ -70,17 +70,17 @@ export class RandomGenerator {
    * @returns 隨機字串
    */
   public getRandomString(length: number, includeNumber?: boolean): string {
-    let chars = 'abcdefghijklmnopqrstuvwxyz'
+    let chars = 'abcdefghijklmnopqrstuvwxyz';
     if (includeNumber) {
-      chars += '0123456789'
+      chars += '0123456789';
     }
-    let charLength = chars.length
-    let output = ''
+    const charLength = chars.length;
+    let output = '';
     while (output.length < length) {
-      let index = Math.floor(this.next() * charLength)
-      output += chars[index]
+      const index = Math.floor(this.next() * charLength);
+      output += chars[index];
     }
-    return output
+    return output;
   }
 
   /**
@@ -88,11 +88,11 @@ export class RandomGenerator {
    * @param array 目標陣列
    */
   public randomizeArray(array: unknown[]): void {
-    let length = array.length
-    let swapTo
+    const length = array.length;
+    let swapTo;
     for (let i = 0; i < length; i++) {
-      swapTo = Math.floor(this.next() * length)
-      ArrayUtils.swapAt(array, i, swapTo)
+      swapTo = Math.floor(this.next() * length);
+      ArrayUtils.swapAt(array, i, swapTo);
     }
   }
 
@@ -104,15 +104,15 @@ export class RandomGenerator {
    */
   public getArrayRandomItem<T>(array: T[], remove?: boolean): T {
     // 如果陣列長度為 0 丟出錯誤訊息
-    if (array.length === 0) throw new Error('無法從空陣列取得元素')
-  
-    let index = Math.floor(this.next() * array.length)
-    let item = array[index]
+    if (array.length === 0) throw new Error('無法從空陣列取得元素');
 
-    // 如果需要則移除位於 index 的元素 
+    const index = Math.floor(this.next() * array.length);
+    const item = array[index];
+
+    // 如果需要則移除位於 index 的元素
     if (remove) {
-      array.splice(index, 1)
+      array.splice(index, 1);
     }
-    return item
+    return item;
   }
 }

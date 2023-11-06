@@ -11,6 +11,6 @@ export class Dice {
    * 擲骰子
    */
   roll() {
-    return Math.floor(Math.random() * this.faces + 1)
+    return Math.floor(Math.random() * this.faces + 1);
   }
 }

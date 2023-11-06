@@ -1,10 +1,9 @@
-import { GetNumberKeys } from "../types"
+import { GetNumberKeys } from '../types';
 
 /**
  * 常用陣列函式庫
  */
 export class ArrayUtils {
-
   /**
    * 在陣列裡加入一個不重覆的元素
    * @param array 目標陣列
@@ -13,10 +12,10 @@ export class ArrayUtils {
    */
   static addUniqueItem(array: unknown[], item: unknown): boolean {
     if (array.includes(item)) {
-      return false
+      return false;
     }
-    array.push(item)
-    return true
+    array.push(item);
+    return true;
   }
 
   /**
@@ -26,12 +25,12 @@ export class ArrayUtils {
    * @returns 若成功移除則回傳 true
    */
   static removeItem(array: unknown[], item: unknown): boolean {
-    let index = array.indexOf(item)
-    if (index === -1) return false
+    const index = array.indexOf(item);
+    if (index === -1) return false;
 
     // 使用 splice 在 index 的位置刪除 1 個元素
-    array.splice(index, 1)
-    return true
+    array.splice(index, 1);
+    return true;
   }
 
   /**
@@ -42,18 +41,17 @@ export class ArrayUtils {
    */
   static getRandomItem<T>(array: T[], remove?: boolean): T {
     // 如果陣列長度為 0 丟出錯誤訊息
-    if (array.length === 0) throw new Error('無法從空陣列取得元素')
-  
-    let index = Math.floor(Math.random() * array.length)
-    let item = array[index]
+    if (array.length === 0) throw new Error('無法從空陣列取得元素');
 
-    // 如果需要則移除位於 index 的元素 
+    const index = Math.floor(Math.random() * array.length);
+    const item = array[index];
+
+    // 如果需要則移除位於 index 的元素
     if (remove) {
-      array.splice(index, 1)
+      array.splice(index, 1);
     }
-    return item
+    return item;
   }
-
 
   /**
    * 排序數字陣列 (預設小到大)
@@ -62,9 +60,9 @@ export class ArrayUtils {
    */
   static sortNumeric(array: number[], descending?: boolean): void {
     if (descending) {
-      array.sort((a, b) => b - a)
+      array.sort((a, b) => b - a);
     } else {
-      array.sort((a, b) => a - b)
+      array.sort((a, b) => a - b);
     }
   }
 
@@ -74,13 +72,17 @@ export class ArrayUtils {
    * @param key 依物件指定的屬性排序
    * @param descending [可選] 是否由大到小排序
    */
-  static sortNumericOn<T extends Object>(array: T[], key: GetNumberKeys<T>, descending?: boolean) {
+  static sortNumericOn<T extends object>(
+    array: T[],
+    key: GetNumberKeys<T>,
+    descending?: boolean
+  ) {
     // 若 key 存在於 object 中
     if (typeof array[0][key] === 'number') {
       if (descending) {
-        array.sort((a, b) => (b[key] as number) - (a[key] as number))
+        array.sort((a, b) => (b[key] as number) - (a[key] as number));
       } else {
-        array.sort((a, b) => (a[key] as number) - (b[key] as number))
+        array.sort((a, b) => (a[key] as number) - (b[key] as number));
       }
     } else {
       throw new Error(`object['${key}'] 不是 number 類型`);
@@ -94,12 +96,12 @@ export class ArrayUtils {
    * @param index2 第二個元素位置
    */
   static swapAt(array: unknown[], index1: number, index2: number): void {
-    let len = array.length
+    const len = array.length;
     if (index1 < 0 || index1 >= len || index2 < 0 || index2 >= len) {
       throw new Error('index 超出陣列長度');
     }
-    let temp = array[index1]
-    array[index1] = array[index2]
-    array[index2] = temp
+    const temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
   }
 }

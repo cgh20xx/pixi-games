@@ -1,5 +1,5 @@
 const config = {
-  plugins: ['prettier-plugin-tailwindcss'],
+  // plugins: ['prettier-plugin-tailwindcss'],
   printWidth: 80, // 每行代碼長度 (預設80)
   useTabs: false, // 使用tab縮排 (預設false)
   tabWidth: 2, // 每個tab多少空格 (預設2)

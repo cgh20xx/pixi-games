@@ -1,4 +1,4 @@
-import { IPoint, ObservablePoint, Point } from 'pixi.js'
+import { IPoint, ObservablePoint, Point } from 'pixi.js';
 /**
  * 擴充 PIXI.Point 的函式庫
  */
@@ -13,140 +13,137 @@ declare module 'pixi.js' {
      * 計算向量的長度
      * @returns 向量的長度
      */
-    length(): number
+    length(): number;
 
     /**
      * 加另一個向量，回傳新的向量
      * @param other 另一個向量
      * @returns 新的向量
      */
-    add(other: IPoint): Point
+    add(other: IPoint): Point;
 
     /**
      * 減另一個向量，回傳新的向量
      * @param other 另一個向量
      * @returns 新的向量
      */
-    sub(other: IPoint): Point
+    sub(other: IPoint): Point;
 
     /**
      * 縮放向量
      * @param value 縮放的數值
      * @returns this
      */
-    scale(value: number): this
+    scale(value: number): this;
 
     /**
      * 將向量正規化，並回傳原本的向量長度
      * @param length [可選] 要正規化的長度 default: 1
      * @returns 原本的向量長度
      */
-    normalize(length?: number): number
+    normalize(length?: number): number;
 
     /**
      * 計算距離另一個座標(Point)的距離
      * @param other 另一個座標(Point)
      * @returns 與另一個座標(Point)的距離
      */
-    distanceTo(other: IPoint): number
+    distanceTo(other: IPoint): number;
 
     /**
      * 將向量旋轉一個弧度 (radian)
      * @param rotation 弧度 (radian)
      * @returns this
      */
-    rotate(rotation: number): this
+    rotate(rotation: number): this;
 
     /**
      * 計算向量的內積 (dot)
      * @param other
      * @returns 向量的內積
      */
-    dot(other: IPoint): number
+    dot(other: IPoint): number;
 
     /**
      * 計算向量的行列式 (determinant)
      * @param other
      * @returns 向量的行列式結果
      */
-    det(other: IPoint): number
+    det(other: IPoint): number;
   }
 }
 
-Point.prototype.length = function() {
-  return Math.sqrt(this.x * this.x + this.y * this.y)
-}
+Point.prototype.length = function () {
+  return Math.sqrt(this.x * this.x + this.y * this.y);
+};
 // 因 ObservablePoint 也有實作 IPoint 介面，所以也要增加對應的方法。
-ObservablePoint.prototype.length = Point.prototype.length
+ObservablePoint.prototype.length = Point.prototype.length;
 
-Point.prototype.add = function(other: IPoint) {
-  return new Point(this.x + other.x, this.y + other.y)
-}
-ObservablePoint.prototype.add = Point.prototype.add
+Point.prototype.add = function (other: IPoint) {
+  return new Point(this.x + other.x, this.y + other.y);
+};
+ObservablePoint.prototype.add = Point.prototype.add;
 
-Point.prototype.sub = function(other: IPoint) {
-  return new Point(this.x - other.x, this.y - other.y)
-}
-ObservablePoint.prototype.sub = Point.prototype.sub
+Point.prototype.sub = function (other: IPoint) {
+  return new Point(this.x - other.x, this.y - other.y);
+};
+ObservablePoint.prototype.sub = Point.prototype.sub;
 
 // 用泛型定義一個通用的縮放函式
 function vectorScale<T extends IPoint>(vector: T, value: number): T {
-  vector.x *= value
-  vector.y *= value
-  return vector
+  vector.x *= value;
+  vector.y *= value;
+  return vector;
 }
 
-Point.prototype.scale = function(value: number) {
-  return vectorScale(this, value)
-}
-ObservablePoint.prototype.scale = function(value: number) {
-  return vectorScale(this, value)
-}
+Point.prototype.scale = function (value: number) {
+  return vectorScale(this, value);
+};
+ObservablePoint.prototype.scale = function (value: number) {
+  return vectorScale(this, value);
+};
 
-Point.prototype.normalize = function(length: number = 1) {
-  const originLength = this.length()
+Point.prototype.normalize = function (length: number = 1) {
+  const originLength = this.length();
   // 如果向量原長不是 0 才有辦法調整長度
   if (length !== 0) {
-    this.scale(length / originLength)
+    this.scale(length / originLength);
   }
-  return originLength
-}
-ObservablePoint.prototype.normalize = Point.prototype.normalize
+  return originLength;
+};
+ObservablePoint.prototype.normalize = Point.prototype.normalize;
 
-Point.prototype.distanceTo = function(other: IPoint) {
-  const dx = this.x - other.x
-  const dy = this.x - other.y
-  return Math.sqrt(dx * dx + dy * dy)
-}
-ObservablePoint.prototype.distanceTo = Point.prototype.distanceTo
+Point.prototype.distanceTo = function (other: IPoint) {
+  const dx = this.x - other.x;
+  const dy = this.x - other.y;
+  return Math.sqrt(dx * dx + dy * dy);
+};
+ObservablePoint.prototype.distanceTo = Point.prototype.distanceTo;
 
 // 用泛型定義一個通用的旋轉函式
 function vectorRotate<T extends IPoint>(vector: T, rotation: number): T {
-  const cos = Math.cos(rotation)
-  const sin = Math.sin(rotation)
-  vector.set(
-    vector.x * cos - vector.y * sin,
-    vector.y * cos + vector.x * sin
-  )
-  return vector
+  const cos = Math.cos(rotation);
+  const sin = Math.sin(rotation);
+  vector.set(vector.x * cos - vector.y * sin, vector.y * cos + vector.x * sin);
+  return vector;
 }
 
-Point.prototype.rotate = function(rotation: number) {
-  return vectorRotate(this, rotation)
-}
-ObservablePoint.prototype.rotate = function(rotation: number) {
-  return vectorRotate(this, rotation)
-}
+Point.prototype.rotate = function (rotation: number) {
+  return vectorRotate(this, rotation);
+};
+ObservablePoint.prototype.rotate = function (rotation: number) {
+  return vectorRotate(this, rotation);
+};
 
-Point.prototype.dot = function(other: IPoint) {
-  return this.x * other.x + this.y * other.y
-}
-ObservablePoint.prototype.dot = Point.prototype.dot
+Point.prototype.dot = function (other: IPoint) {
+  return this.x * other.x + this.y * other.y;
+};
+ObservablePoint.prototype.dot = Point.prototype.dot;
 
-Point.prototype.det = function(other: IPoint) {
-  return this.x * other.y - this.y * other.x
-}
-ObservablePoint.prototype.det = Point.prototype.det
+Point.prototype.det = function (other: IPoint) {
+  return this.x * other.y - this.y * other.x;
+};
+ObservablePoint.prototype.det = Point.prototype.det;
 
 /**
  * 註：其實 pixi 官方有為 Rectangle 和 Point 提供一些實用的數學方法
