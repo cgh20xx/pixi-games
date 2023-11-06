@@ -1,5 +1,7 @@
 import { Application } from 'pixi.js';
 
 export class TreeGenerator {
-  constructor(app: Application) {}
+  constructor(app: Application) {
+    console.log(app);
+  }
 }
