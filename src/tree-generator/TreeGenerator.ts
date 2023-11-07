@@ -1,7 +1,10 @@
-import { Application } from 'pixi.js';
+import { Application, Text } from 'pixi.js';
 
 export class TreeGenerator {
   constructor(app: Application) {
-    console.log(app);
+    const text = new Text('Tree', {
+      fill: ['#ff0000', '#ff00ff']
+    });
+    app.stage.addChild(text);
   }
 }
