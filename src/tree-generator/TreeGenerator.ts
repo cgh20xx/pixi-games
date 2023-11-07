@@ -2,7 +2,7 @@ import { Application, Text } from 'pixi.js';
 
 export class TreeGenerator {
   // 產生樹參數
-  public options = {
+  options = {
     seed: 1, // 亂數種子 (同樣的種子會長出一樣的樹)
     trunkSize: 10, // 主幹粗細
     trunkLength: 120, // 主幹長度
@@ -14,7 +14,7 @@ export class TreeGenerator {
     flowerColor: 0xff6666 // 花的顏色
   };
 
-  constructor(app: Application) {
+  constructor(public app: Application) {
     const text = new Text('Tree', {
       fill: ['#ff0000', '#ff00ff']
     });
