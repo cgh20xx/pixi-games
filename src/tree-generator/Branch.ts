@@ -30,4 +30,12 @@ export class Branch {
     // 將 graphics 加到 Pixi 的舞台中
     tree.app.stage.addChild(this.graphics);
   }
+
+  /**
+   * 消滅所有 graphics 和 children
+   */
+  destroy(): void {
+    this.graphics.destroy();
+    this.children.forEach(child => child.destroy());
+  }
 }
