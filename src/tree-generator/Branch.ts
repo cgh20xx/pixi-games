@@ -1,5 +1,5 @@
 import { RandomGenerator } from 'lib/RandomGenerator';
-import { Graphics, Point } from 'pixi.js';
+import { DEG_TO_RAD, Graphics, Point } from 'pixi.js';
 import { TreeGenerator } from './TreeGenerator';
 
 /**
@@ -17,12 +17,12 @@ export class Branch {
   constructor(
     public tree: TreeGenerator,
     public options: {
-      position: Point;
-      angle: number;
-      size: number;
-      length: number;
-      seed: number;
-      color: number;
+      position: Point; // 出生位置
+      angle: number; // 生長角度 (degree)
+      size: number; // 粗細
+      length: number; // 長度
+      seed: number; // 亂數種子
+      color: number; // 顏色
     }
   ) {
     this.rng = new RandomGenerator(options.seed);
@@ -37,5 +37,18 @@ export class Branch {
   destroy(): void {
     this.graphics.destroy();
     this.children.forEach(child => child.destroy());
+  }
+
+  /**
+   * 取得樹枝尾端的位置
+   */
+  getEndPosition(): Point {
+    const { options } = this;
+    // 轉換生角度為弧度
+    const radians = options.angle * DEG_TO_RAD;
+    // 計算樹枝尾端的向量 (水平向量再旋轉)
+    const vector = new Point(options.length).rotate(radians);
+    // 尾端 = 起點 + 生長向量
+    return options.position.add(vector);
   }
 }
