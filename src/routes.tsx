@@ -6,18 +6,15 @@ import NotFound from './pages/NotFound';
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Tree />,
-    children: []
+    element: <Tree />
   },
   {
     path: '/game',
-    element: <Game />,
-    children: []
+    element: <Game />
   },
   {
     path: '*',
-    element: <NotFound />,
-    children: []
+    element: <NotFound />
   }
 ];
 
