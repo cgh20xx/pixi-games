@@ -17,12 +17,18 @@ export class Branch {
   constructor(
     public tree: TreeGenerator,
     public options: {
-      position: Point; // 出生位置
-      angle: number; // 生長角度 (degree)
-      size: number; // 粗細
-      length: number; // 長度
-      seed: number; // 亂數種子
-      color: number; // 顏色
+      /** 出生位置 */
+      position: Point;
+      /** 生長角度 (度) */
+      angle: number;
+      /** 粗細 */
+      size: number;
+      /** 長度 */
+      length: number;
+      /** 亂數種子 */
+      seed: number;
+      /** 顏色 */
+      color: number;
     }
   ) {
     this.rng = new RandomGenerator(options.seed);
