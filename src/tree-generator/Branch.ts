@@ -7,15 +7,19 @@ import { TreeGenerator } from './TreeGenerator';
  * @class Branch
  */
 export class Branch {
-  // 亂數產生器
+  /** 亂數產生器 */
   rng: RandomGenerator;
-  // 子枝陣列
+  /** 子枝陣列 */
   children: Branch[] = [];
-  // 繪圖器
+  /** 繪圖器 */
   graphics = new Graphics();
 
   constructor(
+    /** TreeGenerator 的實體 */
     public tree: TreeGenerator,
+    /**
+     * 分枝的配置選項
+     */
     public options: {
       /** 出生位置 */
       position: Point;
@@ -35,6 +39,7 @@ export class Branch {
     console.log('options:', options);
     // 將 graphics 加到 Pixi 的舞台中
     tree.app.stage.addChild(this.graphics);
+    this.tree;
   }
 
   /**
