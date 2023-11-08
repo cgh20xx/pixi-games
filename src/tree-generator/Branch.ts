@@ -62,12 +62,27 @@ export class Branch {
     // 粗細比 1 大才會生出子枝
     if (options.size > 1) {
       // 亂數決定下一段是單枝還是要分兩枝
+      if (rng.next() < treeOps.branchRate) {
+        // 分兩枝
+        this.children = this.createTwoBranches();
+      } else {
+        // 分單枝
+        this.children = this.createOneBranch();
+      }
+      // 讓子枝再去生子枝
+      this.children.forEach(child => child.createChildren());
     } else {
       // 最細的樹枝尾端要長花
+      const petals = this.createPetals();
+      // petal 也是一段 Branch，只是參數不同
+      this.children = this.children.concat(petals);
     }
 
     // 如果這個樹枝夠細，就讓它長葉子
     if (options.size <= treeOps.leafBranchSize) {
+      const leaves = this.createLeaves();
+      // leaf 也是一段 Branch，只是參數不同
+      this.children = this.children.concat(leaves);
     }
   }
 }
