@@ -1,4 +1,5 @@
 import { Application, Text } from 'pixi.js';
+import { Branch } from './Branch';
 
 export class TreeGenerator {
   /**
@@ -23,6 +24,16 @@ export class TreeGenerator {
     leafColor: 0x00aa00,
     /** 花的顏色 */
     flowerColor: 0xff6666
+  };
+
+  /**
+   * 畫圖時用的資料
+   */
+  drawingData?: {
+    /** 樹的主幹 */
+    mainTrunk: Branch;
+    /** 畫圖的經過時間 */
+    timePassed: number;
   };
 
   constructor(public app: Application) {

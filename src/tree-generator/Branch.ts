@@ -280,7 +280,7 @@ export class Branch {
    * 當時間多到畫完枝幹全貌還有剩的時候，就把剩餘時間傳給子枝們去畫圖，
    * 這樣就能抽繪出整顆樹的成長動畫。
    *
-   * @param timePassed 畫圖的時間 (感知時間流動的參數)
+   * @param timePassed 畫圖的經過時間 (感知時間流動的參數)
    */
   drawDeeply(timePassed: number): void {
     const options = this.options;
