@@ -38,7 +38,6 @@ export class Branch {
     }
   ) {
     this.rng = new RandomGenerator(options.seed);
-    console.log('options:', options);
     // 將 graphics 加到 Pixi 的舞台中
     tree.app.stage.addChild(this.graphics);
   }
