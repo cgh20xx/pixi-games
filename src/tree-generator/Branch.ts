@@ -92,6 +92,46 @@ export class Branch {
   }
 
   /**
+   * 從尾端長雙枝
+   */
+  createTwoBranches(): Branch[] {
+    const options = this.options;
+    const treeOps = this.tree.options;
+    const rng = this.rng;
+    // 建立雙枝的方法和單枝一樣，只是要加上兩個分枝之間要分開的角度
+    const branches: Branch[] = [];
+    // 計算新枝的生長大概方向
+    const angleAvg = options.angle + rng.nextBetween(-20, 20);
+    // 兩根樹枝的夾角在 30 ~ 90 度之間
+    const angleInBetween = rng.nextBetween(30, 90);
+    // 計算兩根樹枝的生長方向
+    const angles = [
+      angleAvg - angleInBetween / 2,
+      angleAvg + angleInBetween / 2
+    ];
+    // 新枝要細一點
+    const size = options.size - 1;
+    // 長度是用 size 計算的 (size 越小長度越短)
+    let length = ((size + 3) / (treeOps.trunkSize + 3)) * 80;
+    // 再把長度乘上一點亂數
+    length *= rng.nextBetween(0.5, 1);
+    // 迴圈建立新枝
+    for (const angle of angles) {
+      const branch = new Branch(this.tree, {
+        position: this.getEndPosition(),
+        angle,
+        size,
+        length,
+        seed: rng.nextInt(999999),
+        color: options.color // 主幹與樹枝同色
+      });
+      branches.push(branch);
+    }
+
+    return branches;
+  }
+
+  /**
    * 產生接在這根樹技尾端的子枝
    */
   createChildren(): void {
