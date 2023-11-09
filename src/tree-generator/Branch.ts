@@ -164,6 +164,46 @@ export class Branch {
   }
 
   /**
+   * 沿著樹枝右左兩側，以一個間距長葉子，葉子與樹枝要保持一個夾角。
+   */
+  createLeaves(): Branch[] {
+    const options = this.options;
+    const treeOps = this.tree.options;
+    const rng = this.rng;
+    // 建立雙枝的方法和單枝一樣，只是要加上兩個分枝之間要分開的角度
+    const leaves: Branch[] = [];
+    // 沿樹枝，每 6 個單位長度長一片葉子
+    const leavesInterval = 6;
+    // 轉換樹枝方向的單位為弧度，等一下計算向量時需要用
+    const radians = options.angle * DEG_TO_RAD;
+    // 葉子與樹枝之間的夾角
+    const angleToLeaf = 60;
+    // 從起點 0 距離開始，每次迴圈加點距離，直到超出樹枝長度時離開
+    for (let dist = 0; dist < options.length; dist += leavesInterval) {
+      // 計算葉子起點的向量
+      const vector = new Point(dist).rotate(radians);
+      // 葉子的出生位置 = 樹枝的起點 + 距離向量
+      const leafPos = options.position.add(vector);
+      // 隨機選擇葉子在樹枝的左邊或右邊
+      const rightSide = rng.next() > 0.5;
+      // 計算葉子的生長角度
+      const leafAngle =
+        options.angle + (rightSide ? angleToLeaf : -angleToLeaf);
+      // 產生一片葉子
+      const leaf = new Branch(this.tree, {
+        position: leafPos,
+        angle: leafAngle,
+        size: 3, // 葉子的粗度
+        length: 5 + options.size, // 葉子的長度
+        seed: rng.nextInt(999999),
+        color: treeOps.leafColor // 葉子顏色
+      });
+      leaves.push(leaf);
+    }
+    return leaves;
+  }
+
+  /**
    * 產生接在這根樹技尾端的子枝
    */
   createChildren(): void {
