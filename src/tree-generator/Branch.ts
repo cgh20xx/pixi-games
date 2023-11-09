@@ -132,6 +132,38 @@ export class Branch {
   }
 
   /**
+   * 從尾端長花瓣
+   */
+  createPetals(): Branch[] {
+    const options = this.options;
+    const treeOps = this.tree.options;
+    const rng = this.rng;
+    // 建立雙枝的方法和單枝一樣，只是要加上兩個分枝之間要分開的角度
+    const petals: Branch[] = [];
+    // 花瓣構成的圓的總角度
+    const anglesTotal = 240;
+    // 花瓣數量
+    const count = 8;
+    // 花瓣之間的夾角
+    const angleInterval = anglesTotal / (count - 1);
+    // 第一片花瓣的角度
+    const startAngle = options.angle - anglesTotal / 2;
+    // 迴圈 count 次，生出所有花瓣
+    for (let i = 0; i < count; i++) {
+      const petal = new Branch(this.tree, {
+        position: this.getEndPosition(),
+        angle: startAngle + angleInterval * i,
+        size: 4, // 花瓣的粗度
+        length: 10, // 花瓣的長度
+        seed: rng.nextInt(999999),
+        color: treeOps.flowerColor // 花瓣顏色
+      });
+      petals.push(petal);
+    }
+    return petals;
+  }
+
+  /**
    * 產生接在這根樹技尾端的子枝
    */
   createChildren(): void {
