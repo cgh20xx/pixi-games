@@ -41,7 +41,6 @@ export class Branch {
     console.log('options:', options);
     // 將 graphics 加到 Pixi 的舞台中
     tree.app.stage.addChild(this.graphics);
-    this.tree;
   }
 
   /**
@@ -270,5 +269,33 @@ export class Branch {
     this.graphics.lineTo(end.x, end.y);
     // 記錄現在畫到哪了
     this.drawnPercent = percent;
+  }
+
+  /**
+   * 遞迴式畫圖函式
+   *
+   * 若 timePassed <= 0，就代表還沒有到動筆的時間，隨著 timePassed 越來越大，
+   * 期式內就要畫出越完整的枝幹全貌。
+   *
+   * 當時間多到畫完枝幹全貌還有剩的時候，就把剩餘時間傳給子枝們去畫圖，
+   * 這樣就能抽繪出整顆樹的成長動畫。
+   *
+   * @param timePassed 畫圖的時間 (感知時間流動的參數)
+   */
+  drawDeeply(timePassed: number): void {
+    const options = this.options;
+    const treeOps = this.tree.options;
+    // 畫完本枝的時間 = 本枝長度 / 畫圖速度
+    const timeToComplete = options.length / treeOps.drawSpeed;
+    // 需要畫出來的進度，限制進度最大到 1 (即 100%)
+    const percent = Math.min(1, timePassed / timeToComplete);
+    // 畫出本枝
+    this.draw(percent);
+    // 把經過時間減掉畫完本枝需要的時間
+    timePassed -= timeToComplete;
+    // 若時間還有剩，就把這時間期給子枝們去畫
+    if (timePassed > 0) {
+      this.children.forEach(child => child.drawDeeply(timePassed));
+    }
   }
 }
