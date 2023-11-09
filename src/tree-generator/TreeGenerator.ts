@@ -1,5 +1,6 @@
-import { Application, Text } from 'pixi.js';
+import { Application, Point } from 'pixi.js';
 import { Branch } from './Branch';
+import { getStageSize } from 'basic/rwd-stage';
 
 export class TreeGenerator {
   /**
@@ -37,10 +38,37 @@ export class TreeGenerator {
   };
 
   constructor(public app: Application) {
-    const text = new Text('Tree', {
-      fill: ['#ff0000', '#ff00ff']
+    // 建立一顆新樹
+    this.newTree();
+  }
+
+  /**
+   * 建立一顆新樹
+   */
+  newTree(): void {
+    if (this.drawingData) {
+      // 如果之前有舊的樹，把舊的樹砍了
+      this.drawingData.mainTrunk.destroy();
+    }
+    const treeOps = this.options;
+    const stageSize = getStageSize();
+    // 計算舞台左右置中的底部位置，作為主幹的出生位置
+    const treePos = new Point(stageSize.width / 2, stageSize.height);
+    // 建立一個新樹
+    const mainTrunk = new Branch(this, {
+      position: treePos,
+      angle: -90,
+      size: treeOps.trunkSize,
+      length: treeOps.trunkLength,
+      seed: treeOps.seed,
+      color: treeOps.branchColor
     });
-    this.options.seed;
-    app.stage.addChild(text);
+    // 讓主幹去長樹技和花葉
+    mainTrunk.createChildren();
+    // 初始化繪圖動畫所需的資料
+    this.drawingData = {
+      mainTrunk,
+      timePassed: 0
+    };
   }
 }
