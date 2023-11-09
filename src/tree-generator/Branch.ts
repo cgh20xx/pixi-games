@@ -21,17 +21,17 @@ export class Branch {
      * 分枝的配置選項
      */
     public options: {
-      /** 出生位置 */
+      /** 樹枝出生位置 */
       position: Point;
-      /** 生長角度 (度) */
+      /** 樹枝生長角度 (度) */
       angle: number;
-      /** 粗細 */
+      /** 樹枝粗細 */
       size: number;
-      /** 長度 */
+      /** 樹枝長度 */
       length: number;
       /** 亂數種子 */
       seed: number;
-      /** 顏色 */
+      /** 樹枝顏色 */
       color: number;
     }
   ) {
@@ -61,6 +61,34 @@ export class Branch {
     const vector = new Point(options.length).rotate(radians);
     // 尾端 = 起點 + 生長向量
     return options.position.add(vector);
+  }
+
+  /**
+   * 從尾端長單枝
+   */
+  createOneBranch(): Branch[] {
+    const options = this.options;
+    const treeOps = this.tree.options;
+    const rng = this.rng;
+    // 計算新枝的生長方向
+    const angle = options.angle + rng.nextBetween(-20, 20);
+    // 新枝要細一點
+    const size = options.size - 1;
+    // 長度是用 size 計算的 (size 越小長度越短)
+    let length = ((size + 3) / (treeOps.trunkSize + 3)) * 80;
+    // 再把長度乘上一點亂數
+    length *= rng.nextBetween(0.5, 1);
+    // 建立新枝
+    const branch = new Branch(this.tree, {
+      position: this.getEndPosition(),
+      angle,
+      size,
+      length,
+      seed: rng.nextInt(999999),
+      color: options.color // 主幹與樹枝同色
+    });
+    // 以陣列的方試回傳這一根新枝
+    return [branch];
   }
 
   /**
