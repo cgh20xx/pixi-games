@@ -13,6 +13,8 @@ export class Branch {
   children: Branch[] = [];
   /** 繪圖器 */
   graphics = new Graphics();
+  /** 用一個屬性來記錄畫到的進度 (0~1) */
+  drawnPercent = 0;
 
   constructor(
     /** TreeGenerator 的實體 */
@@ -235,5 +237,38 @@ export class Branch {
       // leaf 也是一段 Branch，只是參數不同
       this.children = this.children.concat(leaves);
     }
+  }
+
+  /**
+   * 畫圖函式
+   * @param percent 畫圖完成度的百分比 (0~1)
+   */
+  draw(percent: number): void {
+    if (this.drawnPercent === percent) {
+      // 如果剛剛就量畫到這個百分比，那就不用重畫了
+      return;
+    }
+    const options = this.options;
+    const start = options.position;
+    // 樹枝生長方向的向量 = 生長終點 - 起點
+    const vector = this.getEndPosition().sub(start);
+    // 在生長到 percent 時的終點
+    const end = new Point(
+      start.x + vector.x * percent,
+      start.y + vector.y * percent
+    );
+    // 準備畫線，先清除之前的東西並重置 fill 和 lineStyle 設定
+    this.graphics.clear();
+    // 設定畫線筆刷
+    this.graphics.lineStyle({
+      width: options.size,
+      color: options.color
+    });
+    // 移動筆刷到起點
+    this.graphics.moveTo(start.x, start.y);
+    // 畫線到終點
+    this.graphics.lineTo(end.x, end.y);
+    // 記錄現在畫到哪了
+    this.drawnPercent = percent;
   }
 }
