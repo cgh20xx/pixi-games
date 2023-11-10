@@ -1,20 +1,22 @@
-import { Application } from 'pixi.js';
+import { app, setStageSize, refreshCanvasAndStage } from 'basic/rwd-stage';
 import { useEffect, useRef } from 'react';
 import { TreeGenerator } from 'tree-generator/TreeGenerator';
 
 const Tree: React.FC = () => {
+  console.log('Tree FC');
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const app = new Application<HTMLCanvasElement>();
+    console.log('useEffect');
+    setStageSize(640, 480);
     const treeGenerator = new TreeGenerator(app);
-    const divRefCurrent = divRef.current;
     console.log({ treeGenerator });
+    const divRefCurrent = divRef.current;
     divRefCurrent?.appendChild(app.view);
-
+    // 偵聽視窗的 resize 事件
+    window.addEventListener('resize', refreshCanvasAndStage);
     return () => {
-      divRefCurrent?.removeChild(app.view);
-      app.destroy();
+      // window.removeEventListener('resize', refreshCanvasAndStage);
     };
   }, []);
   return <div ref={divRef}></div>;

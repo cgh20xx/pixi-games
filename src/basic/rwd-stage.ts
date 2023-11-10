@@ -3,8 +3,8 @@
  */
 import { Application, Graphics } from 'pixi.js';
 
-const app = new Application<HTMLCanvasElement>();
-document.body.appendChild(app.view);
+export const app = new Application<HTMLCanvasElement>();
+// document.body.appendChild(app.view);
 
 // 使用通用物件來儲存舞台的尺寸
 const stageSize = {
@@ -43,12 +43,13 @@ export function setStageSize(width: number, height: number): void {
 /**
  * 根據舞台尺寸 (stageSize) 與瀏覽器視窗大小來調整 app.stage 的縮放與位置
  */
-function refreshCanvasAndStage(): void {
+export function refreshCanvasAndStage(): void {
   // 首先取得瀏覽器的視窗大小
   const winSize = {
     width: window.innerWidth,
     height: window.innerHeight
   };
+  // console.log('innerWidth:', winSize.width);
 
   // 將 app 裡的畫布尺寸同步到視窗大小
   app.renderer.resize(winSize.width, winSize.height);
@@ -91,5 +92,5 @@ export function getStageSize() {
   };
 }
 
-// 偵聽視窗的 resize 事件
-window.addEventListener('resize', refreshCanvasAndStage);
+// 偵聽視窗的 resize 事件 (改交由 react useEffect 處理)
+// window.addEventListener('resize', refreshCanvasAndStage);
