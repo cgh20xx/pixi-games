@@ -1,4 +1,4 @@
-import { app, setStageSize, refreshCanvasAndStage } from 'basic/rwd-stage';
+import { app, setStageSize, refreshCanvasAndStage } from 'lib/rwd-stage';
 import { useEffect, useRef } from 'react';
 import { TreeGenerator } from 'tree-generator/TreeGenerator';
 

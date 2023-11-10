@@ -1,6 +1,6 @@
 import { Application, Point } from 'pixi.js';
 import { Branch } from './Branch';
-import { getStageSize } from 'basic/rwd-stage';
+import { getStageSize } from 'lib/rwd-stage';
 
 export class TreeGenerator {
   /**
