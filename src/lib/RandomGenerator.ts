@@ -10,7 +10,7 @@ export class RandomGenerator {
   public seed: number;
 
   /**
-   * 要給一個亂數種子 default seed = 1
+   * 要給一個亂數種子 default seed = 123456789
    * @param seed 亂數種子
    */
   constructor(seed = DEFAULT_SEED) {
