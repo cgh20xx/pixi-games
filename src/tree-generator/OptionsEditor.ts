@@ -16,6 +16,9 @@ export class OptionsEditor {
     this.gui.add(options, 'branchRate', 0, 1, 0.1).name('分支機率');
     this.gui.add(options, 'drawSpeed', 1, 100, 1).name('生長速度');
     this.gui.add(options, 'leafBranchSize', 1, 10, 1).name('長葉支幹粗細');
+    this.gui.addColor(options, 'branchColor').name('枝幹顏色');
+    this.gui.addColor(options, 'leafColor').name('樹葉顏色');
+    this.gui.addColor(options, 'flowerColor').name('花朵顏色');
     this.gui.add(this, 'onButtonGrow').name('重新生長');
     this.gui.add(this, 'onButtonNext').name('重新生長下一顆樹');
   }
