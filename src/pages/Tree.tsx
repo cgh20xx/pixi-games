@@ -10,8 +10,8 @@ const Tree: React.FC = () => {
   useEffect(() => {
     console.log('useEffect');
     const app = new Application<HTMLCanvasElement>();
-    app.ticker.minFPS = 1;
-    app.ticker.maxFPS = 1;
+    // app.ticker.minFPS = 1;
+    app.ticker.maxFPS = 60;
     initApp(app);
     setStageSize(640, 480); // setStageSize() 後要手動 refreshCanvasAndStage()
     refreshCanvasAndStage(app);
