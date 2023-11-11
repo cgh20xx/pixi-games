@@ -40,6 +40,8 @@ export class TreeGenerator {
   constructor(public app: Application) {
     // 建立一顆新樹
     this.newTree();
+    // 預約動畫更新函式
+    this.app.ticker.add(this.drawUpdate, this);
   }
 
   /**
@@ -70,5 +72,21 @@ export class TreeGenerator {
       mainTrunk,
       timePassed: 0
     };
+  }
+
+  /**
+   * 畫圖用的更新函式
+   */
+  drawUpdate(deltaTime: number): void {
+    // https://pixijs.download/release/docs/PIXI.Ticker.html#deltaTime
+    // deltaTime 是一個表示從上一幀到當前幀之間經過時間的數值。
+    // 這個時間值可以被限制，限制方式是通過設置 PIXI.Ticker 的 minFPS 屬性。
+    // 同時，這個時間值會根據 PIXI.Ticker 的 speed 屬性進行調整或縮放。
+    // 不過要注意的是，如果進行了縮放，那麼這個時間值可能會超過由 minFPS 設定的上限。
+    const data = this.drawingData;
+    if (data) {
+      data.timePassed += deltaTime;
+      data.mainTrunk.drawDeeply(data.timePassed);
+    }
   }
 }
