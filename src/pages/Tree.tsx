@@ -26,6 +26,7 @@ const Tree: React.FC = () => {
     return () => {
       app.destroy();
       window.removeEventListener('resize', resizeHandler);
+      treeGenerator.optionsEditor.gui.destroy();
     };
   }, []);
   return <div ref={divRef}></div>;

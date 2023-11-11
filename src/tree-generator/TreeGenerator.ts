@@ -1,6 +1,7 @@
 import { Application, Point } from 'pixi.js';
 import { Branch } from './Branch';
 import { getStageSize } from 'lib/rwd-stage';
+import { OptionsEditor } from './OptionsEditor';
 
 export class TreeGenerator {
   /**
@@ -27,6 +28,8 @@ export class TreeGenerator {
     flowerColor: 0xff6666
   };
 
+  optionsEditor: OptionsEditor;
+
   /**
    * 畫圖時用的資料
    */
@@ -42,6 +45,8 @@ export class TreeGenerator {
     this.newTree();
     // 預約動畫更新函式
     this.app.ticker.add(this.drawUpdate, this);
+    // 建立參數面板
+    this.optionsEditor = new OptionsEditor(this);
   }
 
   /**
