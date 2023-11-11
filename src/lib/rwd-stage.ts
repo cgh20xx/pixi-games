@@ -1,20 +1,25 @@
 /**
  * 響應式 canvas 尺寸且舞台自動縮放並 fit 畫布
+ * 這隻檔案適合用在有框架的環境
  */
 import { Application, Graphics } from 'pixi.js';
 
-export const app = new Application<HTMLCanvasElement>();
+// export let app: Application;
+// export const app = new Application<HTMLCanvasElement>();
 // document.body.appendChild(app.view);
+
+// 新增一個繪圖元件來畫舞台的外框
+const stageFrame = new Graphics();
+
+export function initApp(app: Application) {
+  app.stage.addChild(stageFrame);
+}
 
 // 使用通用物件來儲存舞台的尺寸
 const stageSize = {
   width: 0,
   height: 0
 };
-
-// 新增一個繪圖元件來畫舞台的外框
-const stageFrame = new Graphics();
-app.stage.addChild(stageFrame);
 
 /**
  * 重繪舞台的外框
@@ -37,13 +42,12 @@ export function setStageSize(width: number, height: number): void {
   stageSize.width = width;
   stageSize.height = height;
   redrawStageFrame();
-  refreshCanvasAndStage();
 }
 
 /**
  * 根據舞台尺寸 (stageSize) 與瀏覽器視窗大小來調整 app.stage 的縮放與位置
  */
-export function refreshCanvasAndStage(): void {
+export function refreshCanvasAndStage(app: Application): void {
   // 首先取得瀏覽器的視窗大小
   const winSize = {
     width: window.innerWidth,
