@@ -13,12 +13,14 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "dat.gui": "^0.7.9",
     "pixi.js": "^7.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
+    "@types/dat.gui": "^0.7.12",
     "@types/react": "^18.2.35",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
