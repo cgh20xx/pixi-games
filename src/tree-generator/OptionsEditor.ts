@@ -10,7 +10,12 @@ export class OptionsEditor {
 
   constructor(public generator: TreeGenerator) {
     const options = generator.options;
-    this.gui.add(options, 'seed', 1, 9999, 1);
+    this.gui.add(options, 'seed', 1, 9999, 1).name('亂數種子');
+    this.gui.add(options, 'trunkSize', 1, 15, 1).name('主幹粗細');
+    this.gui.add(options, 'trunkLength', 1, 200, 1).name('主幹長度');
+    this.gui.add(options, 'branchRate', 0, 1, 0.1).name('分支機率');
+    this.gui.add(options, 'drawSpeed', 1, 100, 1).name('生長速度');
+    this.gui.add(options, 'leafBranchSize', 1, 10, 1).name('長葉支幹粗細');
     this.gui.add(this, 'onButtonGrow').name('重新生長');
     this.gui.add(this, 'onButtonNext').name('重新生長下一顆樹');
   }
