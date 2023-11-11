@@ -113,10 +113,10 @@ export class Branch {
     const size = options.size - 1;
     // 長度是用 size 計算的 (size 越小長度越短)
     let length = ((size + 3) / (treeOps.trunkSize + 3)) * 80;
-    // 再把長度乘上一點亂數
-    length *= rng.nextBetween(0.5, 1);
     // 迴圈建立新枝
     for (const angle of angles) {
+      // 再把長度乘上一點亂數
+      length *= rng.nextBetween(0.5, 1);
       const branch = new Branch(this.tree, {
         position: this.getEndPosition(),
         angle,
