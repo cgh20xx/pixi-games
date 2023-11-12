@@ -1,9 +1,13 @@
 import { Application } from 'pixi.js';
+import { PlayerCannon } from './PlayerCannon';
 
 export class SpaceInvadersGame {
+  cannon: PlayerCannon;
   constructor(public app: Application) {
-    console.log('SpaceInvadersGame:', this);
+    this.cannon = new PlayerCannon(this);
   }
 
-  destroy(): void {}
+  destroy(): void {
+    this.cannon.destroy();
+  }
 }
