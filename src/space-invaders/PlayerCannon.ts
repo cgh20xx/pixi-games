@@ -1,6 +1,7 @@
 import { BaseTexture, Sprite, Texture } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import cannonImage from 'images/cannon.png';
+import { getStageSize } from 'lib/rwd-stage';
 
 /**
  * 玩家砲台
@@ -31,8 +32,18 @@ export class PlayerCannon {
     this.sprite.texture = texture;
     // 以上三行可簡化為 Sprite.from(cannonImage) 是一樣的。
 
+    // 依流程調整圖片軸心 (先檢查 baseTexture.valid 是否已經載入圖片完畢，若未載入完成圖片寬高會是 1)
+    if (baseTexture.valid) {
+      this.adjustPivot();
+    } else {
+      baseTexture.once('loaded', () => this.adjustPivot());
+    }
+
     // 把 Sprite 放到舞台上
     game.app.stage.addChild(this.sprite);
+    // 調整砲台到畫面底部的中央
+    const stageSize = getStageSize();
+    this.sprite.position.set(stageSize.width / 2, stageSize.height);
   }
 
   /**
@@ -40,5 +51,12 @@ export class PlayerCannon {
    */
   destroy(): void {
     this.sprite.destroy();
+  }
+
+  /**
+   * 調整圖片的軸心位置 (底部 & 左右置中)
+   */
+  private adjustPivot(): void {
+    this.sprite.pivot.set(this.sprite.width / 2, this.sprite.height);
   }
 }
