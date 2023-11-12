@@ -23,7 +23,6 @@ const Tree: React.FC = () => {
     return () => {
       app.destroy();
       window.removeEventListener('resize', resizeHandler);
-      // spaceInvadersGame.optionsEditor.gui.destroy();
     };
   }, []);
   return <div ref={divRef}></div>;
