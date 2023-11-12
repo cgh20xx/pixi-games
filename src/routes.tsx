@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 import Tree from './pages/Tree';
-import Game from './pages/Game';
+import SpaceInvaders from './pages/SpaceInvaders';
 import NotFound from './pages/NotFound';
 
 const routes: RouteObject[] = [
@@ -9,8 +9,8 @@ const routes: RouteObject[] = [
     element: <Tree />
   },
   {
-    path: '/game',
-    element: <Game />
+    path: '/space',
+    element: <SpaceInvaders />
   },
   {
     path: '*',
