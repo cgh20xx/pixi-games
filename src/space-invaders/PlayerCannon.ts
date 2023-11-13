@@ -4,6 +4,7 @@ import cannonImage from 'images/cannon.png';
 import { getStageSize } from 'lib/rwd-stage';
 import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
+import { MathUtils } from 'lib/MathUtils';
 
 /**
  * 玩家砲台
@@ -80,6 +81,9 @@ export class PlayerCannon {
     if (keyboardManager.isKeyDown(KeyCode.RIGHT)) {
       x += distance;
     }
-    sprite.x = x;
+    const halfWidth = sprite.width / 2;
+    const minX = halfWidth;
+    const maxX = getStageSize().width - halfWidth;
+    sprite.x = MathUtils.clamp(x, minX, maxX);
   }
 }
