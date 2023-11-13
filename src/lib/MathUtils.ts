@@ -73,7 +73,7 @@ export class MathUtils {
    * @param max 最大值
    * @returns 在範圍內的新 value
    */
-  static camp(value: number, min: number, max: number) {
+  static clamp(value: number, min: number, max: number) {
     // 正常判斷版 (高效)
     return MathUtils.min(MathUtils.max(value, min), max);
 
