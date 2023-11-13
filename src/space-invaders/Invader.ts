@@ -47,4 +47,43 @@ export class Invader {
   private adjustPivot(): void {
     this.sprite.pivot.set(this.sprite.width / 2, this.sprite.height / 2);
   }
+
+  get x(): number {
+    return this.sprite.x;
+  }
+
+  set x(value: number) {
+    this.sprite.x = value;
+  }
+
+  get y(): number {
+    return this.sprite.y;
+  }
+
+  set y(value: number) {
+    this.sprite.y = value;
+  }
+
+  get width(): number {
+    return this.sprite.width;
+  }
+
+  set width(value: number) {
+    this.sprite.width = value;
+  }
+
+  get height(): number {
+    return this.sprite.height;
+  }
+
+  set height(value: number) {
+    this.sprite.height = value;
+  }
+
+  /**
+   * Readonly flag for destroyed display objects.
+   */
+  get destroyed(): boolean {
+    return this.sprite.destroyed;
+  }
 }
