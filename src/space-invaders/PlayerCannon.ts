@@ -17,7 +17,7 @@ export class PlayerCannon {
   // 射擊冷卻時間 (tick)
   shootCoolDown = 0;
 
-  constructor(game: SpaceInvadersGame) {
+  constructor(public game: SpaceInvadersGame) {
     /**
      * BaseTexture 材質基底：是實際掌握圖片每個像素的資料擁有者。
      *
@@ -52,10 +52,11 @@ export class PlayerCannon {
   }
 
   /**
-   * 消毀砲台的 sprite
+   * 消毀砲台的 sprite 及 ticker
    */
   destroy(): void {
     this.sprite.destroy();
+    this.game.app.ticker.remove(this.moveUpdate, this);
   }
 
   /**
