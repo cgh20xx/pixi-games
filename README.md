@@ -1,6 +1,6 @@
 # Pixi Games 🕹️
 
-此專案為書籍「pixi.js 讓新手也能寫出好遊戲」的讀書筆記
+此專案為學習 pixi.js + TypeScript 開發小遊戲，搭配 Vitest 進行單元測試及 React router 切換不同小遊戲。
 
 ## 🔧 技術棧：
 
