@@ -2,6 +2,8 @@ import { BaseTexture, Sprite, Texture } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import cannonImage from 'images/cannon.png';
 import { getStageSize } from 'lib/rwd-stage';
+import { keyboardManager } from 'lib/keyboard/KeyboardManager';
+import { KeyCode } from 'lib/keyboard/KeyCode';
 
 /**
  * 玩家砲台
@@ -58,5 +60,22 @@ export class PlayerCannon {
    */
   private adjustPivot(): void {
     this.sprite.pivot.set(this.sprite.width / 2, this.sprite.height);
+  }
+
+  /**
+   * 砲台移動的更新函式
+   * @param deltaTime 經過時間
+   */
+  private moveUpdate(deltaTime: number): void {
+    const sprite = this.sprite;
+    let x = sprite.x;
+    const distance = this.moveSpeed * deltaTime;
+    if (keyboardManager.isKeyDown(KeyCode.LEFT)) {
+      x -= distance;
+    }
+    if (keyboardManager.isKeyDown(KeyCode.RIGHT)) {
+      x += distance;
+    }
+    sprite.x = x;
   }
 }

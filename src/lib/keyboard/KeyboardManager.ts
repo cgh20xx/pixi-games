@@ -1,6 +1,5 @@
 import { EventEmitter } from 'eventemitter3';
 // npm i pixi.js 內就有依賴 eventemitter3 所以不需再 npm install
-
 /**
  * 鍵盤按鍵管理員
  */
@@ -39,6 +38,7 @@ export class KeyboardManager extends EventEmitter {
    * @fires KeyboardManager#pressed
    */
   private onKeyDown(event: KeyboardEvent) {
+    console.log('this:', this);
     // 雖然遊戲很少用到 keydown 事件，但還是把 keydown 原始事件發出，在有需要下可以使用。
     this.emit('keydown', event);
 
