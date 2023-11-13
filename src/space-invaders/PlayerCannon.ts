@@ -46,6 +46,9 @@ export class PlayerCannon {
     // 調整砲台到畫面底部的中央
     const stageSize = getStageSize();
     this.sprite.position.set(stageSize.width / 2, stageSize.height);
+
+    // 開始進行砲台移動
+    game.app.ticker.add(this.moveUpdate, this);
   }
 
   /**

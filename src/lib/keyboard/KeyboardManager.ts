@@ -37,8 +37,7 @@ export class KeyboardManager extends EventEmitter {
    * @fires KeyboardManager#keydown
    * @fires KeyboardManager#pressed
    */
-  private onKeyDown(event: KeyboardEvent) {
-    console.log('this:', this);
+  private onKeyDown = (event: KeyboardEvent) => {
     // 雖然遊戲很少用到 keydown 事件，但還是把 keydown 原始事件發出，在有需要下可以使用。
     this.emit('keydown', event);
 
@@ -46,7 +45,7 @@ export class KeyboardManager extends EventEmitter {
       this.isKeyDownMap[event.code] = true;
       this.emit('pressed', event);
     }
-  }
+  };
 
   /**
    * 在放開鍵盤上的鍵時的處理函式
@@ -54,7 +53,7 @@ export class KeyboardManager extends EventEmitter {
    * @fires KeyboardManager#keyup
    * @fires KeyboardManager#released
    */
-  private onKeyUp(event: KeyboardEvent) {
+  private onKeyUp = (event: KeyboardEvent) => {
     // 雖然遊戲很少用到 keyup 事件，但還是把 keyup 原始事件發出，在有需要下可以使用。
     this.emit('keyup', event);
 
@@ -62,7 +61,7 @@ export class KeyboardManager extends EventEmitter {
       this.isKeyDownMap[event.code] = false;
       this.emit('released', event);
     }
-  }
+  };
 }
 // 一般情況下，鍵盤只有一個，只需要一個鍵盤管理員。
 export const keyboardManager = new KeyboardManager();
