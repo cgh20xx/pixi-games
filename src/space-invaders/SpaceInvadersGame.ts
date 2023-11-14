@@ -23,8 +23,12 @@ export class SpaceInvadersGame {
   }
 
   /**
-   * 建立一排侵略者大軍
-   * @param options
+   * 創建一行外星人。
+   * @param options 選項如下
+   * @param options.type 外星人類型，可以是 0, 1, 2, 或 3。
+   * @param options.x 這一排最左邊的 x 座標。
+   * @param options.y 這一排的 y 座標。
+   * @param options.amount 這一排外星人的總數。
    */
   private createInvadersRow(options: {
     type: 0 | 1 | 2 | 3; // 外星人類型
