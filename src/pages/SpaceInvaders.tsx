@@ -14,15 +14,17 @@ const Tree: React.FC = () => {
     refreshCanvasAndStage(app);
     const spaceInvadersGame = new SpaceInvadersGame(app);
     console.log({ spaceInvadersGame });
-    divRef.current?.appendChild(app.view);
+    const divRefCurrent = divRef.current;
+    divRefCurrent?.appendChild(app.view);
     // 偵聽視窗的 resize 事件
     function resizeHandler() {
       refreshCanvasAndStage(app);
     }
     window.addEventListener('resize', resizeHandler);
     return () => {
-      app.destroy();
       window.removeEventListener('resize', resizeHandler);
+      divRefCurrent?.removeChild(app.view);
+      app.destroy();
     };
   }, []);
   return <div ref={divRef}></div>;
