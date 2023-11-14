@@ -27,7 +27,7 @@ export class SpaceInvadersGame {
    * @param options
    */
   private createInvadersRow(options: {
-    type: number; // 外形
+    type: 0 | 1 | 2 | 3; // 外星人類型
     x: number; // 最左邊的 x
     y: number; // 這一排的 y
     amount: number; // 總共要幾隻

@@ -9,11 +9,18 @@ import invadersImage from 'images/invaders.png';
 export class Invader {
   // 外星人的圖
   sprite = new Sprite();
+  /**
+   *
+   * @param game SpaceInvadersGame instance
+   * @param x 初始位罝 x
+   * @param y 初始位罝 y
+   * @param type 外星人類型
+   */
   constructor(
     public game: SpaceInvadersGame,
-    x: number, // x 初始位罝
-    y: number, // y 初始位罝
-    type: number // 外星人造型 (0, 1, 2, 3)
+    x: number,
+    y: number,
+    type: 0 | 1 | 2 | 3
   ) {
     // 載入圖片 (250x34)
     const baseTexture = BaseTexture.from(invadersImage);
