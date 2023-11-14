@@ -20,6 +20,7 @@ export class SpaceInvadersGame {
 
   destroy(): void {
     this.cannon.destroy();
+    this.invaders.forEach(invader => invader.destroy());
   }
 
   /**
