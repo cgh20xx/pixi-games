@@ -93,4 +93,14 @@ export class Invader {
   get destroyed(): boolean {
     return this.sprite.destroyed;
   }
+
+  /**
+   * 移動外星人位置
+   * @param moveX 水平移動 x 距離
+   * @param moveY 垂直移動 y 距離
+   */
+  move(moveX: number, moveY: number) {
+    this.x += moveX;
+    this.y += moveY;
+  }
 }

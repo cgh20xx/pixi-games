@@ -4,11 +4,24 @@ import { Invader } from './Invader';
 import { WaitManager } from 'lib/WaitManager';
 
 export class SpaceInvadersGame {
-  // 玩家砲台
+  /**
+   * 玩家砲台
+   */
   cannon: PlayerCannon;
-  // 侵略者大軍
+
+  /**
+   * 侵略者大軍
+   */
   invaders: Invader[] = [];
-  // 等待管理圓
+
+  /**
+   *  侵略者大軍的移動週期，每多少個 ticks (frames) 移動一次。
+   */
+  invaderMoveInterval = 20;
+
+  /**
+   * 等待管理員
+   */
   waitManager: WaitManager;
 
   constructor(public app: Application) {
@@ -20,6 +33,8 @@ export class SpaceInvadersGame {
       amount: 6
     });
     this.waitManager = new WaitManager(app.ticker);
+    // 大軍齊步走，每隔幾個 ticks 移動 10 個像素
+    this.moveInvadersLoop(10);
   }
 
   destroy(): void {
@@ -55,9 +70,36 @@ export class SpaceInvadersGame {
 
   /**
    * 暫停多少時間 ticks (frames)
-   * @param ticks — 等待的時間 ticks (frames)
+   * @param ticks 等待的時間 ticks (frames)
    */
   delay(ticks: number): Promise<void> {
     return this.waitManager.add(ticks);
+  }
+
+  /**
+   * 移動所有外星人位置
+   * @param moveX 水平移動 x 距離
+   * @param moveY 垂直移動 y 距離
+   */
+  moveInvaders(moveX: number, moveY: number): void {
+    for (const invader of this.invaders) {
+      invader.move(moveX, moveY);
+    }
+  }
+
+  /**
+   * 遞迴呼叫移動所有外星人位置，每次呼叫會等待一段時間 ticks。
+   * @param moveX 水平移動 x 距離
+   */
+  async moveInvadersLoop(moveX: number) {
+    // 等待移動週期的時間
+    const delay = this.invaderMoveInterval;
+    await this.delay(delay);
+    // 如果還有外星人才要群體移動
+    if (this.invaders.length) {
+      this.moveInvaders(moveX, 0);
+    }
+    // 遞迴呼叫
+    this.moveInvadersLoop(moveX);
   }
 }
