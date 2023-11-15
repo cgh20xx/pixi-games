@@ -40,6 +40,8 @@ export class WaitManager {
    */
   destroy() {
     this.ticker.remove(this.update, this);
+    // TODO: 或許也要清空 waits?
+    // this.waits.length = 0;
   }
 
   /**
