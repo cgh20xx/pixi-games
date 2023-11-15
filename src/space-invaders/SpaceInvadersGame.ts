@@ -1,12 +1,15 @@
 import { Application } from 'pixi.js';
 import { PlayerCannon } from './PlayerCannon';
 import { Invader } from './Invader';
+import { WaitManager } from 'lib/WaitManager';
 
 export class SpaceInvadersGame {
   // 玩家砲台
   cannon: PlayerCannon;
   // 侵略者大軍
   invaders: Invader[] = [];
+  // 等待管理圓
+  waitManager: WaitManager;
 
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
@@ -16,6 +19,7 @@ export class SpaceInvadersGame {
       y: 240,
       amount: 6
     });
+    this.waitManager = new WaitManager(app.ticker);
   }
 
   destroy(): void {
@@ -47,5 +51,13 @@ export class SpaceInvadersGame {
       );
       this.invaders.push(invader);
     }
+  }
+
+  /**
+   * 暫停多少時間 ticks (frames)
+   * @param ticks — 等待的時間 ticks (frames)
+   */
+  delay(ticks: number): Promise<void> {
+    return this.waitManager.add(ticks);
   }
 }

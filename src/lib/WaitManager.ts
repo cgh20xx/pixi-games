@@ -31,6 +31,9 @@ export class WaitManager {
    */
   private now = 0;
 
+  /**
+   * @param ticker PIXI.Application.ticker
+   */
   constructor(public ticker: Ticker) {
     ticker.add(this.update, this);
   }
