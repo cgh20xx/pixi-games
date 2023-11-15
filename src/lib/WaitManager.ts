@@ -1,4 +1,5 @@
 import { Ticker } from 'pixi.js';
+import { ArrayUtils } from './ArrayUtils';
 
 class WaitProxy {
   constructor(
@@ -61,5 +62,20 @@ export class WaitManager {
       // 兌現等待的承諾
       first.resolve();
     }
+  }
+
+  /**
+   * 新增等待的時間，回傳 Promise
+   * @param ticks 等待的時間 ticks (frames)
+   */
+  add(ticks: number): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      // 建立等待物件
+      const wait = new WaitProxy(this.now + ticks, resolve, reject);
+      // 放到等待陣列
+      this.waits.push(wait);
+      // 將陣列以 endTime 由小到大排序
+      ArrayUtils.sortNumericOn(this.waits, 'endTime');
+    });
   }
 }
