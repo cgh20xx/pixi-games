@@ -72,7 +72,7 @@ export class SpaceInvadersGame {
    * 暫停多少時間 ticks (frames)
    * @param ticks 等待的時間 ticks (frames)
    */
-  delay(ticks: number): Promise<void> {
+  wait(ticks: number): Promise<void> {
     return this.waitManager.add(ticks);
   }
 
@@ -94,7 +94,7 @@ export class SpaceInvadersGame {
   async moveInvadersLoop(moveX: number) {
     // 等待移動週期的時間
     const delay = this.invaderMoveInterval;
-    await this.delay(delay);
+    await this.wait(delay);
     // 如果還有外星人才要群體移動
     if (this.invaders.length) {
       this.moveInvaders(moveX, 0);
