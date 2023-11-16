@@ -33,9 +33,21 @@ export class SpaceInvadersGame {
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
     this.createInvadersRow({
-      type: 0,
-      x: 120,
+      type: 0, // 外形 1
+      x: 40,
       y: 240,
+      amount: 6
+    });
+    this.createInvadersRow({
+      type: 1, // 外形 2
+      x: 70,
+      y: 200,
+      amount: 6
+    });
+    this.createInvadersRow({
+      type: 2, // 外形 3
+      x: 100,
+      y: 160,
       amount: 6
     });
     this.waitManager = new WaitManager(app.ticker);
