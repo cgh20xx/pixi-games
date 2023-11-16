@@ -52,8 +52,8 @@ export class PlayerCannon {
     // 開始進行砲台移動
     game.app.ticker.add(this.moveUpdate, this);
 
-    // 暫時加入砲彈
-    new CannonBall(game, this.sprite.x, this.sprite.y);
+    // 開始進行砲台射擊
+    game.app.ticker.add(this.shootUpdate, this);
   }
 
   /**
@@ -62,6 +62,7 @@ export class PlayerCannon {
   destroy(): void {
     this.sprite.destroy();
     this.game.app.ticker.remove(this.moveUpdate, this);
+    this.game.app.ticker.remove(this.shootUpdate, this);
   }
 
   /**
@@ -89,5 +90,18 @@ export class PlayerCannon {
     const minX = halfWidth;
     const maxX = getStageSize().width - halfWidth;
     sprite.x = MathUtils.clamp(x, minX, maxX);
+  }
+
+  /**
+   * 砲台射擊的更新函式
+   * @param deltaTime 經過時間
+   */
+  private shootUpdate(deltaTime: number): void {
+    this.shootCoolDown -= deltaTime;
+    if (this.shootCoolDown <= 0 && keyboardManager.isKeyDown(KeyCode.SPACE)) {
+      this.shootCoolDown = 60; // 重設冷卻時間為 60 個 ticks
+      // 建立砲彈
+      new CannonBall(this.game, this.sprite.x, this.sprite.y);
+    }
   }
 }
