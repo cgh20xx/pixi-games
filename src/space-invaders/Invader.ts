@@ -110,8 +110,9 @@ export class Invader {
   async dead() {
     // 改變材質在基底上的矩形 (換成最右側的 50x34)
     this.sprite.texture.frame = new Rectangle(200, 0, 50, 34);
-    // TODO: ?? this.sprite.texture.updateUvs()
-    await this.game.wait(10);
+    // pixi 說修改 frame 要手動呼叫 updateUvs()
+    this.sprite.texture.updateUvs();
+    await this.game.wait(5);
     this.destroy();
   }
 }
