@@ -5,6 +5,7 @@ import { getStageSize } from 'lib/rwd-stage';
 import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
 import { MathUtils } from 'lib/MathUtils';
+import { CannonBall } from './CannonBall';
 
 /**
  * 玩家砲台
@@ -50,6 +51,9 @@ export class PlayerCannon {
 
     // 開始進行砲台移動
     game.app.ticker.add(this.moveUpdate, this);
+
+    // 暫時加入砲彈
+    new CannonBall(game, this.sprite.x, this.sprite.y);
   }
 
   /**
