@@ -100,6 +100,10 @@ export class SpaceInvadersGame {
     if (this.invaders.length) {
       this.moveInvaders(moveX, 0);
       if (this.invadersNeedToTurn(moveX)) {
+        if (this.invadersNeedToGoDown()) {
+          await this.wait(delay);
+          this.moveInvaders(0, 20); // 向下移動
+        }
         moveX = -moveX; // 轉向
       }
     }
@@ -138,5 +142,22 @@ export class SpaceInvadersGame {
       const edgeMin = minXInvader.width;
       return minXInvader.x < edgeMin;
     }
+  }
+
+  /**
+   * 是否所有外星人要向下移動？
+   */
+  private invadersNeedToGoDown(): boolean {
+    // 找出最下方的外星人 (y 值最大的)
+    const maxYInvader = this.invaders.reduce((maxInvader, nextInvader) => {
+      if (maxInvader.y > nextInvader.y) {
+        return maxInvader;
+      } else {
+        return nextInvader;
+      }
+    });
+    // 回傳最下方外星人的 y 是不是要向下移動
+    const edgeMax = getStageSize().height - maxYInvader.height;
+    return maxYInvader.y < edgeMax;
   }
 }
