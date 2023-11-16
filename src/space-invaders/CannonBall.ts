@@ -23,10 +23,13 @@ export class CannonBall {
     // 把精靈圖放到舞台上的初始位置
     this.game.app.stage.addChildAt(this.sprite, 0);
     this.sprite.position.set(x, y);
+    // 把砲彈移動函式加到 Ticker 裡
+    game.app.ticker.add(this.moveUpdate, this);
   }
 
   destroy() {
     this.sprite.destroy();
+    this.game.app.ticker.remove(this.moveUpdate, this);
   }
 
   get getDestroyed(): boolean {
@@ -36,5 +39,17 @@ export class CannonBall {
   protected getSpriteTextureFrame(): Rectangle {
     // 玩家砲彈的圖範圍為 4x14
     return new Rectangle(1, 0, 4, 14);
+  }
+  /**
+   * 砲彈移動的更新函式
+   * @param dt 經過時間
+   */
+  moveUpdate(dt: number) {
+    const speed = 4;
+    this.sprite.y -= speed * dt;
+    // 往上超出舞台範圍時，刪除自己
+    if (this.sprite.y < -this.sprite.height) {
+      this.sprite.destroyed || this.destroy();
+    }
   }
 }
