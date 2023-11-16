@@ -138,7 +138,7 @@ export class SpaceInvadersGame {
           return nextInvader;
         }
       });
-      // 回傳右側外星人的 x 是不是超出右邊界
+      // 回傳左側外星人的 x 是不是超出左邊界
       const edgeMin = minXInvader.width;
       return minXInvader.x < edgeMin;
     }
