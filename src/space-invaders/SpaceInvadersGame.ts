@@ -2,6 +2,7 @@ import { Application } from 'pixi.js';
 import { PlayerCannon } from './PlayerCannon';
 import { Invader } from './Invader';
 import { WaitManager } from 'lib/WaitManager';
+import { getStageSize } from 'lib/rwd-stage';
 
 export class SpaceInvadersGame {
   /**
@@ -98,8 +99,44 @@ export class SpaceInvadersGame {
     // 如果還有外星人才要群體移動
     if (this.invaders.length) {
       this.moveInvaders(moveX, 0);
+      if (this.invadersNeedToTurn(moveX)) {
+        moveX = -moveX; // 轉向
+      }
     }
     // 遞迴呼叫
     this.moveInvadersLoop(moveX);
+  }
+
+  /**
+   * 是否所有外星人需要轉向？
+   * @param moveX 水平移動 x 距離
+   */
+  private invadersNeedToTurn(moveX: number): boolean {
+    // 如果大軍向右走
+    if (moveX > 0) {
+      // 找出最右側的外星人 (x 值最大的)
+      const maxXInvader = this.invaders.reduce((maxInvader, nextInvader) => {
+        if (maxInvader.x > nextInvader.x) {
+          return maxInvader;
+        } else {
+          return nextInvader;
+        }
+      });
+      // 回傳右側外星人的 x 是不是超出右邊界
+      const edgeMax = getStageSize().width - maxXInvader.width;
+      return maxXInvader.x > edgeMax;
+    } else {
+      // 找出最左側的外星人 (x 值最小的)
+      const minXInvader = this.invaders.reduce((minInvader, nextInvader) => {
+        if (minInvader.x < nextInvader.x) {
+          return minInvader;
+        } else {
+          return nextInvader;
+        }
+      });
+      // 回傳右側外星人的 x 是不是超出右邊界
+      const edgeMin = minXInvader.width;
+      return minXInvader.x < edgeMin;
+    }
   }
 }
