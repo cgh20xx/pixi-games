@@ -1,6 +1,7 @@
 import { BaseTexture, Rectangle, Sprite, Texture } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import cannonballsImage from 'images/cannonballs.png';
+import { Invader } from './Invader';
 
 /**
  * 砲彈
@@ -50,6 +51,27 @@ export class CannonBall {
     // 往上超出舞台範圍時，刪除自己
     if (this.sprite.y < -this.sprite.height) {
       this.sprite.destroyed || this.destroy();
+    } else {
+      // 取得被撞到的外星人
+      const hitInvader = this.hitTestInvaders();
+      // 如果有找到被撞到的外星人
+      if (hitInvader) {
+        // 呼叫 game 裡處理毀滅外星人的函式
+        this.game.hitAndRemoveInvader(hitInvader);
+        // 再把砲彈自己也銷毀
+        this.destroy();
+      }
     }
+  }
+
+  /**
+   * 砲彈的碰撞檢測函式
+   * 回傳被打到的外星人
+   */
+  hitTestInvaders(): Invader | undefined {
+    const bounds = this.sprite.getBounds();
+    return this.game.invaders.find(invader => {
+      return invader.sprite.getBounds().intersects(bounds);
+    });
   }
 }
