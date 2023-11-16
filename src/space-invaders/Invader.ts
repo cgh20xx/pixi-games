@@ -42,7 +42,7 @@ export class Invader {
   }
 
   /**
-   * 消毀 sprite
+   * 銷毀 sprite
    */
   destroy() {
     this.sprite.destroy();

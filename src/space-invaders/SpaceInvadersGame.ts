@@ -25,6 +25,11 @@ export class SpaceInvadersGame {
    */
   waitManager: WaitManager;
 
+  /**
+   * 遊戲是否被銷毀
+   */
+  destroyed = false;
+
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
     this.createInvadersRow({
@@ -41,6 +46,7 @@ export class SpaceInvadersGame {
   destroy(): void {
     this.cannon.destroy();
     this.invaders.forEach(invader => invader.destroy());
+    this.destroyed = true;
   }
 
   /**

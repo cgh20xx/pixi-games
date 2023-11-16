@@ -53,7 +53,7 @@ export class PlayerCannon {
   }
 
   /**
-   * 消毀砲台的 sprite 及 ticker
+   * 銷毀砲台的 sprite 及 ticker
    */
   destroy(): void {
     this.sprite.destroy();
