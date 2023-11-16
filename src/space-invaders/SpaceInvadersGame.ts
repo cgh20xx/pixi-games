@@ -3,6 +3,7 @@ import { PlayerCannon } from './PlayerCannon';
 import { Invader } from './Invader';
 import { WaitManager } from 'lib/WaitManager';
 import { getStageSize } from 'lib/rwd-stage';
+import { ArrayUtils } from 'lib/ArrayUtils';
 
 export class SpaceInvadersGame {
   /**
@@ -181,5 +182,16 @@ export class SpaceInvadersGame {
     // 回傳最下方外星人的 y 是不是要向下移動
     const edgeMax = getStageSize().height - maxYInvader.height;
     return maxYInvader.y < edgeMax;
+  }
+
+  /**
+   * 移除並毀滅外星人
+   * @param invader 外星人
+   */
+  async hitAndRemoveInvader(invader: Invader) {
+    // 把外星人從陣列中移除
+    ArrayUtils.removeItem(this.invaders, invader);
+    // 讓外星人顯示毀滅動畫並自我清除
+    await invader.dead();
   }
 }
