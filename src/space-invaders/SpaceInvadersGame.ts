@@ -99,6 +99,10 @@ export class SpaceInvadersGame {
    * @param moveX 水平移動 x 距離
    */
   async moveInvadersLoop(moveX: number) {
+    if (this.destroyed) {
+      // 離開函式，不再進入下個循環
+      return;
+    }
     // 等待移動週期的時間
     const delay = this.invaderMoveInterval;
     await this.wait(delay);
