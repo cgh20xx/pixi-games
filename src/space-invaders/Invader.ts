@@ -103,4 +103,15 @@ export class Invader {
     this.x += moveX;
     this.y += moveY;
   }
+
+  /**
+   * 外星人死亡時的動畫與程序
+   */
+  async dead() {
+    // 改變材質在基底上的矩形 (換成最右側的 50x34)
+    this.sprite.texture.frame = new Rectangle(200, 0, 50, 34);
+    // TODO: ?? this.sprite.texture.updateUvs()
+    await this.game.wait(10);
+    this.destroy();
+  }
 }
