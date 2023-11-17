@@ -7,7 +7,7 @@ import { KeyCode } from 'lib/keyboard/KeyCode';
 import { MathUtils } from 'lib/MathUtils';
 import { CannonBall } from './CannonBall';
 import cannonShootSound from 'sounds/cannonShoot.wav';
-import { Sound } from '@pixi/sound';
+import { playSound } from 'lib/SoundUtils';
 
 // 播放聲音也可用內建的 SoundLibrary，會 cache 音源
 // import { sound } from '@pixi/sound';
@@ -103,14 +103,23 @@ export class PlayerCannon {
    * 砲台射擊的更新函式
    * @param deltaTime 經過時間
    */
-  private shootUpdate(deltaTime: number): void {
+  private async shootUpdate(deltaTime: number): Promise<void> {
     this.shootCoolDown -= deltaTime;
     if (this.shootCoolDown <= 0 && keyboardManager.isKeyDown(KeyCode.SPACE)) {
       this.shootCoolDown = 60; // 重設冷卻時間為 60 個 ticks
       // 建立砲彈
       new CannonBall(this.game, this.sprite.x, this.sprite.y);
       // 播放射擊音效
-      Sound.from(cannonShootSound).play();
+      // Sound.from(cannonShootSound).play();
+      // 改為使用自訂的音效函式庫
+      await this.playShootSound();
     }
+  }
+
+  /**
+   * 播放射擊音效
+   */
+  async playShootSound() {
+    await playSound(cannonShootSound, { volume: 0.5 });
   }
 }
