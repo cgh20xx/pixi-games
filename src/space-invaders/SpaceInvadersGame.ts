@@ -4,6 +4,8 @@ import { Invader } from './Invader';
 import { WaitManager } from 'lib/WaitManager';
 import { getStageSize } from 'lib/rwd-stage';
 import { ArrayUtils } from 'lib/ArrayUtils';
+import invadersMoveSound from 'sounds/invadersMove.wav';
+import { playSound } from 'lib/SoundUtils';
 
 export class SpaceInvadersGame {
   /**
@@ -102,6 +104,7 @@ export class SpaceInvadersGame {
    * @param moveY 垂直移動 y 距離
    */
   moveInvaders(moveX: number, moveY: number): void {
+    playSound(invadersMoveSound, { volume: 0.2 });
     for (const invader of this.invaders) {
       invader.move(moveX, moveY);
     }

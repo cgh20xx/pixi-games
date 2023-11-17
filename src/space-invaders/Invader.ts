@@ -1,6 +1,8 @@
 import { BaseTexture, Rectangle, Sprite, Texture } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import invadersImage from 'images/invaders.png';
+import { playSound } from 'lib/SoundUtils';
+import invaderKilledSound from 'sounds/invaderKilled.wav';
 
 /**
  * 外星侵略者
@@ -108,6 +110,7 @@ export class Invader {
    * 外星人死亡時的動畫與程序
    */
   async dead() {
+    playSound(invaderKilledSound, { volume: 0.5 });
     // 改變材質在基底上的矩形 (換成最右側的 50x34)
     this.sprite.texture.frame = new Rectangle(200, 0, 50, 34);
     // pixi 說修改 frame 要手動呼叫 updateUvs()
