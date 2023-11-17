@@ -9,6 +9,11 @@ import { CannonBall } from './CannonBall';
 import cannonShootSound from 'sounds/cannonShoot.wav';
 import { Sound } from '@pixi/sound';
 
+// 播放聲音也可用內建的 SoundLibrary，會 cache 音源
+// import { sound } from '@pixi/sound';
+// sound.add('shoot', cannonShootSound);
+// sound.play('shoot', { volume: 0.2 });
+
 /**
  * 玩家砲台
  * @class
