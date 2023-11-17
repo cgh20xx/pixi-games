@@ -6,6 +6,7 @@ import { getStageSize } from 'lib/rwd-stage';
 import { ArrayUtils } from 'lib/ArrayUtils';
 import invadersMoveSound from 'sounds/invadersMove.wav';
 import { playSound } from 'lib/SoundUtils';
+import { InvaderBullet } from './InvaderBullet';
 
 export class SpaceInvadersGame {
   /**
@@ -133,6 +134,8 @@ export class SpaceInvadersGame {
         moveX = -moveX; // 轉向
       }
     }
+    // 暫時測試外星人發射子彈
+    new InvaderBullet(this, 300, 0);
     // 遞迴呼叫
     this.moveInvadersLoop(moveX);
   }
