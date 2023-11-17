@@ -6,6 +6,8 @@ import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
 import { MathUtils } from 'lib/MathUtils';
 import { CannonBall } from './CannonBall';
+import cannonShootSound from 'sounds/cannonShoot.wav';
+import { Sound } from '@pixi/sound';
 
 /**
  * 玩家砲台
@@ -102,6 +104,8 @@ export class PlayerCannon {
       this.shootCoolDown = 60; // 重設冷卻時間為 60 個 ticks
       // 建立砲彈
       new CannonBall(this.game, this.sprite.x, this.sprite.y);
+      // 播放射擊音效
+      Sound.from(cannonShootSound).play();
     }
   }
 }
