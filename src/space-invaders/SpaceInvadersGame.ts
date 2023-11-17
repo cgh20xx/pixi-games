@@ -20,9 +20,14 @@ export class SpaceInvadersGame {
   invaders: Invader[] = [];
 
   /**
-   *  侵略者大軍的移動週期，每多少個 ticks (frames) 移動一次。
+   * 侵略者大軍的移動週期，每多少個 ticks (frames) 移動一次。
    */
   invaderMoveInterval = 20;
+
+  /**
+   * 侵略者大軍的攻擊週期，每多少個 ticks (frames) 攻擊一次。
+   */
+  invaderShootInterval = 90; // 一般 60 ticks 約 1 秒
 
   /**
    * 等待管理員
@@ -57,6 +62,8 @@ export class SpaceInvadersGame {
     this.waitManager = new WaitManager(app.ticker);
     // 大軍齊步走，每隔幾個 ticks 移動 10 個像素
     this.moveInvadersLoop(10);
+    // 大軍攻擊循環
+    this.invadersAttackLoop();
   }
 
   destroy(): void {
@@ -134,8 +141,6 @@ export class SpaceInvadersGame {
         moveX = -moveX; // 轉向
       }
     }
-    // 暫時測試外星人發射子彈
-    new InvaderBullet(this, 300, 0);
     // 遞迴呼叫
     this.moveInvadersLoop(moveX);
   }
@@ -199,5 +204,27 @@ export class SpaceInvadersGame {
     ArrayUtils.removeItem(this.invaders, invader);
     // 讓外星人顯示毀滅動畫並自我清除
     await invader.dead();
+  }
+
+  /**
+   * 遞迴呼叫所有外星人選一隻來發動攻擊，每次呼叫會等待一段時間 ticks。
+   */
+  async invadersAttackLoop() {
+    if (this.destroyed) {
+      // 如果遊戲已滅，離開函式，不再進入下個循環
+      return;
+    }
+    // 等待攻擊的間隔
+    const delay = this.invaderShootInterval;
+    await this.wait(delay);
+    // 如果還有外星人才要發動攻擊
+    if (this.invaders.length) {
+      // 從大軍中隨機挑一位外星人發動攻擊
+      const invader = ArrayUtils.getRandomItem(this.invaders);
+      // 從外星人的位置發射
+      new InvaderBullet(this, invader.x, invader.y);
+    }
+    // 遞迴呼叫
+    this.invadersAttackLoop();
   }
 }
