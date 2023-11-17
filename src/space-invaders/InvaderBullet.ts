@@ -24,7 +24,7 @@ export class InvaderBullet extends CannonBall {
     const speed = 2;
     sprite.y += speed * dt;
     // 向下超出舞台範圍時，刪除自己
-    if (this.sprite.y > getStageSize().height * this.sprite.height) {
+    if (this.sprite.y > getStageSize().height + this.sprite.height) {
       this.destroy();
     } else {
       const cannon = this.game.cannon;
