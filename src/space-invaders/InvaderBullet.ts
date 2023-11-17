@@ -31,7 +31,7 @@ export class InvaderBullet extends CannonBall {
       const cannonBounds = cannon.sprite.getBounds();
       // 測試有沒有撞到玩家砲胎
       if (cannonBounds.intersects(sprite.getBounds())) {
-        // 呼叫 gmae 裡處理砲台毀壞的函式
+        // 呼叫 game 裡處理砲台毀壞的函式
         // TODO：
         console.log('hit cannon');
         // 再把自己也銷毀
