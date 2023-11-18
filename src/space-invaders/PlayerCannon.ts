@@ -68,12 +68,20 @@ export class PlayerCannon {
   }
 
   /**
-   * 銷毀砲台的 sprite 及 ticker
+   * 銷毀砲台的 sprite
    */
   destroy(): void {
     this.sprite.destroy();
+    this.stop();
+  }
+
+  /**
+   * 停止砲台移動與射擊，並設定砲台已被破壞
+   */
+  private stop(): void {
     this.game.app.ticker.remove(this.moveUpdate, this);
     this.game.app.ticker.remove(this.shootUpdate, this);
+    this.dead = true;
   }
 
   /**
@@ -131,8 +139,8 @@ export class PlayerCannon {
    * 砲台爆炸時的動畫與程序
    */
   async hitAndDead(): Promise<void> {
-    // 設定砲台已被破壞
-    this.dead = true;
+    // 停止砲台移動與射擊，並設定砲台已被破壞
+    this.stop();
     // 播放爆炸音效
     playSound(cannonExplodeSound, { volume: 0.5 });
     // 改變材質為外星人的材質基底最右側的 frame
