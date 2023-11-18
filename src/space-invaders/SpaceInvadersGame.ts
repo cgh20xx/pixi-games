@@ -227,4 +227,15 @@ export class SpaceInvadersGame {
     // 遞迴呼叫
     this.invadersAttackLoop();
   }
+
+  /**
+   * 處理玩家砲台被擊中的函式
+   */
+  async hitPlayerCannon(): Promise<void> {
+    await this.cannon.hitAndDead();
+    // 多等 60 個 ticks (約 1 秒)
+    await this.wait(60);
+    // 重建一座新砲台
+    this.cannon = new PlayerCannon(this);
+  }
 }

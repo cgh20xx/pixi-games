@@ -141,7 +141,7 @@ export class PlayerCannon {
     const texture = new Texture(baseTexture, frame);
     // 借用外星人被擊落的特效
     this.sprite.texture = texture;
-    this.sprite.anchor.set(0.5, 1);
+    this.sprite.pivot.set(frame.width / 2, frame.height);
     // 改變精靈圖的色調
     this.sprite.tint = 0x00ff00;
     // 等待 30 個 ticks

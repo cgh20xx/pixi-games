@@ -28,14 +28,16 @@ export class InvaderBullet extends CannonBall {
       this.destroy();
     } else {
       const cannon = this.game.cannon;
-      const cannonBounds = cannon.sprite.getBounds();
-      // 測試有沒有撞到玩家砲胎
-      if (cannonBounds.intersects(sprite.getBounds())) {
-        // 呼叫 game 裡處理砲台毀壞的函式
-        // TODO：
-        console.log('hit cannon');
-        // 再把自己也銷毀
-        this.destroy();
+      // 砲台沒死才要檢查碰撞
+      if (!cannon.dead) {
+        const cannonBounds = cannon.sprite.getBounds();
+        // 測試有沒有撞到玩家砲胎
+        if (cannonBounds.intersects(sprite.getBounds())) {
+          // 呼叫 game 裡處理砲台毀壞的函式
+          this.game.hitPlayerCannon();
+          // 再把自己也銷毀
+          this.destroy();
+        }
       }
     }
   }
