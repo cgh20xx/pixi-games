@@ -109,6 +109,12 @@ export class PlayerCannon {
     const minX = halfWidth;
     const maxX = getStageSize().width - halfWidth;
     sprite.x = MathUtils.clamp(x, minX, maxX);
+    // 處理砲台和外星人大軍的碰撞
+    const hitInvader = this.hitTestInvaders();
+    // 如果有找到撞到的外星人，呼叫處理玩家砲台被擊中的函式
+    if (hitInvader) {
+      this.game.hitPlayerCannon();
+    }
   }
 
   /**
@@ -156,5 +162,17 @@ export class PlayerCannon {
     await this.game.wait(30);
     // 自我清除
     this.destroy();
+  }
+
+  /**
+   * 處理砲台和外星人大軍的碰撞
+   * 回傳被撞到的外星人
+   * @returns Invader | undefined
+   */
+  private hitTestInvaders() {
+    const bounds = this.sprite.getBounds();
+    return this.game.invaders.find(invader => {
+      invader.sprite.getBounds().intersects(bounds);
+    });
   }
 }
