@@ -1,12 +1,14 @@
-import { BaseTexture, Sprite, Texture } from 'pixi.js';
+import { BaseTexture, Rectangle, Sprite, Texture } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import cannonImage from 'images/cannon.png';
+import invadersImage from 'images/invaders.png';
 import { getStageSize } from 'lib/rwd-stage';
 import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
 import { MathUtils } from 'lib/MathUtils';
 import { CannonBall } from './CannonBall';
 import cannonShootSound from 'sounds/cannonShoot.wav';
+import cannonExplodeSound from 'sounds/cannonExplode.wav';
 import { playSound } from 'lib/SoundUtils';
 
 // 播放聲音也可用內建的 SoundLibrary，會 cache 音源
@@ -25,6 +27,8 @@ export class PlayerCannon {
   moveSpeed = 1;
   // 射擊冷卻時間 (tick)
   shootCoolDown = 0;
+  // 是否已被破壞
+  dead = false;
 
   constructor(public game: SpaceInvadersGame) {
     /**
@@ -121,5 +125,28 @@ export class PlayerCannon {
    */
   async playShootSound() {
     await playSound(cannonShootSound, { volume: 0.5 });
+  }
+
+  /**
+   * 砲台爆炸時的動畫與程序
+   */
+  async hitAndDead(): Promise<void> {
+    // 設定砲台已被破壞
+    this.dead = true;
+    // 播放爆炸音效
+    playSound(cannonExplodeSound, { volume: 0.5 });
+    // 改變材質為外星人的材質基底最右側的 frame
+    const baseTexture = BaseTexture.from(invadersImage);
+    const frame = new Rectangle(200, 0, 50, 34);
+    const texture = new Texture(baseTexture, frame);
+    // 借用外星人被擊落的特效
+    this.sprite.texture = texture;
+    this.sprite.anchor.set(0.5, 1);
+    // 改變精靈圖的色調
+    this.sprite.tint = 0x00ff00;
+    // 等待 30 個 ticks
+    await this.game.wait(30);
+    // 自我清除
+    this.destroy();
   }
 }
