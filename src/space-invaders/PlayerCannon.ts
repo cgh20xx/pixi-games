@@ -113,6 +113,8 @@ export class PlayerCannon {
     const hitInvader = this.hitTestInvaders();
     // 如果有找到撞到的外星人，呼叫處理玩家砲台被擊中的函式
     if (hitInvader) {
+      // hitInvader.dead(); // 要呼叫下面的才會刪除陣列裡的，不然移動到死的會報錯。
+      this.game.hitAndRemoveInvader(hitInvader);
       this.game.hitPlayerCannon();
     }
   }
@@ -172,7 +174,7 @@ export class PlayerCannon {
   private hitTestInvaders() {
     const bounds = this.sprite.getBounds();
     return this.game.invaders.find(invader => {
-      invader.sprite.getBounds().intersects(bounds);
+      return invader.sprite.getBounds().intersects(bounds);
     });
   }
 }
