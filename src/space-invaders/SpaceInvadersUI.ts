@@ -1,5 +1,8 @@
 import { Container, Text } from 'pixi.js';
 
+/**
+ * 建立遊戲 UI 文字
+ */
 export class SpaceInvadersUI extends Container {
   constructor() {
     super();
@@ -13,6 +16,14 @@ export class SpaceInvadersUI extends Container {
     this.createText('LIVES', '#ffffff', 430, 10);
   }
 
+  /**
+   * 建立文字到舞台中
+   * @param label 文字
+   * @param color 填充顏色
+   * @param x 水平座標
+   * @param y 垂直座標
+   * @returns Text
+   */
   private createText(label: string, color: string, x: number, y: number) {
     // 新增 Pixi 提供的 Text 物件
     const text = new Text(label, {
