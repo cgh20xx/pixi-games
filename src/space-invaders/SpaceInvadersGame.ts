@@ -77,6 +77,7 @@ export class SpaceInvadersGame {
   destroy(): void {
     this.cannon.destroy();
     this.invaders.forEach(invader => invader.destroy());
+    this.ui.destroy(); // ui container 被 destroy 也會 destroy 所有的 children
     this.destroyed = true;
   }
 
