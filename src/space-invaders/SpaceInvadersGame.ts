@@ -7,6 +7,7 @@ import { ArrayUtils } from 'lib/ArrayUtils';
 import invadersMoveSound from 'sounds/invadersMove.wav';
 import { playSound } from 'lib/SoundUtils';
 import { InvaderBullet } from './InvaderBullet';
+import { SpaceInvadersUI } from './SpaceInvadersUI';
 
 export class SpaceInvadersGame {
   /**
@@ -39,6 +40,11 @@ export class SpaceInvadersGame {
    */
   destroyed = false;
 
+  /**
+   * 遊戲介面
+   */
+  ui = new SpaceInvadersUI();
+
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
     this.createInvadersRow({
@@ -64,6 +70,8 @@ export class SpaceInvadersGame {
     this.moveInvadersLoop(10);
     // 大軍攻擊循環
     this.invadersAttackLoop();
+    // 將 UI 加到舞台上
+    app.stage.addChild(this.ui);
   }
 
   destroy(): void {
