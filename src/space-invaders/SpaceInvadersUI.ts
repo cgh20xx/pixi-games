@@ -1,13 +1,31 @@
-import { Container, Text } from 'pixi.js';
+import { BaseTexture, Container, Sprite, Text } from 'pixi.js';
+import cannonImage from 'images/cannon.png';
 
 /**
  * 建立遊戲 UI 文字
  */
 export class SpaceInvadersUI extends Container {
-  // 遊戲會用到的兩個屬性
+  /**
+   * 遊戲分數
+   */
   private score = 0;
+
   // 因會等到字型載入完成才建立文字繪圖器，所以 scoreText 會有一小段時間是空值
+  /**
+   * 遊戲分數 UI
+   */
   private scoreText?: Text;
+
+  /**
+   * 砲台生命數
+   */
+  private lives = 3;
+
+  /**
+   * 砲台生命圖陣列
+   */
+  private liveSprites: Sprite[] = [];
+
   constructor() {
     super();
     this.loadUI();
@@ -25,6 +43,7 @@ export class SpaceInvadersUI extends Container {
       110,
       10
     );
+    this.setLives(this.lives);
   }
 
   /**
@@ -66,5 +85,41 @@ export class SpaceInvadersUI extends Container {
    */
   getScore(): number {
     return this.score;
+  }
+
+  /**
+   * 更新砲台生命數
+   * @param lives 生命數
+   */
+  setLives(lives: number) {
+    // 更新生命數
+    this.lives = lives;
+    // 將多餘的砲台生命圖清掉
+    while (this.liveSprites.length > this.lives) {
+      const sprite = this.liveSprites.pop();
+      sprite?.destroy();
+    }
+    // 準備砲台的材質基底備用
+    const baseTexture = BaseTexture.from(cannonImage);
+    // 補足不夠的砲台生命圖
+    while (this.liveSprites.length < this.lives) {
+      // 下一個生命圖的 index
+      const index = this.liveSprites.length;
+      // 新增精靈圖、設定位置並縮小、加入 UI 容器
+      const sprite = Sprite.from(baseTexture);
+      sprite.position.set(510 + 42 * index, 11);
+      sprite.scale.set(0.6);
+      this.addChild(sprite);
+      // 將新增的精靈圖加入生命圖陣列
+      this.liveSprites.push(sprite);
+    }
+  }
+
+  /**
+   * 取得砲台生命數
+   * @returns 砲台生命數
+   */
+  getLives(): number {
+    return this.lives;
   }
 }

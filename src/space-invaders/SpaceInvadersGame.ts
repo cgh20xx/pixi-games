@@ -246,7 +246,15 @@ export class SpaceInvadersGame {
     await this.cannon.hitAndDead();
     // 多等 60 個 ticks (約 1 秒)
     await this.wait(60);
-    // 重建一座新砲台
-    this.cannon = new PlayerCannon(this);
+    // 檢查目前剩餘生命是否大於 0
+    const currentLives = this.ui.getLives();
+    if (currentLives > 0) {
+      // 重建一座新砲台
+      this.cannon = new PlayerCannon(this);
+      // 更新剩餘生命數
+      this.ui.setLives(currentLives - 1);
+    } else {
+      // TODO: GameOver
+    }
   }
 }
