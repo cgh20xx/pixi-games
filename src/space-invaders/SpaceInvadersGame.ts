@@ -209,6 +209,8 @@ export class SpaceInvadersGame {
    * @param invader 外星人
    */
   async hitAndRemoveInvader(invader: Invader) {
+    // 擊中一隻外星人得 10 分
+    this.ui.addScore(10);
     // 把外星人從陣列中移除
     ArrayUtils.removeItem(this.invaders, invader);
     // 讓外星人顯示毀滅動畫並自我清除

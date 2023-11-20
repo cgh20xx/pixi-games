@@ -4,6 +4,10 @@ import { Container, Text } from 'pixi.js';
  * 建立遊戲 UI 文字
  */
 export class SpaceInvadersUI extends Container {
+  // 遊戲會用到的兩個屬性
+  private score = 0;
+  // 因會等到字型載入完成才建立文字繪圖器，所以 scoreText 會有一小段時間是空值
+  private scoreText?: Text;
   constructor() {
     super();
     this.loadUI();
@@ -14,6 +18,13 @@ export class SpaceInvadersUI extends Container {
     await document.fonts.load('10px SpaceInvadersFont');
     this.createText('SCORE', '#ffffff', 30, 10);
     this.createText('LIVES', '#ffffff', 430, 10);
+    // 顯示分數的繪圖器
+    this.scoreText = this.createText(
+      this.score.toLocaleString(),
+      '#99ff00',
+      110,
+      10
+    );
   }
 
   /**
@@ -36,5 +47,24 @@ export class SpaceInvadersUI extends Container {
     text.position.set(x, y);
     this.addChild(text);
     return text;
+  }
+
+  /**
+   * 增加遊戲分數
+   * @param score 要增加的遊戲分數
+   */
+  addScore(score: number): void {
+    this.score += score;
+    if (this.scoreText) {
+      this.scoreText.text = this.score.toLocaleString();
+    }
+  }
+
+  /**
+   * 取得遊戲分數
+   * @returns score
+   */
+  getScore(): number {
+    return this.score;
   }
 }
