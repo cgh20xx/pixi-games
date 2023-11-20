@@ -1,7 +1,6 @@
 import { BaseTexture, Container, Sprite, Text } from 'pixi.js';
 import cannonImage from 'images/cannon.png';
 import { getStageSize } from 'lib/rwd-stage';
-import { WaitManager } from 'lib/WaitManager';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 
 /**

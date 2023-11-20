@@ -45,29 +45,16 @@ export class SpaceInvadersGame {
    */
   ui = new SpaceInvadersUI(this);
 
+  /**
+   * 關卡
+   */
+  level = 1;
+
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
-    this.createInvadersRow({
-      type: 0, // 外形 1
-      x: 40,
-      y: 240,
-      amount: 6
-    });
-    this.createInvadersRow({
-      type: 1, // 外形 2
-      x: 70,
-      y: 200,
-      amount: 6
-    });
-    this.createInvadersRow({
-      type: 2, // 外形 3
-      x: 100,
-      y: 160,
-      amount: 6
-    });
     this.waitManager = new WaitManager(app.ticker);
-    // test: 開始第 1 關
-    this.ui.showLevel(1);
+    // 開始關卡一
+    this.startLevel(1);
     // 大軍齊步走，每隔幾個 ticks 移動 10 個像素
     this.moveInvadersLoop(10);
     // 大軍攻擊循環
@@ -107,6 +94,31 @@ export class SpaceInvadersGame {
       );
       this.invaders.push(invader);
     }
+  }
+
+  /**
+   * 依關卡建立所有外星人，關卡越高數量越多。
+   * @param level 關卡
+   */
+  createInvadersByLevel(level: number) {
+    this.createInvadersRow({
+      type: 0, // 外形 1
+      x: 40,
+      y: 240,
+      amount: Math.min(10, 5 + level)
+    });
+    this.createInvadersRow({
+      type: 1, // 外形 2
+      x: 70,
+      y: 200,
+      amount: Math.min(10, 4 + level)
+    });
+    this.createInvadersRow({
+      type: 2, // 外形 3
+      x: 100,
+      y: 160,
+      amount: Math.min(10, 3 + level)
+    });
   }
 
   /**
@@ -217,6 +229,10 @@ export class SpaceInvadersGame {
     ArrayUtils.removeItem(this.invaders, invader);
     // 讓外星人顯示毀滅動畫並自我清除
     await invader.dead();
+    // 如果外星人全滅，則進入下一關
+    if (!this.invaders.length) {
+      this.startLevel(this.level + 1);
+    }
   }
 
   /**
@@ -258,5 +274,26 @@ export class SpaceInvadersGame {
     } else {
       // TODO: GameOver
     }
+  }
+
+  /**
+   * 關卡開始
+   * @param level 關卡
+   */
+  async startLevel(level: number): Promise<void> {
+    this.level = level;
+    // 關卡開始動畫
+    await this.ui.showLevel(level);
+    // 依關卡建立所有外星人
+    this.createInvadersByLevel(level);
+    // 依關卡設定關卡難度
+    this.invaderMoveInterval = Math.max(
+      10,
+      this.invaderMoveInterval + 1 - level
+    ); // 最低 10
+    this.invaderShootInterval = Math.max(
+      30,
+      this.invaderShootInterval + 1 - level
+    ); // 最低 30
   }
 }
