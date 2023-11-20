@@ -43,7 +43,7 @@ export class SpaceInvadersGame {
   /**
    * 遊戲介面
    */
-  ui = new SpaceInvadersUI();
+  ui = new SpaceInvadersUI(this);
 
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
@@ -66,6 +66,8 @@ export class SpaceInvadersGame {
       amount: 6
     });
     this.waitManager = new WaitManager(app.ticker);
+    // test: 開始第 1 關
+    this.ui.showLevel(1);
     // 大軍齊步走，每隔幾個 ticks 移動 10 個像素
     this.moveInvadersLoop(10);
     // 大軍攻擊循環
