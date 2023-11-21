@@ -1,4 +1,4 @@
-import { Container, Graphics } from 'pixi.js';
+import { Container, Graphics, Text } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import { getStageSize } from 'lib/rwd-stage';
 
@@ -39,9 +39,26 @@ export class SpaceInvadersGameOver extends Container {
   }
 
   /**
-   * 新增遊戲結速的字幕
+   * 新增 GAME OVER 的閃動字幕
    */
-  private createGameOverText() {}
+  private createGameOverText() {
+    const text = new Text('GAME OVER', {
+      fontFamily: 'SpaceInvadersFont',
+      fontSize: 40,
+      fill: '#ff0000'
+    });
+    const stageSize = getStageSize();
+    text.position.set(
+      (stageSize.width - text.width) / 2,
+      stageSize.height / 2 - text.height
+    );
+    this.addChild(text);
+    // 文字閃動效果，無限迴圈，直到 text 被 destroy
+    while (!text.destroyed) {
+      text.visible = !text.visible;
+      this.game.wait(60);
+    }
+  }
 
   /**
    * 新增再玩一次的提示 & 動畫
