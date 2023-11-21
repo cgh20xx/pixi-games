@@ -12,8 +12,7 @@ const Tree: React.FC = () => {
     initApp(app);
     setStageSize(640, 480); // setStageSize() 後要手動 refreshCanvasAndStage()
     refreshCanvasAndStage(app);
-    const spaceInvadersGame = new SpaceInvadersGame(app);
-    console.log({ spaceInvadersGame });
+    new SpaceInvadersGame(app);
     const divRefCurrent = divRef.current;
     divRefCurrent?.appendChild(app.view);
     // 偵聽視窗的 resize 事件
