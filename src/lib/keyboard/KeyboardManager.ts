@@ -62,6 +62,27 @@ export class KeyboardManager extends EventEmitter {
       this.emit('released', event);
     }
   };
+
+  /**
+   * 等待鍵盤按鍵被按下去
+   * @param keyCode 按鍵代碼 ex: KeyCode.A
+   */
+  async waitUserPressKey(keyCode: string) {
+    return new Promise<void>(resolve => {
+      // 宣告發現按鍵被按下去的 callback function
+      const onPress = (event: KeyboardEvent) => {
+        // 如果按鍵是我們正在等的
+        if (event.code === keyCode) {
+          // 取消 pressed 事件偵聽
+          this.off('pressed', onPress);
+          // 兌現承諾
+          resolve();
+        }
+      };
+      // 偵聽 pressed 事件
+      this.on('pressed', onPress);
+    });
+  }
 }
 // 一般情況下，鍵盤只有一個，只需要一個鍵盤管理員。
 export const keyboardManager = new KeyboardManager();
