@@ -140,7 +140,7 @@ export class PlayerCannon {
    * 播放射擊音效
    */
   async playShootSound() {
-    await playSound(cannonShootSound, { volume: 0.5 });
+    await playSound(cannonShootSound, { volume: 0.2 });
   }
 
   /**
@@ -150,7 +150,7 @@ export class PlayerCannon {
     // 停止砲台移動與射擊，並設定砲台已被破壞
     this.stop();
     // 播放爆炸音效
-    playSound(cannonExplodeSound, { volume: 0.5 });
+    playSound(cannonExplodeSound, { volume: 0.2 });
     // 改變材質為外星人的材質基底最右側的 frame
     const baseTexture = BaseTexture.from(invadersImage);
     const frame = new Rectangle(200, 0, 50, 34);

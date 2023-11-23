@@ -110,7 +110,7 @@ export class Invader {
    * 外星人死亡時的動畫與程序
    */
   async dead() {
-    playSound(invaderKilledSound, { volume: 0.5 });
+    playSound(invaderKilledSound, { volume: 0.2 });
     // 改變材質在基底上的矩形 (換成最右側的 50x34)
     this.sprite.texture.frame = new Rectangle(200, 0, 50, 34);
     // pixi 說修改 frame 要手動呼叫 updateUvs()
