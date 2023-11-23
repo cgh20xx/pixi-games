@@ -16,8 +16,10 @@ export class SpaceInvadersGameOver extends Container {
     await this.game.wait(60);
     this.createRestartText();
     await this.waitUserPressSpace();
-    // 重建遊戲
+    // 銷滅 UI
     this.destroy();
+    // 重建遊戲
+    this.game.destroy();
     new SpaceInvadersGame(this.game.app);
     // TODO: 可用觀察者模式發佈 GameOver 事件？
   }
