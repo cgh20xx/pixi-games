@@ -1,6 +1,8 @@
 import { Container, Graphics, Text } from 'pixi.js';
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import { getStageSize } from 'lib/rwd-stage';
+import { KeyCode } from 'lib/keyboard/KeyCode';
+import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 
 export class SpaceInvadersGameOver extends Container {
   constructor(public game: SpaceInvadersGame) {
@@ -15,8 +17,8 @@ export class SpaceInvadersGameOver extends Container {
     this.createRestartText();
     await this.waitUserPressSpace();
     // 重建遊戲
-    // this.destroy();
-    // new SpaceInvadersGame(this.game.app);
+    this.destroy();
+    new SpaceInvadersGame(this.game.app);
     // TODO: 可用觀察者模式發佈 GameOver 事件？
   }
 
@@ -80,5 +82,9 @@ export class SpaceInvadersGameOver extends Container {
   /**
    * 等待玩家按下空白鍵
    */
-  async waitUserPressSpace() {}
+  async waitUserPressSpace() {
+    const key = KeyCode.SPACE;
+    await keyboardManager.waitUserPressKey(key);
+    await keyboardManager.waitUserReleaseKey(key);
+  }
 }
