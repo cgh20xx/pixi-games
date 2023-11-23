@@ -8,6 +8,7 @@ import invadersMoveSound from 'sounds/invadersMove.wav';
 import { playSound } from 'lib/SoundUtils';
 import { InvaderBullet } from './InvaderBullet';
 import { SpaceInvadersUI } from './SpaceInvadersUI';
+import { SpaceInvadersGameOver } from './SpaceInvadersGameOver';
 
 export class SpaceInvadersGame {
   /**
@@ -272,7 +273,10 @@ export class SpaceInvadersGame {
       // 更新剩餘生命數
       this.ui.setLives(currentLives - 1);
     } else {
-      // TODO: GameOver
+      // GameOver
+      console.log('GameOver');
+      const gameOver = new SpaceInvadersGameOver(this);
+      this.app.stage.addChild(gameOver);
     }
   }
 

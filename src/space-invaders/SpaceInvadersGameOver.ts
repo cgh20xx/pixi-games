@@ -11,12 +11,12 @@ export class SpaceInvadersGameOver extends Container {
   async loadUI() {
     this.createBackground();
     this.createGameOverText();
-    await this.game.wait(120);
+    await this.game.wait(60);
     this.createRestartText();
     await this.waitUserPressSpace();
     // 重建遊戲
-    this.destroy();
-    new SpaceInvadersGame(this.game.app);
+    // this.destroy();
+    // new SpaceInvadersGame(this.game.app);
     // TODO: 可用觀察者模式發佈 GameOver 事件？
   }
 
@@ -39,7 +39,7 @@ export class SpaceInvadersGameOver extends Container {
   }
 
   /**
-   * 新增 GAME OVER 的閃動字幕
+   * 新增 GAME OVER 字幕
    */
   private createGameOverText() {
     const text = new Text('GAME OVER', {
@@ -53,17 +53,29 @@ export class SpaceInvadersGameOver extends Container {
       stageSize.height / 2 - text.height
     );
     this.addChild(text);
-    // 文字閃動效果，無限迴圈，直到 text 被 destroy
-    while (!text.destroyed) {
-      text.visible = !text.visible;
-      this.game.wait(60);
-    }
   }
 
   /**
-   * 新增再玩一次的提示 & 動畫
+   * 新增再玩一次的提示 & 閃動動畫
    */
-  private async createRestartText() {}
+  private async createRestartText() {
+    const text = new Text('Press SPACE to try again', {
+      fontFamily: 'SpaceInvadersFont',
+      fontSize: 24,
+      fill: '#ff0000'
+    });
+    const stageSize = getStageSize();
+    text.position.set(
+      (stageSize.width - text.width) / 2,
+      stageSize.height * 0.6
+    );
+    this.addChild(text);
+    // 文字閃動效果，無限迴圈，直到 text 被 destroy
+    while (!text.destroyed) {
+      text.visible = !text.visible;
+      await this.game.wait(30);
+    }
+  }
 
   /**
    * 等待玩家按下空白鍵
