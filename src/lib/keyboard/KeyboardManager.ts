@@ -94,14 +94,14 @@ export class KeyboardManager extends EventEmitter {
       const onRelease = (event: KeyboardEvent) => {
         // 如果按鍵是我們正在等的
         if (event.code === keyCode) {
-          // 取消 release 事件偵聽
-          this.off('release', onRelease);
+          // 取消 released 事件偵聽
+          this.off('released', onRelease);
           // 兌現承諾
           resolve();
         }
       };
-      // 偵聽 release 事件
-      this.on('release', onRelease);
+      // 偵聽 released 事件
+      this.on('released', onRelease);
     });
   }
 }
