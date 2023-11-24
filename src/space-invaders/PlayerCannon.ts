@@ -126,7 +126,12 @@ export class PlayerCannon {
    */
   private async shootUpdate(deltaTime: number): Promise<void> {
     this.shootCoolDown -= deltaTime;
-    if (this.shootCoolDown <= 0 && keyboardManager.isKeyDown(KeyCode.SPACE)) {
+    // 如果砲台准許發射 & 射擊冷卻時間結束 & 已按下空白鍵，就可發射
+    if (
+      this.game.canShoot &&
+      this.shootCoolDown <= 0 &&
+      keyboardManager.isKeyDown(KeyCode.SPACE)
+    ) {
       this.shootCoolDown = 60; // 重設冷卻時間為 60 個 ticks
       // 建立砲彈
       new CannonBall(this.game, this.sprite.x, this.sprite.y);

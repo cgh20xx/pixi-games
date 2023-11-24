@@ -47,6 +47,11 @@ export class SpaceInvadersGame {
   gameOver = false;
 
   /**
+   * 砲台是否可以射擊
+   */
+  canShoot = false;
+
+  /**
    * 遊戲介面
    */
   ui = new SpaceInvadersUI(this);
@@ -293,6 +298,7 @@ export class SpaceInvadersGame {
     this.level = level;
     // 關卡開始動畫
     await this.ui.showLevel(level);
+    this.canShoot = true;
     // 依關卡建立所有外星人
     this.createInvadersByLevel(level);
     // 依關卡設定關卡難度
