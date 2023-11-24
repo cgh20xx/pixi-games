@@ -71,7 +71,8 @@ export class PlayerCannon {
    * 銷毀砲台的 sprite
    */
   destroy(): void {
-    this.sprite.destroy();
+    // 因 pixi 繪圖器在執行 destroy() 後不能再次被 destroy()，所以要先判斷一次
+    this.sprite.destroyed || this.sprite.destroy();
     this.stop();
   }
 

@@ -37,9 +37,14 @@ export class SpaceInvadersGame {
   waitManager: WaitManager;
 
   /**
-   * 遊戲是否被銷毀
+   * 遊戲是否被銷毀(重新遊戲才會被銷銷)
    */
   destroyed = false;
+
+  /**
+   * 遊戲是否結束(砲台已死亡，顯示 GAME OVER UI，但未銷毀遊戲)
+   */
+  gameOver = false;
 
   /**
    * 遊戲介面
@@ -147,7 +152,7 @@ export class SpaceInvadersGame {
    * @param moveX 水平移動 x 距離
    */
   async moveInvadersLoop(moveX: number) {
-    if (this.destroyed) {
+    if (this.destroyed || this.gameOver) {
       // 離開函式，不再進入下個循環
       return;
     }
@@ -240,7 +245,7 @@ export class SpaceInvadersGame {
    * 遞迴呼叫所有外星人選一隻來發動攻擊，每次呼叫會等待一段時間 ticks。
    */
   async invadersAttackLoop() {
-    if (this.destroyed) {
+    if (this.destroyed || this.gameOver) {
       // 如果遊戲已滅，離開函式，不再進入下個循環
       return;
     }
@@ -274,9 +279,9 @@ export class SpaceInvadersGame {
       this.ui.setLives(currentLives - 1);
     } else {
       // GameOver
-      console.log('GameOver');
-      const gameOver = new SpaceInvadersGameOver(this);
-      this.app.stage.addChild(gameOver);
+      this.gameOver = true;
+      const gameOverUI = new SpaceInvadersGameOver(this);
+      this.app.stage.addChild(gameOverUI);
     }
   }
 
