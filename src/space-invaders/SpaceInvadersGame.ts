@@ -9,6 +9,7 @@ import { playSound } from 'lib/SoundUtils';
 import { InvaderBullet } from './InvaderBullet';
 import { SpaceInvadersUI } from './SpaceInvadersUI';
 import { SpaceInvadersGameOver } from './SpaceInvadersGameOver';
+import { EarthShield } from './EarthShield';
 
 export class SpaceInvadersGame {
   /**
@@ -60,6 +61,11 @@ export class SpaceInvadersGame {
    * 關卡
    */
   level = 1;
+
+  /**
+   * 地球護盾
+   */
+  shields: EarthShield[] = [];
 
   constructor(public app: Application) {
     this.cannon = new PlayerCannon(this);
