@@ -40,5 +40,13 @@ export class InvaderBullet extends CannonBall {
         }
       }
     }
+    // 如果到最後，飛彈還沒被銷毀，就檢查與護盾的碰撞
+    if (!sprite.destroyed) {
+      const shield = this.hitTestShields();
+      if (shield) {
+        shield.onHit();
+        this.destroy();
+      }
+    }
   }
 }
