@@ -1,4 +1,4 @@
-import { Application } from 'pixi.js';
+import { Application, Point } from 'pixi.js';
 import { PlayerCannon } from './PlayerCannon';
 import { Invader } from './Invader';
 import { WaitManager } from 'lib/WaitManager';
@@ -83,6 +83,7 @@ export class SpaceInvadersGame {
   destroy(): void {
     this.cannon.destroy();
     this.invaders.forEach(invader => invader.destroy());
+    this.shields.forEach(shield => shield.destroy());
     this.ui.destroy(); // ui container 被 destroy 也會 destroy 所有的 children
     this.destroyed = true;
   }
@@ -305,6 +306,8 @@ export class SpaceInvadersGame {
     // 關卡開始動畫
     await this.ui.showLevel(level);
     this.canShoot = true;
+    // 重建地球護盾
+    this.resetShields();
     // 依關卡建立所有外星人
     this.createInvadersByLevel(level);
     // 依關卡設定關卡難度
@@ -316,5 +319,38 @@ export class SpaceInvadersGame {
       30,
       this.invaderShootInterval + 1 - level
     ); // 最低 30
+  }
+
+  /**
+   * 重建地球護盾
+   */
+  private resetShields() {
+    // 將現有護盾都移除
+    this.shields.forEach(shield => shield.destroy());
+    this.shields.length = 0;
+    // 定義所有護盾小方塊的位置
+    const positions = [
+      // 左邊護盾
+      new Point(100, 410),
+      new Point(120, 400),
+      new Point(140, 400),
+      new Point(160, 410),
+      // 中間護盾
+      new Point(300, 410),
+      new Point(320, 400),
+      new Point(340, 400),
+      new Point(360, 410),
+      // 右邊護盾
+      new Point(500, 410),
+      new Point(520, 400),
+      new Point(540, 400),
+      new Point(560, 410)
+    ];
+    // 建立新護盾
+    for (const pos of positions) {
+      const shield = new EarthShield(this, pos.x, pos.y);
+      this.app.stage.addChild(shield);
+      this.shields.push(shield);
+    }
   }
 }
