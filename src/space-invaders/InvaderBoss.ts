@@ -30,7 +30,7 @@ export class InvaderBoss extends Invader {
 
   private backUpdate() {}
 
-  private removeUpdateFunction() {
+  private removeUpdateFunctions() {
     this.game.app.ticker.remove(this.attackUpdate, this);
     this.game.app.ticker.remove(this.backUpdate, this);
   }
@@ -51,7 +51,7 @@ export class InvaderBoss extends Invader {
    */
   private goAttack() {
     // 進入下個模式前先把更新函式從 Ticker 中移除
-    this.removeUpdateFunction();
+    this.removeUpdateFunctions();
     this.mode = 'attack';
     this.game.app.ticker.add(this.attackUpdate, this);
   }
@@ -61,7 +61,7 @@ export class InvaderBoss extends Invader {
    */
   private goBack() {
     // 進入下個模式前先把更新函式從 Ticker 中移除
-    this.removeUpdateFunction();
+    this.removeUpdateFunctions();
     this.mode = 'back';
     this.game.app.ticker.add(this.backUpdate, this);
   }
@@ -72,6 +72,6 @@ export class InvaderBoss extends Invader {
    */
   destroy(): void {
     super.destroy();
-    this.removeUpdateFunction();
+    this.removeUpdateFunctions();
   }
 }
