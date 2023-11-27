@@ -138,7 +138,7 @@ export class SpaceInvadersGame {
       y: 160,
       amount: Math.min(10, 3 + level)
     });
-    const boss = new InvaderBoss(this, 220, 120);
+    const boss = new InvaderBoss(this, 190, 120);
     this.invaders.push(boss);
   }
 

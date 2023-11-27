@@ -31,6 +31,8 @@ export class InvaderBoss extends Invader {
   ) {
     // 魔王造形固定為 3
     super(game, x, y, 3);
+    this.posInFlock.set(x, y);
+    this.goIdle();
   }
 
   private attackUpdate() {}
