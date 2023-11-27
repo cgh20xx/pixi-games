@@ -10,6 +10,7 @@ import { InvaderBullet } from './InvaderBullet';
 import { SpaceInvadersUI } from './SpaceInvadersUI';
 import { SpaceInvadersGameOver } from './SpaceInvadersGameOver';
 import { EarthShield } from './EarthShield';
+import { InvaderBoss } from './InvaderBoss';
 
 export class SpaceInvadersGame {
   /**
@@ -137,6 +138,8 @@ export class SpaceInvadersGame {
       y: 160,
       amount: Math.min(10, 3 + level)
     });
+    const boss = new InvaderBoss(this, 220, 120);
+    this.invaders.push(boss);
   }
 
   /**

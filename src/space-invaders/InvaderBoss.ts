@@ -1,5 +1,6 @@
 import { SpaceInvadersGame } from './SpaceInvadersGame';
 import { Invader } from './Invader';
+import { Point } from 'pixi.js';
 
 /**
  * 外星魔王
@@ -11,6 +12,12 @@ export class InvaderBoss extends Invader {
    * @default idle 跟隨大軍移動
    */
   mode: 'idle' | 'attack' | 'back' = 'idle';
+
+  /**
+   * 記錄魔王在大軍群體中的位置
+   */
+  posInFlock = new Point();
+
   /**
    *
    * @param game SpaceInvadersGame instance
@@ -73,5 +80,22 @@ export class InvaderBoss extends Invader {
   destroy(): void {
     super.destroy();
     this.removeUpdateFunctions();
+  }
+
+  /**
+   * 移動魔王位置 (改寫 Invader.move())
+   * @param moveX 水平移動 x 距離
+   * @param moveY 垂直移動 y 距離
+   * @override
+   */
+  move(moveX: number, moveY: number): void {
+    // 非 idle 模式，紀錄原應在大軍的位置
+    this.posInFlock.x += moveX;
+    this.posInFlock.y += moveY;
+    if (this.mode === 'idle') {
+      // idle 模式中，隨著大軍移動
+      this.x = this.posInFlock.x;
+      this.y = this.posInFlock.y;
+    }
   }
 }
