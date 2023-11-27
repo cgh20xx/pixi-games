@@ -26,6 +26,15 @@ export class InvaderBoss extends Invader {
     super(game, x, y, 3);
   }
 
+  private attackUpdate() {}
+
+  private backUpdate() {}
+
+  private removeUpdateFunction() {
+    this.game.app.ticker.remove(this.attackUpdate, this);
+    this.game.app.ticker.remove(this.backUpdate, this);
+  }
+
   /**
    * 跟著大軍移動
    */
@@ -41,13 +50,28 @@ export class InvaderBoss extends Invader {
    * 離開大軍發動攻擊
    */
   private goAttack() {
+    // 進入下個模式前先把更新函式從 Ticker 中移除
+    this.removeUpdateFunction();
     this.mode = 'attack';
+    this.game.app.ticker.add(this.attackUpdate, this);
   }
 
   /**
    * 返回大軍隊伍
    */
   private goBack() {
+    // 進入下個模式前先把更新函式從 Ticker 中移除
+    this.removeUpdateFunction();
     this.mode = 'back';
+    this.game.app.ticker.add(this.backUpdate, this);
+  }
+
+  /**
+   * 銷滅魔王
+   * @override
+   */
+  destroy(): void {
+    super.destroy();
+    this.removeUpdateFunction();
   }
 }
