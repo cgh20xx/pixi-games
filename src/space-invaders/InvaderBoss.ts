@@ -51,6 +51,10 @@ export class InvaderBoss extends Invader {
     this.goIdle();
   }
 
+  /**
+   * 魔王攻擊移動的更新函式
+   * @param dt 經過時間
+   */
   private attackUpdate(dt: number) {
     // 取得目前速率
     const currentSpeed = this.velocity.length();
@@ -76,7 +80,25 @@ export class InvaderBoss extends Invader {
     }
   }
 
-  private backUpdate() {}
+  /**
+   * 魔王移動回大軍位置的更新函式
+   * @param dt 經過時間
+   */
+  private backUpdate(dt: number) {
+    const target = this.posInFlock;
+    // 將 y 以 1 的速率靠近目標 .y
+    this.y = Math.min(target.y, this.y + 1 * dt);
+    // 將 x 以 1 的速率靠近目標 .x
+    if (this.x > target.x) {
+      this.x = Math.max(target.x, this.x - 1 * dt);
+    } else {
+      this.x = Math.min(target.x, this.x + 1 * dt);
+    }
+    // 如果位置和目標完全一樣，就回到 'idle' mode
+    if (target.equals(this.sprite.position)) {
+      this.goIdle();
+    }
+  }
 
   private removeUpdateFunctions() {
     this.game.app.ticker.remove(this.attackUpdate, this);
@@ -131,6 +153,8 @@ export class InvaderBoss extends Invader {
     this.removeUpdateFunctions();
     this.mode = 'back';
     this.game.app.ticker.add(this.backUpdate, this);
+    // 魔王先跳回畫面上方
+    this.y = -this.height;
   }
 
   /**
