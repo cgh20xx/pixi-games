@@ -58,7 +58,8 @@ export class InvaderBoss extends Invader {
   private attackUpdate(dt: number) {
     // 取得目前速率
     const currentSpeed = this.velocity.length();
-    // 以 0.02 的速速度加快速率，最大值為 4
+    // 以 0.02 的加速度加快速率，最大值為 4
+    // 速度 = 速度 + 加速度 * 時間
     const speed = Math.min(4, currentSpeed + 0.02 * dt);
     // 將速度的長度調整為新的速率
     this.velocity.normalize(speed);
@@ -71,6 +72,7 @@ export class InvaderBoss extends Invader {
     }
 
     // 以速度的向量改變目前位置
+    // 位置 = 位置 + 速度 * 時間
     this.x += this.velocity.x * dt;
     this.y += this.velocity.y * dt;
 
