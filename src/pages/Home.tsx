@@ -14,8 +14,8 @@ const Home: React.FC = () => {
               route.linkName
             ) {
               return (
-                <li>
-                  <Link key={index} to={route.path} className="link">
+                <li key={index}>
+                  <Link to={route.path} className="link">
                     {route.linkName}
                   </Link>
                 </li>
