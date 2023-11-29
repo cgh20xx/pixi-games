@@ -3,7 +3,7 @@ import { initApp, setStageSize, refreshCanvasAndStage } from 'lib/rwd-stage';
 import { useEffect, useRef } from 'react';
 import { SpaceInvadersGame } from 'space-invaders/SpaceInvadersGame';
 
-const Tree: React.FC = () => {
+const SpaceInvaders: React.FC = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const Tree: React.FC = () => {
   return <div ref={divRef}></div>;
 };
 
-export default Tree;
+export default SpaceInvaders;
