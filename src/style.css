@@ -13,7 +13,9 @@
 
 body {
   font-family: '黑體', Arial, Helvetica, sans-serif;
-  background-color: #c7edcc; /* 護眼綠 */
+  /* background-color: #c7edcc; 護眼綠 */
+  background-color: #000;
+  letter-spacing: 1px;
 }
 
 canvas {
@@ -32,6 +34,7 @@ canvas {
 }
 .title {
   margin-bottom: 1rem;
+  color: rgb(255, 0, 128);
 }
 .game-list {
   list-style: none;
@@ -48,8 +51,8 @@ canvas {
   color: #fff;
   text-align: center;
   text-decoration: none;
-  background-color: steelblue;
+  background-color: rgb(0, 64, 255);
 }
 .link:hover {
-  background-color: rgb(80, 150, 200);
+  background-color: rgb(0, 128, 255);
 }
