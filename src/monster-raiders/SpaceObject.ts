@@ -55,7 +55,15 @@ export abstract class SpaceObject extends Container {
    * @param dt 經過時間
    */
   update(dt: number) {
-    // 等一下寫
+    // 依速度移動
+    this.x += this.velocity.x * dt;
+    this.y += this.velocity.y * dt;
+    // 降低最低壽命
+    this.minLifespan -= dt;
+    // 如果最低壽命用完了且不在畫面上，則自我銷毀。
+    if (this.minLifespan < 0 && !this.isInScreen()) {
+      this.destroy();
+    }
   }
 
   /**
