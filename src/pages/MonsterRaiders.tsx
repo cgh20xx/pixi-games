@@ -1,6 +1,7 @@
 import { Application } from 'pixi.js';
 import { initApp, setStageSize, refreshCanvasAndStage } from 'lib/rwd-stage';
 import { useEffect, useRef } from 'react';
+import { MonsterRaidersGame } from 'monster-raiders/MonsterRaidersGame';
 
 const MonsterRaiders: React.FC = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -11,7 +12,7 @@ const MonsterRaiders: React.FC = () => {
     initApp(app);
     setStageSize(640, 480); // setStageSize() 後要手動 refreshCanvasAndStage()
     refreshCanvasAndStage(app);
-    // new SpaceInvadersGame(app);
+    new MonsterRaidersGame(app);
     const divRefCurrent = divRef.current;
     divRefCurrent?.appendChild(app.view);
     // 偵聽視窗的 resize 事件
