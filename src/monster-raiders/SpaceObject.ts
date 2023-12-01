@@ -1,4 +1,4 @@
-import { Container, Point } from 'pixi.js';
+import { Container, Graphics, Point } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
 
 /**
@@ -83,5 +83,17 @@ export abstract class SpaceObject extends Container {
   hitTest(other: SpaceObject): boolean {
     const distance = this.position.distanceTo(other.position);
     return distance < this.hitRadius + other.hitRadius;
+  }
+
+  /**
+   * 畫出碰撞半徑
+   * @param color 顏色 default is 0xff0000
+   */
+  drawHitCircle(color = 0xff0000) {
+    const graphics = new Graphics();
+    graphics.beginFill(color, 0.2);
+    graphics.drawCircle(this.position.x, this.position.y, this.hitRadius);
+    graphics.endFill();
+    this.addChild(graphics);
   }
 }
