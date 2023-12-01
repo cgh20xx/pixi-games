@@ -95,7 +95,7 @@ export abstract class SpaceObject extends Container {
   drawHitCircle(color = 0xff0000) {
     const graphics = new Graphics();
     graphics.beginFill(color, 0.2);
-    graphics.drawCircle(this.position.x, this.position.y, this.hitRadius);
+    graphics.drawCircle(0, 0, this.hitRadius);
     graphics.endFill();
     this.addChild(graphics);
   }
