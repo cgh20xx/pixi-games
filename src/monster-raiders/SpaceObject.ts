@@ -74,4 +74,14 @@ export abstract class SpaceObject extends Container {
     // 等一下寫
     return true;
   }
+
+  /**
+   * 碰撞檢查
+   * @param other SpaceObject
+   * @returns 是否碰撞
+   */
+  hitTest(other: SpaceObject): boolean {
+    const distance = this.position.distanceTo(other.position);
+    return distance < this.hitRadius + other.hitRadius;
+  }
 }
