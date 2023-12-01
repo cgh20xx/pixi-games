@@ -1,5 +1,6 @@
 import { Container, Graphics, Point } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
+import { ArrayUtils } from 'lib/ArrayUtils';
 
 /**
  * SpaceObject 是一個基礎類別，讓能在太空移動的各種物件都繼承它。
@@ -43,11 +44,14 @@ export abstract class SpaceObject extends Container {
   protected init() {}
 
   /**
+   * 銷毀太空物件
    * @override
    */
   destroy() {
     this.destroyed || super.destroy();
     this.game.app.ticker.remove(this.update, this);
+    // 在物件被銷毀的同時，把它從遊戲容器的 objects 陣列移除
+    ArrayUtils.removeItem(this.game.objects, this);
   }
 
   /**

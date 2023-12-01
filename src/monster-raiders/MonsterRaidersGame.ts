@@ -1,4 +1,5 @@
 import { Application, Container } from 'pixi.js';
+import { SpaceObject } from './SpaceObject';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -8,6 +9,11 @@ export class MonsterRaidersGame extends Container {
    * 裝所有太空物件的容器
    */
   spaceRoot = new Container();
+
+  /**
+   * 太空物件陣列
+   */
+  objects: SpaceObject[] = [];
 
   constructor(public app: Application) {
     super();
