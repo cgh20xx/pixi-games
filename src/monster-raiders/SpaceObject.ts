@@ -2,14 +2,13 @@ import { Container, Graphics, Point } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
 import { ArrayUtils } from 'lib/ArrayUtils';
 
-/**
- * SpaceObject 是一個基礎類別，讓能在太空移動的各種物件都繼承它。
- */
+export type SpaceObjectType = 'asteroid' | 'fighter' | 'monster' | 'missile';
+
 export abstract class SpaceObject extends Container {
   /**
    * 物件的類型有 小行星、戰機、怪獸、飛彈
    */
-  abstract get type(): 'asteroid' | 'fighter' | 'monster' | 'missile';
+  abstract get type(): SpaceObjectType;
 
   /**
    * 移動速度 (向量)
