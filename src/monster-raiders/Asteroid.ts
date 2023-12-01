@@ -30,7 +30,7 @@ export class Asteroid extends SpaceObject {
     // 隨機指定排序值在 2 到 3 之間
     this.zIndex = Math.random() + 2;
     // 隨機選擇移動速度與方向
-    this.velocity.x = Math.random();
+    this.velocity.x = Math.random() * 0.3;
     this.velocity.rotate(Math.random() * PI_2);
     // 計算碰撞半徑
     this.hitRadius = sprite.scale.x * 110;

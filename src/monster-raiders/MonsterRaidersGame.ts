@@ -1,5 +1,7 @@
-import { Application, Container } from 'pixi.js';
+import { Application, Container, PI_2, Point } from 'pixi.js';
 import { SpaceObject } from './SpaceObject';
+import { getStageSize } from 'lib/rwd-stage';
+import { Asteroid } from './Asteroid';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -38,6 +40,25 @@ export class MonsterRaidersGame extends Container {
    * @param amount 數量
    */
   private createInitAsteroids(amount: number) {
-    console.log('create');
+    // 取得畫面正中央的位置
+    const center = new Point(
+      getStageSize().width / 2,
+      getStageSize().height / 2
+    );
+    // 跑迴圈直到造出來的小行星數量等於 amount
+    let created = 0;
+    while (created++ < amount) {
+      // 随機取得小行星距離畫面中央的向量
+      const vector = new Point(250 + Math.random() * 250);
+      vector.rotate(Math.random() * PI_2);
+      // 建立小行星
+      const astroid = new Asteroid(
+        this,
+        center.x + vector.x,
+        center.y + vector.y
+      );
+      // 放進小行星陣列
+      this.objects.push(astroid);
+    }
   }
 }
