@@ -15,6 +15,8 @@ export class Asteroid extends SpaceObject {
     return 'asteroid';
   }
 
+  private rotateSpeed = (Math.random() - 0.5) * 0.004;
+
   /**
    * 覆寫 SpaceObject.init()
    * @override
@@ -36,5 +38,15 @@ export class Asteroid extends SpaceObject {
     this.hitRadius = sprite.scale.x * 110;
     // 並畫出碰撞圓 (測試用)
     this.drawHitCircle();
+  }
+
+  /**
+   * 更新函式
+   * @param dt 經過時間
+   * @override
+   */
+  update(dt: number) {
+    this.rotation += this.rotateSpeed * dt;
+    super.update(dt);
   }
 }
