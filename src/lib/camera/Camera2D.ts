@@ -34,7 +34,7 @@ export class Camera2D {
    */
   gameRoot?: Container;
   /**
-   * 攝影機跟瓷聚焦物件的速率
+   * 攝影機跟瓷聚焦物件的速率。 0: 不跟隨，1: 完全緊貼
    */
   followFocusRate = 0.2;
 
@@ -56,7 +56,21 @@ export class Camera2D {
    * 更新函式
    */
   private update() {
+    const focus = this.focus;
+    const position = this.position;
     // 讓攝影機跟隨聚焦物件
-    // 再移動 gameRoot，保持 focus 在畫面中央
+    if (focus) {
+      const focusRate = this.followFocusRate;
+      const invertRate = 1 - focusRate;
+      this.position.set(
+        focus.x * focusRate + position.x * invertRate,
+        focus.y * focusRate + position.y * invertRate
+      );
+    }
+    // 移動 gameRoot，保持 focus 在畫面中央
+    if (this.gameRoot) {
+      this.gameRoot.x = this.width / 2 - position.x;
+      this.gameRoot.y = this.height / 2 - position.y;
+    }
   }
 }
