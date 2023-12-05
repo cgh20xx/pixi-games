@@ -62,6 +62,7 @@ export class Camera2D {
     if (focus) {
       const focusRate = this.followFocusRate;
       const invertRate = 1 - focusRate;
+      // 如果 focusRate 為 0.2，則位置往聚焦物件移動 20%。
       this.position.set(
         focus.x * focusRate + position.x * invertRate,
         focus.y * focusRate + position.y * invertRate

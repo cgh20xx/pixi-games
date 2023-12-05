@@ -28,7 +28,7 @@ export class MonsterRaidersGame extends Container {
     // 自動按照物件的 zIndex 重新排序。
     this.spaceRoot.sortableChildren = true;
     this.createInitAsteroids(4);
-    this.testCamera(); // 測試攝影機
+    // this.testCamera(); // 測試攝影機
   }
 
   /**
