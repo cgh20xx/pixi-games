@@ -32,6 +32,7 @@ export class MonsterRaidersGame extends Container {
     // this.testCamera(); // 測試攝影機
     // 建立戰機
     const fighter = new Fighter(this, 320, 240);
+    this.objects.push(fighter);
   }
 
   /**
