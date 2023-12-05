@@ -7,9 +7,12 @@ import 'lib/PointUtils';
 import 'lib/RectUtils';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  //   <HashRouter>
+  //     <App />
+  //   </HashRouter>
+  // </React.StrictMode>
+  <HashRouter>
+    <App />
+  </HashRouter>
 );
