@@ -13,6 +13,7 @@
     "lint:fix": "npm run lint -- --fix"
   },
   "dependencies": {
+    "@pixi/gif": "^2.1.0",
     "@pixi/sound": "^5.2.2",
     "dat.gui": "^0.7.9",
     "pixi.js": "^7.3.1",

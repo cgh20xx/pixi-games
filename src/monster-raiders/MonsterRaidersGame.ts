@@ -5,6 +5,7 @@ import { Asteroid } from './Asteroid';
 import { Camera2D } from 'lib/camera/Camera2D';
 import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
+import { Fighter } from './Fighter';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -29,6 +30,8 @@ export class MonsterRaidersGame extends Container {
     this.spaceRoot.sortableChildren = true;
     this.createInitAsteroids(4);
     // this.testCamera(); // 測試攝影機
+    // 建立戰機
+    const fighter = new Fighter(this, 320, 240);
   }
 
   /**
