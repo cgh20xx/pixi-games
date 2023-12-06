@@ -2,6 +2,7 @@ import { AnimatedGIF } from '@pixi/gif';
 import { SpaceObject, SpaceObjectType } from './SpaceObject';
 import fighterImg from 'images/space-fighter.gif';
 import { gifFrom } from 'lib/PixiGifUtils';
+import { Rectangle } from 'pixi.js';
 
 export class Fighter extends SpaceObject {
   // 不用覆寫 constructor
@@ -27,6 +28,7 @@ export class Fighter extends SpaceObject {
     this.loadFighterGIF();
     this.hitRadius = 16;
     this.drawHitCircle();
+    this.startFacingMouse();
   }
 
   private async loadFighterGIF() {
@@ -38,5 +40,28 @@ export class Fighter extends SpaceObject {
     this.addChild(this.gif);
     this.gif.anchor.set(0.5);
     this.gif.scale.set(0.5);
+  }
+
+  /**
+   * 使戰機轉向滑鼠方向
+   */
+  private startFacingMouse() {
+    // 開啟戰機容器的互動開關。(pixi v6 以前是使用 interactive = true)
+    this.eventMode = 'static';
+    // 將戰機可與滑鼠互動的範圍加大
+    this.hitArea = new Rectangle(-5000, -5000, 10000, 10000);
+    // 偵聽滑鼠移動事件
+    this.on('pointermove', event => {
+      // 取得滑鼠在遊戲畫面上的位置
+      const mouseGlobal = event.global;
+      // 將滑鼠座標轉換為戰機容器的相對位置
+      const mouseLocal = this.toLocal(mouseGlobal);
+      // 計算滑鼠座標相對於戰機的方向 (弧度)
+      const radians = Math.atan2(mouseLocal.y, mouseLocal.x);
+      // 將戰機轉向滑鼠的方向
+      if (this.gif) {
+        this.gif.rotation = radians;
+      }
+    });
   }
 }
