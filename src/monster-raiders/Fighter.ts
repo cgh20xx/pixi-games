@@ -77,6 +77,9 @@ export class Fighter extends SpaceObject {
       const facing = this.toLocal(mouseGlobal);
       const rotation = Math.atan2(facing.y, facing.x);
       this.gif.rotation = rotation;
+      // 更新速度向量
+      this.velocity.set(2, 0);
+      this.velocity.rotate(rotation);
     }
     super.update(dt);
   }
