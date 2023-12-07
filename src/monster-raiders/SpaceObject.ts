@@ -74,8 +74,9 @@ export abstract class SpaceObject extends Container {
    * @returns boolean
    */
   isInScreen(): boolean {
-    // 等一下寫
-    return true;
+    // screen 為實際 canvas 大小
+    const screen = this.game.app.screen;
+    return this.getBounds().intersects(screen);
   }
 
   /**
