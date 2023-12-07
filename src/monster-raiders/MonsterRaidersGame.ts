@@ -21,6 +21,11 @@ export class MonsterRaidersGame extends Container {
    */
   objects: SpaceObject[] = [];
 
+  /**
+   * 攝影機
+   */
+  camera: Camera2D;
+
   constructor(public app: Application) {
     super();
     app.stage.addChild(this);
@@ -33,6 +38,12 @@ export class MonsterRaidersGame extends Container {
     // 建立戰機
     const fighter = new Fighter(this, 320, 240);
     this.objects.push(fighter);
+    // 建立攝影機
+    this.camera = new Camera2D(app.ticker);
+    this.camera.width = getStageSize().width;
+    this.camera.height = getStageSize().height;
+    this.camera.gameRoot = this.spaceRoot;
+    this.camera.focus = fighter;
   }
 
   /**
