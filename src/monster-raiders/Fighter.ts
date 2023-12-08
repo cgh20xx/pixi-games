@@ -72,6 +72,14 @@ export class Fighter extends SpaceObject {
    * @override
    */
   update(dt: number) {
+    const hitObject = this.hitTestSpaceObject();
+    console.log(hitObject);
+    if (hitObject) {
+      // 撞到東西了，準備自爆
+      this.destroy();
+      this.game.gameOver();
+      return;
+    }
     if (this.gif) {
       // 轉向滑鼠
       const facing = this.toLocal(mouseGlobal);
@@ -82,5 +90,15 @@ export class Fighter extends SpaceObject {
       this.velocity.rotate(rotation);
     }
     super.update(dt);
+  }
+
+  /**
+   * 檢測與所有能撞毀戰機太空物件的碰撞
+   */
+  hitTestSpaceObject() {
+    return this.game.objects.find(obj => {
+      const isCollidable = obj.type == 'asteroid' || obj.type == 'monster';
+      return isCollidable && obj.hitTest(this);
+    });
   }
 }

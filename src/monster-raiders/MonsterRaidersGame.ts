@@ -186,7 +186,6 @@ export class MonsterRaidersGame extends Container {
     }
     // 隨機選擇畫面外 120 個像素的一個位置
     const pos = this.randomPositionOnScreenEdge(120);
-    console.log(pos);
     // 建立小行星
     const asteroid = new Asteroid(this, pos.x, pos.y);
     // 延長小行星最短壽命
@@ -203,6 +202,7 @@ export class MonsterRaidersGame extends Container {
    * 遊戲結束
    */
   gameOver() {
+    console.log('GameOver');
     // 戰機在被銷毀後，攝影機取得戰機的座標會出錯，所以要移除攝影機的 focus
     this.camera.focus = undefined;
   }
