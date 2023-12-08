@@ -1,4 +1,11 @@
-import { Application, Container, Graphics, PI_2, Point } from 'pixi.js';
+import {
+  Application,
+  Container,
+  Graphics,
+  PI_2,
+  Point,
+  Rectangle
+} from 'pixi.js';
 import { SpaceObject } from './SpaceObject';
 import { getStageSize } from 'lib/rwd-stage';
 import { Asteroid } from './Asteroid';
@@ -116,5 +123,39 @@ export class MonsterRaidersGame extends Container {
         focus.y += 1;
       }
     });
+  }
+
+  /**
+   * 從畫面外圍矩形的邊上隨機取點
+   * @param padding 距離畫面外圍多少範圍
+   */
+  randomPositionOnScreenEdge(padding: number): Point {
+    // 計算全畫面的矩形
+    const stage = this.app.stage;
+    // 在計算畫面的矩形時，由於 stage 置中，所以在寬度比舞台寬的畫面上
+    // stage.x 就是舞台離畫面左側的距離，那麼全畫面的寬就是舞台寬 + 左右寬
+    const screenWidth = getStageSize().width + stage.x * 2;
+    const screenHeight = getStageSize().height + stage.y * 2;
+    const rect = new Rectangle(
+      this.camera.position.x - screenWidth / 2,
+      this.camera.position.y - screenHeight / 2,
+      screenWidth,
+      screenHeight
+    );
+    // 將矩形向四個方向擴展 padding
+    rect.pad(padding);
+    // 開始決定小行星的出生點，先定在隨機的四個頂點之一
+    const pos = new Point(
+      Math.random() < 0.5 ? rect.x : rect.right,
+      Math.random() < 0.5 ? rect.y : rect.bottom
+    );
+    if (Math.random() < 0.5) {
+      // 有一半的機率在橫邊上隨機移動
+      pos.x = Math.random() * rect.width * rect.x;
+    } else {
+      // 有一半的機率在豎邊上隨機移動
+      pos.y = Math.random() * rect.height * rect.y;
+    }
+    return pos;
   }
 }
