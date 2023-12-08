@@ -198,4 +198,12 @@ export class MonsterRaidersGame extends Container {
     // 遞迴呼叫自已，準備產生下一個小行星
     this.createAsteroidLoop();
   }
+
+  /**
+   * 遊戲結束
+   */
+  gameOver() {
+    // 戰機在被銷毀後，攝影機取得戰機的座標會出錯，所以要移除攝影機的 focus
+    this.camera.focus = undefined;
+  }
 }
