@@ -13,11 +13,17 @@ import { Camera2D } from 'lib/camera/Camera2D';
 import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
 import { Fighter } from './Fighter';
+import { WaitManager } from 'lib/WaitManager';
 
 /**
  * 怪戰掃蕩隊遊遊戲
  */
 export class MonsterRaidersGame extends Container {
+  /**
+   * 等待管理員
+   */
+  waitManager: WaitManager;
+
   /**
    * 裝所有太空物件的容器
    */
@@ -35,6 +41,7 @@ export class MonsterRaidersGame extends Container {
 
   constructor(public app: Application) {
     super();
+    this.waitManager = new WaitManager(app.ticker);
     app.stage.addChild(this);
     this.addChild(this.spaceRoot);
     // 讓 container 的 children 陣列在實際繪圖前，
@@ -51,6 +58,8 @@ export class MonsterRaidersGame extends Container {
     this.camera.height = getStageSize().height;
     this.camera.gameRoot = this.spaceRoot;
     this.camera.focus = fighter;
+    // 開始定期產生小行星
+    this.createAsteroidLoop();
   }
 
   /**
@@ -151,11 +160,42 @@ export class MonsterRaidersGame extends Container {
     );
     if (Math.random() < 0.5) {
       // 有一半的機率在橫邊上隨機移動
-      pos.x = Math.random() * rect.width * rect.x;
+      pos.x = rect.x + Math.random() * rect.width;
     } else {
       // 有一半的機率在豎邊上隨機移動
-      pos.y = Math.random() * rect.height * rect.y;
+      pos.y = rect.y + Math.random() * rect.height;
     }
     return pos;
+  }
+
+  /**
+   * 暫停多少時間 ticks (frames)
+   * @param ticks 等待的時間 ticks (frames)
+   */
+  wait(ticks: number): Promise<void> {
+    return this.waitManager.add(ticks);
+  }
+
+  /**
+   * 定期新增小行星
+   */
+  async createAsteroidLoop() {
+    if (this.destroyed) {
+      // 如果遊戲已被銷毀則不繼續
+      return;
+    }
+    // 隨機選擇畫面外 120 個像素的一個位置
+    const pos = this.randomPositionOnScreenEdge(120);
+    console.log(pos);
+    // 建立小行星
+    const asteroid = new Asteroid(this, pos.x, pos.y);
+    // 延長小行星最短壽命
+    asteroid.minLifespan = 120;
+    // 放進小行星陣列
+    this.objects.push(asteroid);
+    // 等待
+    await this.wait(12);
+    // 遞迴呼叫自已，準備產生下一個小行星
+    this.createAsteroidLoop();
   }
 }
