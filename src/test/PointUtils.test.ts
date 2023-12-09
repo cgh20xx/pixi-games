@@ -55,8 +55,8 @@ describe('Point', () => {
 
   describe('distanceTo', () => {
     test('計算距離另一個座標(Point)的距離', () => {
-      const point = new Point(0, 0);
-      const distance = point.distanceTo(new Point(3, 4));
+      const point = new Point(1, 0);
+      const distance = point.distanceTo(new Point(4, 4));
       expect(distance).toBe(5);
     });
   });

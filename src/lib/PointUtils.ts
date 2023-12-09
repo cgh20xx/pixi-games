@@ -115,7 +115,7 @@ ObservablePoint.prototype.normalize = Point.prototype.normalize;
 
 Point.prototype.distanceTo = function (other: IPoint) {
   const dx = this.x - other.x;
-  const dy = this.x - other.y;
+  const dy = this.y - other.y;
   return Math.sqrt(dx * dx + dy * dy);
 };
 ObservablePoint.prototype.distanceTo = Point.prototype.distanceTo;
