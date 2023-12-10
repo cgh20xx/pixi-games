@@ -4,6 +4,7 @@ import fighterImg from 'images/space-fighter.gif';
 import { gifFrom } from 'lib/PixiGifUtils';
 // import { Rectangle } from 'pixi.js';
 import { mouseGlobal } from 'lib/PixiMouseUtils';
+import { Explosion } from './Explosion';
 
 export class Fighter extends SpaceObject {
   // 不用覆寫 constructor
@@ -76,6 +77,7 @@ export class Fighter extends SpaceObject {
     console.log(hitObject);
     if (hitObject) {
       // 撞到東西了，準備自爆
+      new Explosion().playAndDestroy(this);
       this.destroy();
       this.game.gameOver();
       return;
