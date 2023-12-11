@@ -41,9 +41,8 @@ export class Background extends Container {
 
   /**
    * 更新函式
-   * @param dt 經過時間
    */
-  update(dt: number) {
+  update() {
     // 讓背景跟據攝影機的位置以一定比例去平移
     const camera = this.game.camera;
     // 以 0.2 的比例平移最下層黑底星空的 tile 原點

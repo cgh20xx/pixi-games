@@ -74,7 +74,6 @@ export class Fighter extends SpaceObject {
    */
   update(dt: number) {
     const hitObject = this.hitTestSpaceObject();
-    console.log(hitObject);
     if (hitObject) {
       // 撞到東西了，準備自爆
       new Explosion().playAndDestroy(this);
