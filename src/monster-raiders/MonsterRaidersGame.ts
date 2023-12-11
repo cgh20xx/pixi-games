@@ -14,6 +14,7 @@ import { keyboardManager } from 'lib/keyboard/KeyboardManager';
 import { KeyCode } from 'lib/keyboard/KeyCode';
 import { Fighter } from './Fighter';
 import { WaitManager } from 'lib/WaitManager';
+import { Background } from './Background';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -60,6 +61,8 @@ export class MonsterRaidersGame extends Container {
     this.camera.focus = fighter;
     // 開始定期產生小行星
     this.createAsteroidLoop();
+    // 建立循環的星空背景
+    new Background(this);
   }
 
   /**
