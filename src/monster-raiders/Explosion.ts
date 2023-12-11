@@ -7,6 +7,10 @@ import {
 } from 'pixi.js';
 import { SpaceObject } from './SpaceObject';
 import explosionImg from 'images/explosion-spritesheet.png';
+import fighterExplodeSound from 'sounds/fighter-explode.mp3';
+import monsterExplodeSound from 'sounds/monster-explode.mp3';
+import missileExplodeSound from 'sounds/missile-explode.mp3';
+import { playSound } from 'lib/SoundUtils';
 
 /**
  * 爆炸特效
@@ -47,6 +51,18 @@ export class Explosion extends Container {
     this.animation.play();
     // 播完動畫時銷毀
     this.animation.onComplete = () => this.destroy();
+    // 依太空物件的種類播放不同的音效
+    switch (target.type) {
+      case 'fighter':
+        playSound(fighterExplodeSound);
+        break;
+      case 'monster':
+        playSound(monsterExplodeSound);
+        break;
+      default:
+        playSound(missileExplodeSound);
+        break;
+    }
   }
 }
 
