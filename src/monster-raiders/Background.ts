@@ -23,8 +23,34 @@ export class Background extends Container {
       getStageSize().height
     );
     this.addChild(this.starrySprite);
-    this.starrySprite.tileScale.set(0.2);
+    this.starrySprite.tileScale.set(0.5);
     // 將 Background 加入遊戲容器的最底層
     game.addChildAt(this, 0);
+    // 開始更新循環
+    this.game.app.ticker.add(this.update, this);
+  }
+
+  /**
+   * 銷毀星空背景物件
+   * @override
+   */
+  destroy() {
+    super.destroy();
+    this.game.app.ticker.remove(this.update, this);
+  }
+
+  /**
+   * 更新函式
+   * @param dt 經過時間
+   */
+  update(dt: number) {
+    // 讓背景跟據攝影機的位置以一定比例去平移
+    const camera = this.game.camera;
+    // 以 0.2 的比例平移最下層黑底星空的 tile 原點
+    const shiftRate = 0.2;
+    this.starrySprite.tilePosition.set(
+      -camera.position.x * shiftRate,
+      -camera.position.y * shiftRate
+    );
   }
 }
