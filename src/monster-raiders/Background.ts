@@ -84,14 +84,11 @@ export class Background extends Container {
   refreshSize() {
     this.x = fullScreenArea.x;
     this.y = fullScreenArea.y;
-    // this.width = fullScreenArea.width;
-    // this.height = fullScreenArea.height;
     // 黑底星空的尺寸
     this.starrySprite.width = fullScreenArea.width;
     this.starrySprite.height = fullScreenArea.height;
     // 半透明星空的尺討
     this.starsSprite.width = fullScreenArea.width;
     this.starsSprite.height = fullScreenArea.height;
-    console.log(this.width, this.height);
   }
 }
