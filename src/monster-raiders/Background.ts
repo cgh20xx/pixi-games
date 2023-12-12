@@ -2,7 +2,7 @@ import { Container, Texture, TilingSprite } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
 import starrySpaceImg from 'images/starry-space.png';
 import starsImg from 'images/stars.png';
-import { getStageSize } from 'lib/rwd-stage';
+import { fullScreenArea, getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 
 /**
  * 星空循環背景
@@ -42,6 +42,10 @@ export class Background extends Container {
     this.starsSprite.tileScale.set(0.8);
     // 開始更新循環
     this.game.app.ticker.add(this.update, this);
+    // 初次更新全景背景尺寸
+    this.refreshSize();
+    // 偵聽舞台改變事件，舞台改變時更新全景背景尺寸
+    stageSizeEvent.on('resize', this.refreshSize, this);
   }
 
   /**
@@ -72,5 +76,22 @@ export class Background extends Container {
       -camera.position.x * shiftRate,
       -camera.position.y * shiftRate
     );
+  }
+
+  /**
+   * 更新背景尺寸
+   */
+  refreshSize() {
+    this.x = fullScreenArea.x;
+    this.y = fullScreenArea.y;
+    // this.width = fullScreenArea.width;
+    // this.height = fullScreenArea.height;
+    // 黑底星空的尺寸
+    this.starrySprite.width = fullScreenArea.width;
+    this.starrySprite.height = fullScreenArea.height;
+    // 半透明星空的尺討
+    this.starsSprite.width = fullScreenArea.width;
+    this.starsSprite.height = fullScreenArea.height;
+    console.log(this.width, this.height);
   }
 }
