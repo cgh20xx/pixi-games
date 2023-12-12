@@ -15,6 +15,7 @@ import { KeyCode } from 'lib/keyboard/KeyCode';
 import { Fighter } from './Fighter';
 import { WaitManager } from 'lib/WaitManager';
 import { Background } from './Background';
+import { Monster } from './Monster';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -63,6 +64,8 @@ export class MonsterRaidersGame extends Container {
     this.createAsteroidLoop();
     // 建立循環的星空背景
     new Background(this);
+    // 開始定期產生怪獸
+    this.createMonsterLoop();
   }
 
   /**
@@ -199,6 +202,26 @@ export class MonsterRaidersGame extends Container {
     await this.wait(12);
     // 遞迴呼叫自已，準備產生下一個小行星
     this.createAsteroidLoop();
+  }
+
+  /**
+   * 定期新增怪獸
+   */
+  async createMonsterLoop() {
+    if (this.destroyed) {
+      // 如果遊戲已被銷毀則不繼續
+      return;
+    }
+    // 隨機選擇畫面外 40 像素的一個位置
+    const pos = this.randomPositionOnScreenEdge(40);
+    // 建立怪獸
+    const monster = new Monster(this, pos.x, pos.y);
+    // 放進陣列
+    this.objects.push(monster);
+    // 等待
+    await this.wait(60);
+    // 遞迴呼叫自已，準備產生下一個怪獸
+    this.createMonsterLoop();
   }
 
   /**
