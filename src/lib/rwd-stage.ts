@@ -2,7 +2,8 @@
  * 響應式 canvas 尺寸且舞台自動縮放並 fit 畫布
  * 這隻檔案適合用在有框架的環境
  */
-import { Application, Graphics } from 'pixi.js';
+import { Application, Graphics, Rectangle } from 'pixi.js';
+import { EventEmitter } from 'eventemitter3';
 
 // export let app: Application;
 // export const app = new Application<HTMLCanvasElement>();
@@ -20,6 +21,16 @@ const stageSize = {
   width: 0,
   height: 0
 };
+
+/**
+ * 全畫面範圍的矩形 (這裡的全畫面是以 stageSize 去盡可能的上下或左右延伸畫面，非 window 寬高)
+ * */
+export const fullScreenArea = new Rectangle();
+
+/**
+ * 事件發報機，當舞台大小改變時，用來發送事件
+ */
+export const stageSizeEvent = new EventEmitter();
 
 /**
  * 重繪舞台的外框
@@ -77,6 +88,14 @@ export function refreshCanvasAndStage(app: Application): void {
     (winSize.width - stageRealSize.width) / 2,
     (winSize.height - stageRealSize.height) / 2
   );
+
+  // 計算全畫面矩形的位置與大小
+  fullScreenArea.x = -app.stage.x / scale;
+  fullScreenArea.y = -app.stage.y / scale;
+  fullScreenArea.width = winSize.width / scale;
+  fullScreenArea.height = winSize.height / scale;
+  // 發報舞台改變事件
+  stageSizeEvent.emit('resize', stageSize);
 }
 
 /**
