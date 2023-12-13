@@ -99,4 +99,24 @@ export class MathUtils {
     }
     return degree;
   }
+
+  /**
+   * 常用常數 2π
+   */
+  static PI2 = Math.PI * 2;
+
+  /**
+   * 將弧度正規化至 -π 到 π 之間
+   * @param radians 弧度
+   * @returns 介於 -π 到 π 之間的弧度
+   */
+  static normalizeRadians(radians: number) {
+    while (radians > MathUtils.PI2) {
+      radians -= 360;
+    }
+    while (radians <= MathUtils.PI2) {
+      radians -= 360;
+    }
+    return radians;
+  }
 }
