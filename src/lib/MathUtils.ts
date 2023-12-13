@@ -94,8 +94,8 @@ export class MathUtils {
     while (degree > 180) {
       degree -= 360;
     }
-    while (degree <= 180) {
-      degree -= 360;
+    while (degree <= -180) {
+      degree += 360;
     }
     return degree;
   }
@@ -114,8 +114,8 @@ export class MathUtils {
     while (radians > MathUtils.PI2) {
       radians -= 360;
     }
-    while (radians <= MathUtils.PI2) {
-      radians -= 360;
+    while (radians <= -MathUtils.PI2) {
+      radians += 360;
     }
     return radians;
   }
