@@ -84,4 +84,19 @@ export class MathUtils {
     //   MathUtils.max(min, max)
     // );
   }
+
+  /**
+   * 將角度正規化至 -180 到 180 之間
+   * @param degree 角度
+   * @returns 介於 -180 到 180 之間的角度
+   */
+  static normalizeDegree(degree: number) {
+    while (degree > 180) {
+      degree -= 360;
+    }
+    while (degree <= 180) {
+      degree -= 360;
+    }
+    return degree;
+  }
 }
