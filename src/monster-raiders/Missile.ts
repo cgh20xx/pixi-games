@@ -1,6 +1,7 @@
 import { Sprite } from 'pixi.js';
 import { SpaceObject, SpaceObjectType } from './SpaceObject';
 import missileImg from 'images/missile.png';
+import { Explosion } from './Explosion';
 
 export class Missile extends SpaceObject {
   // 不用覆寫 constructor
@@ -34,5 +35,38 @@ export class Missile extends SpaceObject {
     this.rotation = rotation;
     this.velocity.x = 8; // 飛彈的速度
     this.velocity.rotate(rotation);
+  }
+
+  /**
+   * 檢查小行星或怪獸碰撞是否與飛彈碰撞
+   * @returns 回傳被碰撞的太空物件
+   */
+  hitTestSpaceObject(): SpaceObject | undefined {
+    return this.game.objects.find(obj => {
+      const isCollidable = obj.type === 'asteroid' || obj.type === 'monster';
+      return isCollidable && obj.hitTest(this);
+    });
+  }
+
+  /**
+   * 更新函式
+   * @param dt 經過時間
+   * @override
+   */
+  update(dt: number) {
+    const hitObject = this.hitTestSpaceObject();
+    if (hitObject) {
+      // 撞到東西，準備自爆
+      if (hitObject.type === 'monster') {
+        // 撞到怪獸，爆炸放在怪獸的位置，消滅怪獸和飛彈
+        new Explosion().playAndDestroy(hitObject);
+        hitObject.destroy();
+      } else {
+        // 撞到小行星，爆炸飛彈的位置，消滅飛彈，小行星不會被消滅
+        new Explosion().playAndDestroy(this);
+      }
+      this.destroy();
+    }
+    super.update(dt);
   }
 }

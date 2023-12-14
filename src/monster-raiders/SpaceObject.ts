@@ -58,6 +58,8 @@ export abstract class SpaceObject extends Container {
    * @param dt 經過時間
    */
   update(dt: number) {
+    // 若物件 destroyed 後還存取會發生錯誤，所以需先檢查
+    if (this.destroyed) return;
     // 依速度移動
     this.x += this.velocity.x * dt;
     this.y += this.velocity.y * dt;
