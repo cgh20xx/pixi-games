@@ -5,6 +5,9 @@ import { gifFrom } from 'lib/PixiGifUtils';
 // import { Rectangle } from 'pixi.js';
 import { mouseGlobal } from 'lib/PixiMouseUtils';
 import { Explosion } from './Explosion';
+import { Missile } from './Missile';
+import { playSound } from 'lib/SoundUtils';
+import missileSound from 'sounds/missile-launch.mp3';
 
 export class Fighter extends SpaceObject {
   // 不用覆寫 constructor
@@ -31,6 +34,20 @@ export class Fighter extends SpaceObject {
     this.hitRadius = 16;
     this.drawHitCircle();
     // this.startFacingMouse();
+    // 偵聽 pointerdown 事件
+    const stage = this.game.app.stage;
+    stage.on('pointerdown', this.launchMissile, this);
+  }
+
+  /**
+   * 銷毀戰機物件
+   * @override
+   */
+  destroy(): void {
+    super.destroy();
+    const stage = this.game.app.stage;
+    // 戰機銷毀就不能發射飛彈
+    stage.off('pointerdown', this.launchMissile, this);
   }
 
   private async loadFighterGIF() {
@@ -101,5 +118,17 @@ export class Fighter extends SpaceObject {
       const isCollidable = obj.type == 'asteroid' || obj.type == 'monster';
       return isCollidable && obj.hitTest(this);
     });
+  }
+
+  /**
+   * 發射飛彈
+   */
+  launchMissile() {
+    if (this.gif) {
+      const missile = new Missile(this.game, this.x, this.y);
+      missile.setDirection(this.gif.rotation);
+      // 發射飛彈的音效
+      playSound(missileSound);
+    }
   }
 }
