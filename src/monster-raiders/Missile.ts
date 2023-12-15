@@ -61,6 +61,7 @@ export class Missile extends SpaceObject {
         // 撞到怪獸，爆炸放在怪獸的位置，消滅怪獸和飛彈
         new Explosion().playAndDestroy(hitObject);
         hitObject.destroy();
+        this.game.addScore(1);
       } else {
         // 撞到小行星，爆炸飛彈的位置，消滅飛彈，小行星不會被消滅
         new Explosion().playAndDestroy(this);

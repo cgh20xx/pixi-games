@@ -41,6 +41,11 @@ export class MonsterRaidersGame extends Container {
    */
   camera: Camera2D;
 
+  /**
+   * 分數
+   */
+  score = 0;
+
   constructor(public app: Application) {
     super();
     this.waitManager = new WaitManager(app.ticker);
@@ -231,5 +236,13 @@ export class MonsterRaidersGame extends Container {
     console.log('GameOver');
     // 戰機在被銷毀後，攝影機取得戰機的座標會出錯，所以要移除攝影機的 focus
     this.camera.focus = undefined;
+  }
+
+  /**
+   * 增加分數
+   * @param value 要增加的分數
+   */
+  addScore(value: number) {
+    this.score += value;
   }
 }
