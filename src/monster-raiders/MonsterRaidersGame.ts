@@ -16,6 +16,9 @@ import { Fighter } from './Fighter';
 import { WaitManager } from 'lib/WaitManager';
 import { Background } from './Background';
 import { Monster } from './Monster';
+import { IMediaInstance } from '@pixi/sound';
+import { playSound } from 'lib/SoundUtils';
+import musicSound from 'sounds/yemingkenoshisaido.mp3';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -46,6 +49,11 @@ export class MonsterRaidersGame extends Container {
    */
   score = 0;
 
+  /**
+   * 背景音樂
+   */
+  music?: IMediaInstance;
+
   constructor(public app: Application) {
     super();
     this.waitManager = new WaitManager(app.ticker);
@@ -71,6 +79,12 @@ export class MonsterRaidersGame extends Container {
     new Background(this);
     // 開始定期產生怪獸
     this.createMonsterLoop();
+    // 播放音樂
+    this.playMusic();
+  }
+
+  async playMusic() {
+    this.music = await playSound(musicSound, { loop: true, volume: 0.5 });
   }
 
   /**
@@ -79,6 +93,7 @@ export class MonsterRaidersGame extends Container {
    */
   destroy() {
     super.destroy();
+    this.music && this.music.destroy();
   }
 
   /**
@@ -236,6 +251,10 @@ export class MonsterRaidersGame extends Container {
     console.log('GameOver');
     // 戰機在被銷毀後，攝影機取得戰機的座標會出錯，所以要移除攝影機的 focus
     this.camera.focus = undefined;
+    // 遊戲結束，將音樂調小
+    if (this.music) {
+      this.music.volume = 0.1;
+    }
   }
 
   /**
