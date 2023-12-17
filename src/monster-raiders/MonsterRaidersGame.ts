@@ -272,5 +272,6 @@ export class MonsterRaidersGame extends Container {
    */
   addScore(value: number) {
     this.score += value;
+    this.ui.setScore(this.score);
   }
 }
