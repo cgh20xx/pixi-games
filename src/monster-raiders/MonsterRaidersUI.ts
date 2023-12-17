@@ -105,7 +105,7 @@ export class MonsterRaidersUI extends Container {
     refreshButton();
 
     // 偵聽按鈕事件，切換背景音樂開關狀態
-    button.on('click', () => {
+    button.on('pointerup', () => {
       const music = this.game.music;
       if (music) {
         music.muted = !music.muted;
