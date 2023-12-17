@@ -1,6 +1,15 @@
-import { Container, Graphics, Sprite, Text } from 'pixi.js';
+import {
+  BaseTexture,
+  Container,
+  Graphics,
+  Rectangle,
+  Sprite,
+  Text,
+  Texture
+} from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
 import { getStageSize } from 'lib/rwd-stage';
+import musicNotesImg from 'images/music-notes.png';
 
 export class MonsterRaidersUI extends Container {
   /**
@@ -16,6 +25,7 @@ export class MonsterRaidersUI extends Container {
   constructor(public game: MonsterRaidersGame) {
     super();
     this.createScoreText();
+    this.createMusicButton();
   }
 
   /**
@@ -56,5 +66,42 @@ export class MonsterRaidersUI extends Container {
     }
   }
 
-  private createMusicButton() {}
+  /**
+   * 建立音樂開關按鈕
+   */
+  private createMusicButton() {
+    // 準備音樂開與關兩個圖示材質 (從同一個 BaseTexture 分別建立)
+    const baseTexture = BaseTexture.from(musicNotesImg);
+    // 音樂開材質
+    const musicOnTexture = new Texture(
+      baseTexture,
+      new Rectangle(0, 0, 64, 64)
+    );
+    // 音樂關材質
+    const musicOffTexture = new Texture(
+      baseTexture,
+      new Rectangle(64, 0, 64, 64)
+    );
+    // 建立按鈕的精靈啤
+    const button = new Sprite();
+    button.position.set(getStageSize().width - 36, 12);
+    button.scale.set(0.4);
+    button.eventMode = 'static';
+    button.cursor = 'pointer';
+    this.addChild(button);
+
+    /**
+     * 更新按鈕的圖案
+     */
+    const refreshButton = () => {
+      const music = this.game.music;
+      if (music && music.muted) {
+        button.texture = musicOffTexture;
+      } else {
+        button.texture = musicOnTexture;
+      }
+    };
+
+    refreshButton();
+  }
 }
