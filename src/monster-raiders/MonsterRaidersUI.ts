@@ -8,7 +8,7 @@ import {
   Texture
 } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
-import { getStageSize } from 'lib/rwd-stage';
+import { fullScreenArea, getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import musicNotesImg from 'images/music-notes.png';
 
 export class MonsterRaidersUI extends Container {
@@ -26,6 +26,16 @@ export class MonsterRaidersUI extends Container {
     super();
     this.createScoreText();
     this.createMusicButton();
+    stageSizeEvent.on('resize', this.updateTop, this);
+  }
+
+  /**
+   * 銷滅
+   * @override
+   */
+  destroy() {
+    super.destroy();
+    stageSizeEvent.off('resize', this.updateTop, this);
   }
 
   /**
@@ -51,6 +61,8 @@ export class MonsterRaidersUI extends Container {
     this.addChild(this.scoreText);
     // 設定分數
     this.setScore(this.game.score);
+    // 調整 UI 頂端的位置於全畫面上方
+    this.updateTop();
   }
 
   /**
@@ -112,5 +124,12 @@ export class MonsterRaidersUI extends Container {
         refreshButton();
       }
     });
+  }
+
+  /**
+   * 調整 UI 頂端的位置於全畫面上方
+   */
+  private updateTop() {
+    this.y = fullScreenArea.y;
   }
 }
