@@ -19,6 +19,7 @@ import { Monster } from './Monster';
 import { IMediaInstance } from '@pixi/sound';
 import { playSound } from 'lib/SoundUtils';
 import musicSound from 'sounds/yemingkenoshisaido.mp3';
+import { MonsterRaidersUI } from './MonsterRaidersUI';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -54,6 +55,11 @@ export class MonsterRaidersGame extends Container {
    */
   music?: IMediaInstance;
 
+  /**
+   * 分數及音樂開關 UI
+   */
+  ui: MonsterRaidersUI;
+
   constructor(public app: Application) {
     super();
     this.waitManager = new WaitManager(app.ticker);
@@ -81,6 +87,9 @@ export class MonsterRaidersGame extends Container {
     this.createMonsterLoop();
     // 播放音樂
     this.playMusic();
+    // 建立遊戲 UI
+    this.ui = new MonsterRaidersUI(this);
+    this.addChild(this.ui);
   }
 
   async playMusic() {
