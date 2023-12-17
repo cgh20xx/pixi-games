@@ -20,6 +20,7 @@ import { IMediaInstance } from '@pixi/sound';
 import { playSound } from 'lib/SoundUtils';
 import musicSound from 'sounds/yemingkenoshisaido.mp3';
 import { MonsterRaidersUI } from './MonsterRaidersUI';
+import { MonsterRaidersGameOver } from './MonsterRaidersGameOver';
 
 /**
  * 怪戰掃蕩隊遊遊戲
@@ -257,13 +258,13 @@ export class MonsterRaidersGame extends Container {
    * 遊戲結束
    */
   gameOver() {
-    console.log('GameOver');
     // 戰機在被銷毀後，攝影機取得戰機的座標會出錯，所以要移除攝影機的 focus
     this.camera.focus = undefined;
     // 遊戲結束，將音樂調小
     if (this.music) {
       this.music.volume = 0.1;
     }
+    new MonsterRaidersGameOver(this);
   }
 
   /**
