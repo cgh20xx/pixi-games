@@ -18,7 +18,7 @@ export class MonsterRaidersUI extends Container {
   scoreText?: Text;
 
   /**
-   * 音樂開關 UI
+   * 背景音樂開關 UI
    */
   musicButton?: Sprite;
 
@@ -67,17 +67,17 @@ export class MonsterRaidersUI extends Container {
   }
 
   /**
-   * 建立音樂開關按鈕
+   * 建立背景音樂開關按鈕
    */
   private createMusicButton() {
-    // 準備音樂開與關兩個圖示材質 (從同一個 BaseTexture 分別建立)
+    // 準備背景音樂開與關兩個圖示材質 (從同一個 BaseTexture 分別建立)
     const baseTexture = BaseTexture.from(musicNotesImg);
-    // 音樂開材質
+    // 背景音樂開材質
     const musicOnTexture = new Texture(
       baseTexture,
       new Rectangle(0, 0, 64, 64)
     );
-    // 音樂關材質
+    // 背景音樂關材質
     const musicOffTexture = new Texture(
       baseTexture,
       new Rectangle(64, 0, 64, 64)
@@ -103,5 +103,14 @@ export class MonsterRaidersUI extends Container {
     };
 
     refreshButton();
+
+    // 偵聽按鈕事件，切換背景音樂開關狀態
+    button.on('click', () => {
+      const music = this.game.music;
+      if (music) {
+        music.muted = !music.muted;
+        refreshButton();
+      }
+    });
   }
 }
