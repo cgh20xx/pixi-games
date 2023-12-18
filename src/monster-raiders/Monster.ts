@@ -39,7 +39,7 @@ export class Monster extends SpaceObject {
     // 設定碰撞半徑
     this.hitRadius = 20;
     // 並畫出碰撞圓 (測試用)
-    this.drawHitCircle();
+    // this.drawHitCircle();
   }
 
   /**

@@ -32,7 +32,8 @@ export class Fighter extends SpaceObject {
     this.zIndex = 4;
     this.loadFighterGIF();
     this.hitRadius = 16;
-    this.drawHitCircle();
+    // 並畫出碰撞圓 (測試用)
+    // this.drawHitCircle();
     // this.startFacingMouse();
     // 偵聽 pointerdown 事件
     const stage = this.game.app.stage;

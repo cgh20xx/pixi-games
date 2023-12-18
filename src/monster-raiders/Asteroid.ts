@@ -37,7 +37,7 @@ export class Asteroid extends SpaceObject {
     // 計算碰撞半徑
     this.hitRadius = sprite.scale.x * 110;
     // 並畫出碰撞圓 (測試用)
-    this.drawHitCircle();
+    // this.drawHitCircle();
   }
 
   /**
