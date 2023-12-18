@@ -105,5 +105,21 @@ export class MonsterRaidersGameOver extends Container {
 
     // 加入對話框容器
     this.addChild(button);
+
+    // 偵聽滑鼠事件
+    button.on('click', () => {
+      this.game.destroy();
+      new MonsterRaidersGame(this.game.app);
+    });
+
+    // 滑鼠滑入
+    button.on('pointerover', () => {
+      bg.tint = 0x3f51b5;
+    });
+
+    // 滑鼠滑出
+    button.on('pointerout', () => {
+      bg.tint = 0x283593;
+    });
   }
 }
