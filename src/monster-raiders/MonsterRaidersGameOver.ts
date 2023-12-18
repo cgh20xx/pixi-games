@@ -13,6 +13,8 @@ export class MonsterRaidersGameOver extends Container {
     this.drawBackground(480, 240);
     // 寫上遊戲結束的字
     this.drawGameOverText(20);
+    // 寫上分數文字
+    this.drawScoreText(100);
     // 加入遊戲容器中
     game.addChild(this);
     // 對話框置中
@@ -48,5 +50,21 @@ export class MonsterRaidersGameOver extends Container {
     gameOverText.resolution = 2;
     gameOverText.position.set((this.width - gameOverText.width) / 2, y);
     this.addChild(gameOverText);
+  }
+
+  /**
+   * 寫上分數文字
+   * @param y 垂直座標
+   */
+  drawScoreText(y: number) {
+    const score = this.game.score.toLocaleString();
+    const scoreText = new Text(`SCORE ${score}`, {
+      fontFamily: 'SpaceInvadersFont',
+      fontSize: 32,
+      fill: 0x006600
+    });
+    scoreText.resolution = 2;
+    scoreText.position.set((this.width - scoreText.width) / 2, y);
+    this.addChild(scoreText);
   }
 }
