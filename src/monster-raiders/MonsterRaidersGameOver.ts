@@ -15,6 +15,8 @@ export class MonsterRaidersGameOver extends Container {
     this.drawGameOverText(20);
     // 寫上分數文字
     this.drawScoreText(100);
+    // 建立再玩一次按鈕
+    this.createRestartButton(160);
     // 加入遊戲容器中
     game.addChild(this);
     // 對話框置中
@@ -66,5 +68,42 @@ export class MonsterRaidersGameOver extends Container {
     scoreText.resolution = 2;
     scoreText.position.set((this.width - scoreText.width) / 2, y);
     this.addChild(scoreText);
+  }
+
+  /**
+   * 建立再玩一次按鈕
+   * @param y 垂直座標
+   */
+  createRestartButton(y: number) {
+    // 先建立整個按鈕的容器
+    const button = new Container();
+    // 幫按鈕加上圓角矩形背景
+    const bg = new Graphics();
+    bg.beginFill(0xffffff);
+    bg.drawRoundedRect(0, 0, 240, 48, 24);
+    bg.endFill();
+    // 預設的按鈕背景底色
+    bg.tint = 0x283593; // 使用 tint 較不吃系統資源
+    button.addChild(bg);
+    // 再加上重玩一次的按鈕標籤
+    const label = new Text('Restart', {
+      fontFamily: 'SpaceInvadersFont',
+      fontSize: 36,
+      fill: 0xffffff
+    });
+    label.resolution = 2;
+    label.position.set(
+      (bg.width - label.width) / 2,
+      (bg.height - label.height) / 2
+    );
+    button.addChild(label);
+    // 設定按鈕互動屬性
+    button.eventMode = 'static';
+    button.cursor = 'pointer';
+    // 設定按鈕在對話框水平置中
+    button.position.set((this.width - button.width) / 2, y);
+
+    // 加入對話框容器
+    this.addChild(button);
   }
 }
