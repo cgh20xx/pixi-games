@@ -61,6 +61,12 @@ export class MonsterRaidersGame extends Container {
    */
   ui: MonsterRaidersUI;
 
+  /**
+   * 音樂靜音的記憶
+   * @default false
+   */
+  static musicMuted = false;
+
   constructor(public app: Application) {
     super();
     this.waitManager = new WaitManager(app.ticker);
@@ -94,7 +100,13 @@ export class MonsterRaidersGame extends Container {
   }
 
   async playMusic() {
-    this.music = await playSound(musicSound, { loop: true, volume: 0.5 });
+    this.music = await playSound(musicSound, {
+      loop: true,
+      volume: 0.5,
+      muted: MonsterRaidersGame.musicMuted
+    });
+    // 更新介面中的音樂按鈕
+    this.ui.refreshMusicButton();
   }
 
   /**

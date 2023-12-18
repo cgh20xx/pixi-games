@@ -79,6 +79,11 @@ export class MonsterRaidersUI extends Container {
   }
 
   /**
+   * 更新音樂開關的材質
+   */
+  refreshMusicButton = () => {};
+
+  /**
    * 建立背景音樂開關按鈕
    */
   private createMusicButton() {
@@ -114,6 +119,9 @@ export class MonsterRaidersUI extends Container {
       }
     };
 
+    // 將區域函式抓出來給類別屬性
+    this.refreshMusicButton = refreshButton;
+
     refreshButton();
 
     // 偵聽按鈕事件，切換背景音樂開關狀態
@@ -121,6 +129,8 @@ export class MonsterRaidersUI extends Container {
       const music = this.game.music;
       if (music) {
         music.muted = !music.muted;
+        // 記憶音樂靜音狀態
+        MonsterRaidersGame.musicMuted = music.muted;
         refreshButton();
       }
     });
