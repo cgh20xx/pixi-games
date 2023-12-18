@@ -1,4 +1,4 @@
-import { Container, Graphics } from 'pixi.js';
+import { Container, Graphics, Text } from 'pixi.js';
 import { MonsterRaidersGame } from './MonsterRaidersGame';
 import { getStageSize } from 'lib/rwd-stage';
 
@@ -9,9 +9,11 @@ import { getStageSize } from 'lib/rwd-stage';
 export class MonsterRaidersGameOver extends Container {
   constructor(public game: MonsterRaidersGame) {
     super();
-    console.log('MonsterRaidersGameOver');
     // 畫對話框的背景
     this.drawBackground(480, 240);
+    // 寫上遊戲結束的字
+    this.drawGameOverText(20);
+    // 加入遊戲容器中
     game.addChild(this);
     // 對話框置中
     this.position.set(
@@ -31,5 +33,20 @@ export class MonsterRaidersGameOver extends Container {
     graphics.drawRoundedRect(0, 0, width, height, 10);
     graphics.endFill();
     this.addChild(graphics);
+  }
+
+  /**
+   * 寫上遊戲結束文字
+   * @param y 垂直座標
+   */
+  drawGameOverText(y: number) {
+    const gameOverText = new Text('GAME OVER', {
+      fontFamily: 'SpaceInvadersFont',
+      fontSize: 64,
+      fill: 0x990000
+    });
+    gameOverText.resolution = 2;
+    gameOverText.position.set((this.width - gameOverText.width) / 2, y);
+    this.addChild(gameOverText);
   }
 }
