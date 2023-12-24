@@ -5,6 +5,7 @@ import SpaceInvaders from './pages/SpaceInvaders';
 import MonsterRaiders from 'pages/MonsterRaiders';
 import NotFound from './pages/NotFound';
 import { ReactElement } from 'react';
+import Castle from 'pages/Castle';
 
 interface CustomRouteObject {
   path?: string;
@@ -34,6 +35,11 @@ const routes: CustomRouteObject[] = [
     path: '/monster',
     element: <MonsterRaiders />,
     linkName: '怪獸掃蕩隊'
+  },
+  {
+    path: '/castle',
+    element: <Castle />,
+    linkName: '魔王城的隕落'
   },
   {
     path: '*',
