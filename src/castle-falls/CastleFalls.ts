@@ -1,4 +1,4 @@
-import { Bodies, Composite, Engine, Runner } from 'matter-js';
+import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
 import { Application } from 'pixi.js';
 
 /**
@@ -7,6 +7,7 @@ import { Application } from 'pixi.js';
 export class CastleFalls {
   constructor(public app: Application) {
     const engine = this.createMatterWorld();
+    const render = this.createMatterRender(engine);
   }
 
   /**
@@ -26,5 +27,26 @@ export class CastleFalls {
     Runner.run(engine);
     // 回傳物理引擎
     return engine;
+  }
+
+  /**
+   * 建立物理世界的繪圖器
+   * @param engine Matter.Engine instance
+   */
+  createMatterRender(engine: Engine) {
+    // 建立 matter 的繪圖器
+    const render = Render.create({
+      engine: engine,
+      element: document.body,
+      options: {
+        width: 640,
+        height: 480,
+        wireframeBackground: 'transparent'
+      }
+    });
+    // 讓這個繪圖器(渲染器)跟著時間更新
+    Render.run(render);
+    // 回傳繪圖器
+    return render;
   }
 }
