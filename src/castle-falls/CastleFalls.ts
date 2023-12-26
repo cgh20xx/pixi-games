@@ -1,5 +1,6 @@
+import { stageSizeEvent } from 'lib/rwd-stage';
 import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
-import { Application } from 'pixi.js';
+import { Application, Container } from 'pixi.js';
 
 /**
  * 魔王城的隕落遊戲選擇頁
@@ -8,6 +9,7 @@ export class CastleFalls {
   constructor(public app: Application) {
     const engine = this.createMatterWorld();
     const render = this.createMatterRender(engine);
+    this.setupRenderView(render, app.stage);
   }
 
   /**
@@ -48,5 +50,27 @@ export class CastleFalls {
     Render.run(render);
     // 回傳繪圖器
     return render;
+  }
+
+  /**
+   * 設置 matter 的畫板與 pixi 畫板重疊
+   */
+  setupRenderView(render: Render, stage: Container) {
+    // 取得 matter 畫板的樣式
+    const canvasStyle = render.canvas.style;
+    // 將畫板位置設定為絕對位置
+    canvasStyle.position = 'absolute';
+    // 將畫板縮放的參考點設在左上角
+    canvasStyle.transformOrigin = '0 0';
+    // 依 pixi 舞台調整 matter 畫板的位置與縮放比例
+    canvasStyle.left = stage.x + 'px';
+    canvasStyle.top = stage.y + 'px';
+    canvasStyle.transform = `scale(${stage.scale.x})`;
+    // 在舞台改變時，也要重新調整畫板的位置與縮放比例
+    stageSizeEvent.on('resize', () => {
+      canvasStyle.left = stage.x + 'px';
+      canvasStyle.top = stage.y + 'px';
+      canvasStyle.transform = `scale(${stage.scale.x})`;
+    });
   }
 }
