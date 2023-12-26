@@ -13,6 +13,7 @@ export class MatterRender {
     stageSize: { width: number; height: number }
   ) {
     this.render = this.createRender(stageSize);
+    this.initRenderView(this.render);
   }
 
   /**
@@ -37,5 +38,20 @@ export class MatterRender {
         wireframeBackground: 'transparent'
       }
     });
+  }
+
+  /**
+   * 改變繪圖器的 CSS，使其排版時的位置使用絕對座標
+   * @param render 繪圖器
+   */
+  private initRenderView(render: Render) {
+    // 取得 matter 畫板的樣式
+    const canvasStyle = render.canvas.style;
+    // 將畫板位置設定為絕對位置
+    canvasStyle.position = 'absolute';
+    // 將畫板縮放的參考點設在左上角
+    canvasStyle.transformOrigin = '0 0';
+    // 取消畫面和滑鼠的互動
+    canvasStyle.pointerEvents = 'none';
   }
 }
