@@ -1,4 +1,5 @@
-import { stageSizeEvent } from 'lib/rwd-stage';
+import { MatterRender } from 'lib/matter/MatterRender';
+import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
 import { Application, Container } from 'pixi.js';
 
@@ -8,8 +9,8 @@ import { Application, Container } from 'pixi.js';
 export class CastleFalls {
   constructor(public app: Application) {
     const engine = this.createMatterWorld();
-    const render = this.createMatterRender(engine);
-    this.setupRenderView(render, app.stage);
+    const matterRender = new MatterRender(engine, app.stage, getStageSize());
+    stageSizeEvent.on('resize', matterRender.align, matterRender);
   }
 
   /**
@@ -29,48 +30,5 @@ export class CastleFalls {
     Runner.run(engine);
     // 回傳物理引擎
     return engine;
-  }
-
-  /**
-   * 建立物理世界的繪圖器
-   * @param engine Matter.Engine instance
-   */
-  createMatterRender(engine: Engine) {
-    // 建立 matter 的繪圖器
-    const render = Render.create({
-      engine: engine,
-      element: document.body,
-      options: {
-        width: 640,
-        height: 480,
-        wireframeBackground: 'transparent'
-      }
-    });
-    // 讓這個繪圖器(渲染器)跟著時間更新
-    Render.run(render);
-    // 回傳繪圖器
-    return render;
-  }
-
-  /**
-   * 設置 matter 的畫板與 pixi 畫板重疊
-   */
-  setupRenderView(render: Render, stage: Container) {
-    // 取得 matter 畫板的樣式
-    const canvasStyle = render.canvas.style;
-    // 將畫板位置設定為絕對位置
-    canvasStyle.position = 'absolute';
-    // 將畫板縮放的參考點設在左上角
-    canvasStyle.transformOrigin = '0 0';
-    // 依 pixi 舞台調整 matter 畫板的位置與縮放比例
-    canvasStyle.left = stage.x + 'px';
-    canvasStyle.top = stage.y + 'px';
-    canvasStyle.transform = `scale(${stage.scale.x})`;
-    // 在舞台改變時，也要重新調整畫板的位置與縮放比例
-    stageSizeEvent.on('resize', () => {
-      canvasStyle.left = stage.x + 'px';
-      canvasStyle.top = stage.y + 'px';
-      canvasStyle.transform = `scale(${stage.scale.x})`;
-    });
   }
 }
