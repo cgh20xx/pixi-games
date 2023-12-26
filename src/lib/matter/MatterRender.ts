@@ -14,6 +14,8 @@ export class MatterRender {
   ) {
     this.render = this.createRender(stageSize);
     this.initRenderView(this.render);
+    this.align();
+    Render.run(this.render);
   }
 
   /**
@@ -53,5 +55,25 @@ export class MatterRender {
     canvasStyle.transformOrigin = '0 0';
     // 取消畫面和滑鼠的互動
     canvasStyle.pointerEvents = 'none';
+  }
+
+  /**
+   * 讓 matter 畫布對齊 pixi 舞台位置與縮放比例
+   * @param stageSize [optional] 舞台大小
+   */
+  align(stageSize?: { width: number; height: number }) {
+    // 取得 matter 畫板的樣式
+    const canvasStyle = this.render.canvas.style;
+    const stage = this.stage;
+    // 依 pixi 舞台調整 matter 畫板的位置與縮放比例
+    canvasStyle.left = stage.x + 'px';
+    canvasStyle.top = stage.y + 'px';
+    canvasStyle.transform = `scale(${stage.scale.x})`;
+    // 如果有給舞台大小，則同步畫布尺寸
+    if (stageSize) {
+      const canvas = this.render.canvas;
+      canvas.width = stageSize.width;
+      canvas.height = stage.height;
+    }
   }
 }
