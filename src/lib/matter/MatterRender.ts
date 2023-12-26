@@ -22,4 +22,20 @@ export class MatterRender {
     Render.stop(this.render);
     this.render.canvas.remove();
   }
+
+  /**
+   * 建立 matter 的繪圖器
+   * @param size 繪圖器的尺寸，內有 width 和 height 屬性。
+   */
+  createRender(size: { width: number; height: number }) {
+    return Render.create({
+      engine: this.engine,
+      element: document.body,
+      options: {
+        width: size.width,
+        height: size.height,
+        wireframeBackground: 'transparent'
+      }
+    });
+  }
 }
