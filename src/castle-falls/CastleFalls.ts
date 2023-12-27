@@ -1,6 +1,6 @@
 import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
-import { Bodies, Composite, Engine, Render, Runner } from 'matter-js';
+import { Bodies, Body, Composite, Engine, Render, Runner } from 'matter-js';
 import { Application, Container } from 'pixi.js';
 
 /**
@@ -22,6 +22,9 @@ export class CastleFalls {
     // 新增兩個方形的剛體
     const boxA = Bodies.rectangle(400, 200, 80, 80);
     const boxB = Bodies.rectangle(450, 50, 80, 80);
+    // 對 box B 施力
+    Body.applyForce(boxB, boxB.position, { x: 0, y: -0.01 });
+
     // 新增一個長方形的靜態地板
     const ground = Bodies.rectangle(400, 400, 810, 60, { isStatic: true });
     // 將以上三個剛體都放進物理引擎的世界
