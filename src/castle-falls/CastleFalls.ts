@@ -1,6 +1,14 @@
 import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
-import { Bodies, Body, Composite, Engine, Render, Runner } from 'matter-js';
+import {
+  Bodies,
+  Body,
+  Composite,
+  Constraint,
+  Engine,
+  Render,
+  Runner
+} from 'matter-js';
 import { Application, Container } from 'pixi.js';
 
 /**
@@ -22,13 +30,18 @@ export class CastleFalls {
     // 新增兩個方形的剛體
     const boxA = Bodies.rectangle(400, 200, 80, 80);
     const boxB = Bodies.rectangle(450, 50, 80, 80);
-    // 對 box B 施力
-    Body.applyForce(boxB, boxB.position, { x: 0, y: -0.01 });
+    // 對 box B 施一個向上的力
+    Body.applyForce(boxB, boxB.position, { x: 0, y: -0.05 });
+    // 新增一個約束以維持 boxA 和 boxB 的相對位置
+    const constraint = Constraint.create({
+      bodyA: boxA,
+      bodyB: boxB
+    });
 
     // 新增一個長方形的靜態地板
     const ground = Bodies.rectangle(400, 400, 810, 60, { isStatic: true });
     // 將以上三個剛體都放進物理引擎的世界
-    Composite.add(engine.world, [boxA, boxB, ground]);
+    Composite.add(engine.world, [boxA, boxB, ground, constraint]);
     // 啟動物理引擎
     Runner.run(engine);
     // 回傳物理引擎
