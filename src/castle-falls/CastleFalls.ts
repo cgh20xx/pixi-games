@@ -35,7 +35,9 @@ export class CastleFalls {
     // 新增一個約束以維持 boxA 和 boxB 的相對位置
     const constraint = Constraint.create({
       bodyA: boxA,
-      bodyB: boxB
+      bodyB: boxB,
+      stiffness: 0.01, // 剛性
+      damping: 0.1 // 阻尼(剛性很低才看的出阻尼的效果)
     });
 
     // 新增一個長方形的靜態地板
