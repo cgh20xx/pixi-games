@@ -4,6 +4,7 @@ import {
   Bodies,
   Body,
   Composite,
+  Composites,
   Constraint,
   Engine,
   Render,
@@ -40,10 +41,15 @@ export class CastleFalls {
       damping: 0.1 // 阻尼(剛性很低才看的出阻尼的效果)
     });
 
+    // 新增一個 5x3 的堆疊
+    const stack = Composites.stack(0, 0, 5, 3, 2, 2, (x: number, y: number) => {
+      return Bodies.circle(x, y, 15, { density: 0.1 });
+    });
+
     // 新增一個長方形的靜態地板
     const ground = Bodies.rectangle(400, 400, 810, 60, { isStatic: true });
     // 將以上三個剛體都放進物理引擎的世界
-    Composite.add(engine.world, [boxA, boxB, ground, constraint]);
+    Composite.add(engine.world, [boxA, boxB, ground, constraint, stack]);
     // 啟動物理引擎
     Runner.run(engine);
     // 回傳物理引擎
