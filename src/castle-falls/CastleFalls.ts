@@ -46,6 +46,11 @@ export class CastleFalls {
       return Bodies.circle(x, y, 15, { density: 0.1 });
     });
 
+    // 將堆疊串連在一起
+    Composites.chain(stack, 0, 0, 0, 0.2, {
+      stiffness: 1
+    });
+
     // 新增一個底 5 個方塊，最高 5 層的堆疊金字塔
     const boxStack = Composites.pyramid(
       200,
