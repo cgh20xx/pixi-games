@@ -49,9 +49,13 @@ export class CastleFalls {
     // 將堆疊串連在一起
     // 第 5 個參數 yOffsetB 設定為 0.2，代表將 Constraint 串連到下一個方塊時，
     // 會鎖在下個方塊中心點往下 `0.2 * 方塊高度` 的位置
-    Composites.chain(stack, 0, 0, 0, 0.2, {
-      stiffness: 1
-    });
+    // Composites.chain(stack, 0, 0, 0, 0.2, {
+    //   stiffness: 1
+    // });
+
+    // 將推疊的方塊連成網格(mesh)
+    // 第 3 個參數 crossBrace 設為 true，網格內會多加斜向的約束，讓整體更不易變形。
+    Composites.mesh(stack, 5, 3, true, { stiffness: 1 });
 
     // 新增一個底 5 個方塊，最高 5 層的堆疊金字塔
     const boxStack = Composites.pyramid(
