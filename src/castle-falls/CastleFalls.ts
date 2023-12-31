@@ -46,10 +46,30 @@ export class CastleFalls {
       return Bodies.circle(x, y, 15, { density: 0.1 });
     });
 
+    // 新增一個底 5 個方塊，最高 5 層的堆疊金字塔
+    const boxStack = Composites.pyramid(
+      200,
+      0,
+      5,
+      5,
+      2,
+      2,
+      (x: number, y: number) => {
+        return Bodies.rectangle(x, y, 25, 25, { density: 0.1 });
+      }
+    );
+
     // 新增一個長方形的靜態地板
     const ground = Bodies.rectangle(400, 400, 810, 60, { isStatic: true });
     // 將以上三個剛體都放進物理引擎的世界
-    Composite.add(engine.world, [boxA, boxB, ground, constraint, stack]);
+    Composite.add(engine.world, [
+      boxA,
+      boxB,
+      ground,
+      constraint,
+      stack,
+      boxStack
+    ]);
     // 啟動物理引擎
     Runner.run(engine);
     // 回傳物理引擎
