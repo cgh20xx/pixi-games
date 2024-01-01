@@ -7,6 +7,8 @@ import {
   Composites,
   Constraint,
   Engine,
+  Events,
+  IEventCollision,
   Render,
   Runner
 } from 'matter-js';
@@ -81,6 +83,19 @@ export class CastleFalls {
       stack,
       boxStack
     ]);
+
+    // 監聽 engine 裡碰撞剛發生的事件
+    Events.on(engine, 'collisionStart', (e: IEventCollision<Engine>) => {
+      // 這次更新時發現的所有碰撞配對
+      const pairs = e.pairs;
+      for (const pair of pairs) {
+        // 取得其中一個碰撞的一對物體
+        const { bodyA, bodyB, collision } = pair;
+        // 碰撞資料
+        console.log(collision);
+      }
+    });
+
     // 啟動物理引擎
     Runner.run(engine);
     // 回傳物理引擎
