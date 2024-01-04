@@ -1,3 +1,5 @@
+import { Container, Graphics } from 'pixi.js';
+
 interface PixiButtonOptions {
   /**
    * 按鈕寬度
@@ -39,4 +41,27 @@ interface PixiButtonOptions {
    * 按鈕觸發的回呼函式
    */
   onClick: () => void;
+}
+
+export class PixiButton extends Container {
+  constructor(public options: PixiButtonOptions) {
+    super();
+    this.buildUI();
+  }
+
+  /**
+   * 建立按鈕介面
+   */
+  buildUI() {
+    const { backgroundColor, labelColor, width, height, cornerRadius } =
+      this.options;
+    // 畫出按鈕圓角矩形的背景
+    const bg = new Graphics();
+    bg.beginFill(0xffffff);
+    bg.drawRoundedRect(0, 0, width, height, cornerRadius);
+    bg.endFill();
+    // 預設的按鈕背景底色
+    bg.tint = backgroundColor.default;
+    this.addChild(bg);
+  }
 }
