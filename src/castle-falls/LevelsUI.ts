@@ -12,7 +12,7 @@ export class LevelsUI extends Container {
     this.addChild(bg);
     // 建立選關按鈕
     const maxLevel = 3;
-    for (let lv = 0; lv < maxLevel; lv++) {
+    for (let lv = 1; lv <= maxLevel; lv++) {
       this.createLevelButton(lv);
     }
   }
