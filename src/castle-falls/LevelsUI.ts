@@ -1,7 +1,7 @@
 import { Container, Sprite } from 'pixi.js';
 import { CastleFalls } from './CastleFalls';
 import castleBgImg from 'images/castle-bg.jpg';
-import { PixiButton } from './PixiButton';
+import { PixiButton } from '../lib/PixiButton';
 
 export class LevelsUI extends Container {
   constructor(public gameApp: CastleFalls) {
