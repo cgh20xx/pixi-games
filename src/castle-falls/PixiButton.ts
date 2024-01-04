@@ -1,4 +1,4 @@
-import { Container, Graphics } from 'pixi.js';
+import { Container, Graphics, Text } from 'pixi.js';
 
 interface PixiButtonOptions {
   /**
@@ -53,8 +53,15 @@ export class PixiButton extends Container {
    * 建立按鈕介面
    */
   buildUI() {
-    const { backgroundColor, labelColor, width, height, cornerRadius } =
-      this.options;
+    const {
+      backgroundColor,
+      label,
+      labelSize,
+      labelColor,
+      width,
+      height,
+      cornerRadius
+    } = this.options;
     // 畫出按鈕圓角矩形的背景
     const bg = new Graphics();
     bg.beginFill(0xffffff);
@@ -63,5 +70,17 @@ export class PixiButton extends Container {
     // 預設的按鈕背景底色
     bg.tint = backgroundColor.default;
     this.addChild(bg);
+    // 畫出按鈕文字
+    const text = new Text(label, {
+      fontSize: labelSize,
+      fill: labelColor.default
+    });
+    text.resolution = 2;
+    // 置中按鈕文字
+    text.position.set(
+      (bg.width - text.width) / 2,
+      (bg.height - text.height) / 2
+    );
+    this.addChild(text);
   }
 }
