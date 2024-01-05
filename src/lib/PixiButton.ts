@@ -82,5 +82,30 @@ export class PixiButton extends Container {
       (bg.height - text.height) / 2
     );
     this.addChild(text);
+
+    // 設定按鈕和互動相關屬性
+    this.eventMode = 'static';
+    this.cursor = 'pointer';
+    // 偵聽滑鼠事件：點擊後執行按鈕的回呼函式
+    this.on('click', () => {
+      bg.tint = backgroundColor.hover;
+      text.style.fill = labelColor.hover;
+      this.options.onClick();
+    });
+    // 滑鼠懸浮在按鈕上方
+    this.on('pointerover', () => {
+      bg.tint = backgroundColor.hover;
+      text.style.fill = labelColor.hover;
+    });
+    // 滑鼠離開按鈕
+    this.on('pointerout', () => {
+      bg.tint = backgroundColor.default;
+      text.style.fill = labelColor.default;
+    });
+    // 滑鼠按下左鍵
+    this.on('pointerdown', () => {
+      bg.tint = backgroundColor.active;
+      text.style.fill = labelColor.active;
+    });
   }
 }
