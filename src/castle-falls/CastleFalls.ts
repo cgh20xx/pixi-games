@@ -17,4 +17,12 @@ export class CastleFalls {
     const ui = new LevelsUI(this);
     this.app.stage.addChild(ui);
   }
+
+  /**
+   * 開始遊戲關卡
+   * @param level 關卡
+   */
+  startGame(level: number) {
+    console.log(level);
+  }
 }

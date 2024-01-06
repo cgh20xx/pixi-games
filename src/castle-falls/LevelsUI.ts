@@ -43,6 +43,8 @@ export class LevelsUI extends Container {
       },
       onClick: () => {
         // Todo: 先把介面毀滅，再開始遊戲
+        this.destroy();
+        this.gameApp.startGame(level);
       }
     });
     this.addChild(button);
