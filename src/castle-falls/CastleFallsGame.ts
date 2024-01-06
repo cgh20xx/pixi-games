@@ -32,4 +32,11 @@ export class CastleFallsGame extends Container {
     this.matterRender.destroy();
     Runner.stop(this.runner);
   }
+
+  /**
+   * 方便遊戲關卡中取用 Pixi 的 app
+   */
+  get app() {
+    return this.gameApp.app;
+  }
 }
