@@ -27,6 +27,8 @@ export class CastleFallsGame extends Container {
     );
 
     stageSizeEvent.on('resize', this.matterRender.align, this.matterRender);
+    // 啟動遊戲前先讀取關卡資料
+    this.loadAndStartLevel(level);
   }
 
   destroy() {
@@ -50,5 +52,37 @@ export class CastleFallsGame extends Container {
     const bg = Sprite.from(bgImg);
     bg.zIndex = 0;
     this.addChild(bg);
+  }
+
+  /**
+   * 載入關卡資料 -> 建立關卡世界 -> 遊戲開始
+   */
+  async loadAndStartLevel(level: number) {
+    // 載入關卡資料 data
+    const data = await this.loadLevel(level);
+    // 建立關卡世界
+    this.buildLevel(data);
+    // 遊戲開始
+    this.start();
+  }
+
+  /**
+   * 載入關卡資料
+   * @param level 關卡
+   */
+  async loadLevel(level: number) {}
+
+  /**
+   * 依關卡資料建立這一關的世界
+   * @param data 關卡資料
+   */
+  buildLevel(data: unknown) {}
+
+  /**
+   * 遊戲開始
+   */
+  start() {
+    // 讓引擎開始跑
+    Runner.run(this.runner, this.engine);
   }
 }
