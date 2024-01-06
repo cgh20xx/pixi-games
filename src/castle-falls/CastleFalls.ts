@@ -1,5 +1,6 @@
 import { Application } from 'pixi.js';
 import { LevelsUI } from './LevelsUI';
+import { CastleFallsGame } from './CastleFallsGame';
 
 /**
  * 魔王城的隕落遊戲選擇頁
@@ -23,6 +24,7 @@ export class CastleFalls {
    * @param level 關卡
    */
   startGame(level: number) {
-    console.log(level);
+    const game = new CastleFallsGame(this, level);
+    this.app.stage.addChild(game);
   }
 }
