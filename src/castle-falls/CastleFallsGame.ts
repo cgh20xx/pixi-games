@@ -60,6 +60,7 @@ export class CastleFallsGame extends Container {
   async loadAndStartLevel(level: number) {
     // 載入關卡資料 data
     const data = await this.loadLevel(level);
+    console.log('data', data);
     // 建立關卡世界
     this.buildLevel(data);
     // 遊戲開始
@@ -70,7 +71,12 @@ export class CastleFallsGame extends Container {
    * 載入關卡資料
    * @param level 關卡
    */
-  async loadLevel(level: number) {}
+  async loadLevel(level: number) {
+    const url = `./castle-falls/level_${level}.json`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+  }
 
   /**
    * 依關卡資料建立這一關的世界
