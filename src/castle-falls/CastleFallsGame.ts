@@ -4,6 +4,7 @@ import { Engine, Runner } from 'matter-js';
 import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import bgImg from 'images/castle-gamebg.png';
+import { ICastleFallsLevelData } from './CastleFallsLevelData';
 
 export class CastleFallsGame extends Container {
   engine = Engine.create();
@@ -60,7 +61,6 @@ export class CastleFallsGame extends Container {
   async loadAndStartLevel(level: number) {
     // 載入關卡資料 data
     const data = await this.loadLevel(level);
-    console.log('data', data);
     // 建立關卡世界
     this.buildLevel(data);
     // 遊戲開始
@@ -74,7 +74,7 @@ export class CastleFallsGame extends Container {
   async loadLevel(level: number) {
     const url = `./castle-falls/level_${level}.json`;
     const res = await fetch(url);
-    const data = await res.json();
+    const data = (await res.json()) as ICastleFallsLevelData;
     return data;
   }
 
@@ -82,7 +82,9 @@ export class CastleFallsGame extends Container {
    * 依關卡資料建立這一關的世界
    * @param data 關卡資料
    */
-  buildLevel(data: unknown) {}
+  buildLevel(data: ICastleFallsLevelData) {
+    console.log(data);
+  }
 
   /**
    * 遊戲開始
