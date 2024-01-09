@@ -50,4 +50,10 @@ export class MatterObject extends Container {
     // 刪除遊戲中儲存物件的備份
     delete this.game.objects[this.body.id];
   }
+
+  /**
+   * 建立剛體
+   * @param data 剛體的資料
+   */
+  private createBody(data: ICFObject): Body {}
 }
