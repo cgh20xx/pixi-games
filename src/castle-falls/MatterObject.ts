@@ -1,7 +1,7 @@
 import { Body, Composite, Events } from 'matter-js';
 import { Container, Sprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
-import { ICFObject } from './CastleFallsLevelData';
+import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
 
 /**
  * 關卡物件類別
@@ -55,5 +55,11 @@ export class MatterObject extends Container {
    * 建立剛體
    * @param data 剛體的資料
    */
-  private createBody(data: ICFObject): Body {}
+  private createBody(data: ICFObject): Body {
+    // 依物體類別取得定義好的物理性質
+    const bodyOptions = BodyOptionsMap[data.type];
+    if (!bodyOptions) {
+      throw new Error('沒有定義這個類別的物理性質：' + data.type);
+    }
+  }
 }
