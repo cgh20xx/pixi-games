@@ -1,3 +1,5 @@
+import { Body, IBodyDefinition } from 'matter-js';
+
 /**
  * 彈弓的介面
  */
@@ -58,3 +60,37 @@ export interface ICastleFallsLevelData {
   slingshot: ICFSlingshot;
   objects: ICFObject[];
 }
+
+/**
+ * 物體類別對應物理性質的通用物件
+ */
+export const BodyOptionsMap: { [key: string]: IBodyDefinition } = {
+  /**
+   * 地板
+   */
+  ground: {
+    isStatic: true,
+    friction: 1
+  },
+  /**
+   * 木頭
+   */
+  brick: {
+    density: 0.1,
+    friction: 0.5
+  },
+  /**
+   * 魔王
+   */
+  boss: {
+    density: 0.1,
+    friction: 0.5
+  },
+  /**
+   * 石頭
+   */
+  rock: {
+    density: 0.1,
+    friction: 0.5
+  }
+};
