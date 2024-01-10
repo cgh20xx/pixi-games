@@ -5,11 +5,13 @@ import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import bgImg from 'images/castle-gamebg.png';
 import { ICastleFallsLevelData } from './CastleFallsLevelData';
+import { MatterObject } from './MatterObject';
 
 export class CastleFallsGame extends Container {
   engine = Engine.create();
   runner = Runner.create();
   matterRender: MatterRender;
+  objects: { [key: string]: MatterObject } = {};
 
   constructor(
     public gameApp: CastleFalls,

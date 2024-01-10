@@ -1,7 +1,8 @@
 import { Bodies, Body, Composite, Events } from 'matter-js';
-import { Container, DEG_TO_RAD, Sprite } from 'pixi.js';
+import { Container, DEG_TO_RAD, Sprite, TilingSprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
+import groundImg from 'images/castle-ground.png';
 
 /**
  * 關卡物件類別
@@ -80,6 +81,25 @@ export class MatterObject extends Container {
     } else {
       // 如果沒有 circle 或 rect，則丟出錯誤
       throw new Error('不支援的形狀');
+    }
+  }
+
+  /**
+   * 依傳入的 data 資料建立物體的繪圖器
+   * @param data 剛體的資料
+   */
+  private createSprite(data: ICFObject): Sprite {
+    if (data.type === 'ground') {
+      const rect = data.rect!; // ! 為 TS 語法 (non-null assertion operator)
+      const sprite = TilingSprite.from(groundImg, {
+        width: rect.width,
+        height: rect.height
+      });
+      sprite.anchor.set(0.5);
+      sprite.width = rect.width;
+      sprite.height = rect.height;
+      this.zIndex = 1;
+      return sprite;
     }
   }
 }
