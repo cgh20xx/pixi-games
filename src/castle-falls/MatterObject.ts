@@ -4,6 +4,7 @@ import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
 import groundImg from 'images/castle-ground.png';
 import brickImg from 'images/castle-brick.png';
+import woodImg from 'images/castle-wood.png';
 
 /**
  * 關卡物件類別
@@ -110,6 +111,15 @@ export class MatterObject extends Container {
       sprite.width = rect.width;
       sprite.height = rect.height;
       this.zIndex = 5;
+      return sprite;
+    } else if (data.type === 'wood') {
+      // 類型為木頭
+      const rect = data.rect!;
+      const sprite = Sprite.from(woodImg);
+      sprite.anchor.set(0.5);
+      sprite.width = rect.width;
+      sprite.height = rect.height;
+      this.zIndex = 4;
       return sprite;
     }
   }
