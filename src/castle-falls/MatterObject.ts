@@ -3,6 +3,7 @@ import { Container, DEG_TO_RAD, Sprite, TilingSprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
 import groundImg from 'images/castle-ground.png';
+import brickImg from 'images/castle-brick.png';
 
 /**
  * 關卡物件類別
@@ -90,6 +91,7 @@ export class MatterObject extends Container {
    */
   private createSprite(data: ICFObject): Sprite {
     if (data.type === 'ground') {
+      // 類型為地板
       const rect = data.rect!; // ! 為 TS 語法 (non-null assertion operator)
       const sprite = TilingSprite.from(groundImg, {
         width: rect.width,
@@ -99,6 +101,15 @@ export class MatterObject extends Container {
       sprite.width = rect.width;
       sprite.height = rect.height;
       this.zIndex = 1;
+      return sprite;
+    } else if (data.type === 'brick') {
+      // 類型為石磚
+      const rect = data.rect!;
+      const sprite = Sprite.from(brickImg);
+      sprite.anchor.set(0.5);
+      sprite.width = rect.width;
+      sprite.height = rect.height;
+      this.zIndex = 5;
       return sprite;
     }
   }
