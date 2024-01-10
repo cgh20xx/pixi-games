@@ -103,7 +103,7 @@ export class MatterObject extends Container {
       this.zIndex = 1;
       return sprite;
     } else if (data.type === 'brick') {
-      // 類型為石磚
+      // 類型為磚塊
       const rect = data.rect!;
       const sprite = Sprite.from(brickImg);
       sprite.anchor.set(0.5);

@@ -73,7 +73,7 @@ export const BodyOptionsMap: { [key: string]: IBodyDefinition } = {
     friction: 1
   },
   /**
-   * 木頭
+   * 磚塊
    */
   brick: {
     density: 0.1,
