@@ -6,6 +6,7 @@ import groundImg from 'images/castle-ground.png';
 import brickImg from 'images/castle-brick.png';
 import woodImg from 'images/castle-wood.png';
 import bossImg from 'images/castle-boss.png';
+import rockImg from 'images/castle-rock.png';
 
 /**
  * 關卡物件類別
@@ -123,13 +124,22 @@ export class MatterObject extends Container {
       this.zIndex = 4;
       return sprite;
     } else if (data.type === 'boss') {
-      // 類型為木頭
+      // 類型為魔王
       const circle = data.circle!;
       const sprite = Sprite.from(bossImg);
       sprite.anchor.set(0.5);
       sprite.scale.set(circle.radius / 32);
       this.zIndex = 3;
       return sprite;
+    } else if (data.type === 'rock') {
+      // 類型為石頭
+      const circle = data.circle!;
+      const sprite = Sprite.from(bossImg);
+      sprite.anchor.set(0.5);
+      sprite.scale.set(circle.radius / 36);
+      this.zIndex = 6;
+      return sprite;
     }
+    throw new Error('不支援的物體類別');
   }
 }
