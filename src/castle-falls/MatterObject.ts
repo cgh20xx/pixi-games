@@ -134,7 +134,7 @@ export class MatterObject extends Container {
     } else if (data.type === 'rock') {
       // 類型為石頭
       const circle = data.circle!;
-      const sprite = Sprite.from(bossImg);
+      const sprite = Sprite.from(rockImg);
       sprite.anchor.set(0.5);
       sprite.scale.set(circle.radius / 36);
       this.zIndex = 6;
