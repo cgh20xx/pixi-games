@@ -1,5 +1,5 @@
-import { Body, Composite, Events } from 'matter-js';
-import { Container, Sprite } from 'pixi.js';
+import { Bodies, Body, Composite, Events } from 'matter-js';
+import { Container, DEG_TO_RAD, Sprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
 
@@ -52,7 +52,7 @@ export class MatterObject extends Container {
   }
 
   /**
-   * 建立剛體
+   * 依傳入的 data 資料建立剛體
    * @param data 剛體的資料
    */
   private createBody(data: ICFObject): Body {
@@ -60,6 +60,26 @@ export class MatterObject extends Container {
     const bodyOptions = BodyOptionsMap[data.type];
     if (!bodyOptions) {
       throw new Error('沒有定義這個類別的物理性質：' + data.type);
+    }
+    // 取得 data 裡的物體角度，如果沒定義則取 0
+    const angleDeg = data.angleDeg || 0;
+    // 將角度轉換為弧度，放進創造剛體的物理或質裡
+    bodyOptions.angle = angleDeg * DEG_TO_RAD;
+    if (data.circle) {
+      // 如果物體有 circle 資料，則創造圓形剛體
+      return Bodies.circle(data.x, data.y, data.circle.radius, bodyOptions);
+    } else if (data.rect) {
+      // 如果物體有 rect 資料，則創造矩形剛體
+      return Bodies.rectangle(
+        data.x,
+        data.y,
+        data.rect.width,
+        data.rect.height,
+        bodyOptions
+      );
+    } else {
+      // 如果沒有 circle 或 rect，則丟出錯誤
+      throw new Error('不支援的形狀');
     }
   }
 }
