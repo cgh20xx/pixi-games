@@ -5,6 +5,7 @@ import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
 import groundImg from 'images/castle-ground.png';
 import brickImg from 'images/castle-brick.png';
 import woodImg from 'images/castle-wood.png';
+import bossImg from 'images/castle-boss.png';
 
 /**
  * 關卡物件類別
@@ -120,6 +121,14 @@ export class MatterObject extends Container {
       sprite.width = rect.width;
       sprite.height = rect.height;
       this.zIndex = 4;
+      return sprite;
+    } else if (data.type === 'boss') {
+      // 類型為木頭
+      const circle = data.circle!;
+      const sprite = Sprite.from(bossImg);
+      sprite.anchor.set(0.5);
+      sprite.scale.set(circle.radius / 32);
+      this.zIndex = 3;
       return sprite;
     }
   }
