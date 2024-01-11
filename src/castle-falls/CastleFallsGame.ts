@@ -85,7 +85,9 @@ export class CastleFallsGame extends Container {
    * @param data 關卡資料
    */
   buildLevel(data: ICastleFallsLevelData) {
-    console.log(data);
+    for (const objData of data.objects) {
+      this.createMatterObject(objData);
+    }
   }
 
   /**
