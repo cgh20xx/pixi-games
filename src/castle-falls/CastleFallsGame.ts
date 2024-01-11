@@ -4,7 +4,7 @@ import { Engine, Runner } from 'matter-js';
 import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import bgImg from 'images/castle-gamebg.png';
-import { ICastleFallsLevelData } from './CastleFallsLevelData';
+import { ICFObject, ICastleFallsLevelData } from './CastleFallsLevelData';
 import { MatterObject } from './MatterObject';
 
 export class CastleFallsGame extends Container {
@@ -94,5 +94,16 @@ export class CastleFallsGame extends Container {
   start() {
     // 讓引擎開始跑
     Runner.run(this.runner, this.engine);
+  }
+
+  /**
+   * 建立 MatterObject 並儲存起來
+   * @param objData 剛體的資料
+   * @returns MatterObject
+   */
+  createMatterObject(objData: ICFObject): MatterObject {
+    const obj = new MatterObject(this, objData);
+    this.objects[obj.body.id] = obj;
+    return obj;
   }
 }
