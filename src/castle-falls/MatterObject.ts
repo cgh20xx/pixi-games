@@ -137,7 +137,7 @@ export class MatterObject extends Container {
       const circle = data.circle!;
       const sprite = Sprite.from(bossImg);
       sprite.anchor.set(0.5);
-      sprite.scale.set(circle.radius / 32);
+      sprite.scale.set(circle.radius / 40);
       this.zIndex = 3;
       return sprite;
     } else if (data.type === 'rock') {
