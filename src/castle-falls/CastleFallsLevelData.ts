@@ -1,4 +1,4 @@
-import { Body, IBodyDefinition } from 'matter-js';
+import { IBodyDefinition } from 'matter-js';
 
 /**
  * 彈弓的介面
