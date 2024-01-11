@@ -42,7 +42,7 @@ export class MatterObject extends Container {
     this.addChild(this.sprite);
     game.addChild(this);
     // 偵聽物理引擎發出的更新後事件，並隨之更新
-    // Events.on(game.engine, 'afterUpdate', this.update);
+    Events.on(game.engine, 'afterUpdate', this.update);
   }
 
   destroy() {
@@ -51,10 +51,19 @@ export class MatterObject extends Container {
     // 移除剛體
     Composite.remove(this.game.engine.world, this.body);
     // 取消偵聽
-    // Events.off(this.game.engine, 'afterUpdate', this.update);
+    Events.off(this.game.engine, 'afterUpdate', this.update);
     // 刪除遊戲中儲存物件的備份
     delete this.game.objects[this.body.id];
   }
+
+  /**
+   * 當物理引擎更新後，需要呼叫的更新函式
+   */
+  private update = () => {
+    // 同步 pixi 的繪圖器位置與旋轉角度與 matter.js 相同
+    this.position.copyFrom(this.body.position);
+    this.rotation = this.body.angle;
+  };
 
   /**
    * 依傳入的 data 資料建立剛體
