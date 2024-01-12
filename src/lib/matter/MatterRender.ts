@@ -37,7 +37,9 @@ export class MatterRender {
       options: {
         width: size.width,
         height: size.height,
-        wireframeBackground: 'transparent'
+        wireframeBackground: 'transparent',
+        wireframes: false,
+        background: 'transparent'
       }
     });
   }
