@@ -38,7 +38,7 @@ export class MatterRender {
         width: size.width,
         height: size.height,
         wireframeBackground: 'transparent',
-        wireframes: false,
+        wireframes: false, // 設為 false 才能在建立 body 時使用 render 的樣子
         background: 'transparent'
       }
     });

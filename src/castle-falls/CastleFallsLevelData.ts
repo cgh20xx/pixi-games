@@ -70,27 +70,48 @@ export const BodyOptionsMap: { [key: string]: IBodyDefinition } = {
    */
   ground: {
     isStatic: true,
-    friction: 1
+    friction: 1,
+    // 要看的見 render 的樣子，必需先將 Render.create 裡的 options.wireframes 設為 false
+    render: {
+      fillStyle: 'transparent',
+      strokeStyle: '#00ff00',
+      lineWidth: 2
+    }
   },
   /**
    * 磚塊
    */
   brick: {
     density: 0.1,
-    friction: 0.5
+    friction: 0.5,
+    render: {
+      fillStyle: 'transparent',
+      strokeStyle: '#ffff00',
+      lineWidth: 2
+    }
   },
   /**
    * 魔王
    */
   boss: {
     density: 0.1,
-    friction: 0.5
+    friction: 0.5,
+    render: {
+      fillStyle: 'transparent',
+      strokeStyle: '#ff0000',
+      lineWidth: 2
+    }
   },
   /**
    * 石頭
    */
   rock: {
     density: 0.1,
-    friction: 0.5
+    friction: 0.5,
+    render: {
+      fillStyle: 'transparent',
+      strokeStyle: '#ffffff',
+      lineWidth: 2
+    }
   }
 };
