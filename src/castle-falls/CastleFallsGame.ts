@@ -6,6 +6,7 @@ import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import bgImg from 'images/castle-gamebg.png';
 import { ICFObject, ICastleFallsLevelData } from './CastleFallsLevelData';
 import { MatterObject } from './MatterObject';
+import { Slingshot } from './Slingshot';
 
 export class CastleFallsGame extends Container {
   engine = Engine.create();
@@ -88,6 +89,8 @@ export class CastleFallsGame extends Container {
     for (const objData of data.objects) {
       this.createMatterObject(objData);
     }
+    // 建立彈弓
+    new Slingshot(this, data.slingshot);
   }
 
   /**
