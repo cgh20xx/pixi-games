@@ -3,7 +3,7 @@ import { CastleFallsGame } from './CastleFallsGame';
 import { ICFSlingshot } from './CastleFallsLevelData';
 import slingshotImg from 'images/slingshot.png';
 import slingshotFrontImg from 'images/slingshot_front.png';
-import { Body } from 'matter-js';
+import { Body, Composite, Constraint } from 'matter-js';
 
 /**
  * 彈弓
@@ -16,8 +16,10 @@ export class Slingshot {
     // 建立彈弓的精靈圖
     this.createSprites(data);
     // 建立一顆石頭
-    this.createRock(data);
+    const rock = this.createRock(data);
     // 建立橡皮筋
+    const elastic = this.createElastic(data, rock);
+    Composite.add(this.game.engine.world, elastic);
     // 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
   }
 
@@ -53,5 +55,20 @@ export class Slingshot {
       }
     });
     return object.body;
+  }
+
+  /**
+   * 建立可拉伸的橡皮筋，一端綁在彈弓上，一端綁在石頭上。
+   * 注意：約束的長度若為 0 容易出現 bug
+   * @param data 建立彈弓的資料
+   * @param rock 石頭的剛體
+   * @returns Matter.Constraint 約束
+   */
+  private createElastic(data: ICFSlingshot, rock: Body): Constraint {
+    return Constraint.create({
+      pointA: { x: data.x, y: data.y }, // 一端固定在彈弓上的一點
+      bodyB: rock, // 另一端綁在石頭上
+      stiffness: data.stiffness // 剛性程度
+    });
   }
 }
