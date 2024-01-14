@@ -9,15 +9,14 @@ import {
   Engine,
   Events,
   IEventCollision,
-  Render,
   Runner
 } from 'matter-js';
-import { Application, Container } from 'pixi.js';
+import { Application } from 'pixi.js';
 
 /**
- * 魔王城的隕落遊戲選擇頁
+ * 魔王城的隕落遊戲選擇頁(測試用)
  */
-export class CastleFalls {
+export class CastleFallsTest {
   constructor(public app: Application) {
     const engine = this.createMatterWorld();
     const matterRender = new MatterRender(engine, app.stage, getStageSize());
