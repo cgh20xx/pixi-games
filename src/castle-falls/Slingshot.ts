@@ -3,7 +3,14 @@ import { CastleFallsGame } from './CastleFallsGame';
 import { ICFSlingshot } from './CastleFallsLevelData';
 import slingshotImg from 'images/slingshot.png';
 import slingshotFrontImg from 'images/slingshot_front.png';
-import { Body, Composite, Constraint, Mouse, MouseConstraint } from 'matter-js';
+import {
+  Body,
+  Composite,
+  Constraint,
+  Events,
+  Mouse,
+  MouseConstraint
+} from 'matter-js';
 
 /**
  * 彈弓
@@ -23,6 +30,14 @@ export class Slingshot {
     // 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
     const mouseConstraint = this.createMouseConstraint();
     Composite.add(this.game.engine.world, mouseConstraint);
+    // 偵聽 Matter 滑鼠約束被鬆開的事件(暫時版)
+    // 補充："@types/matter-js": "0.19.5" 沒有 drag 相關事件的 type
+    Events.on(mouseConstraint, 'enddrag', async () => {
+      // 等待一個 tick 彈簧約束才會動作
+      await this.game.gameApp.wait(1);
+      // 移除滑鼠約束(白色彈簧)
+      Composite.remove(this.game.engine.world, elastic);
+    });
   }
 
   /**
