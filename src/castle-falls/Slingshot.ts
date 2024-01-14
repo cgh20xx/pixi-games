@@ -3,7 +3,7 @@ import { CastleFallsGame } from './CastleFallsGame';
 import { ICFSlingshot } from './CastleFallsLevelData';
 import slingshotImg from 'images/slingshot.png';
 import slingshotFrontImg from 'images/slingshot_front.png';
-import { Body, Composite, Constraint } from 'matter-js';
+import { Body, Composite, Constraint, Mouse, MouseConstraint } from 'matter-js';
 
 /**
  * 彈弓
@@ -21,6 +21,8 @@ export class Slingshot {
     const elastic = this.createElastic(data, rock);
     Composite.add(this.game.engine.world, elastic);
     // 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
+    const mouseConstraint = this.createMouseConstraint();
+    Composite.add(this.game.engine.world, mouseConstraint);
   }
 
   /**
@@ -69,6 +71,26 @@ export class Slingshot {
       pointA: { x: data.x, y: data.y }, // 一端固定在彈弓上的一點
       bodyB: rock, // 另一端綁在石頭上
       stiffness: data.stiffness // 剛性程度
+    });
+  }
+
+  /**
+   * 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
+   * @returns Matter.MouseConstraint 返回滑鼠約束
+   */
+  private createMouseConstraint(): MouseConstraint {
+    const canvas = this.game.gameApp.app.view as HTMLCanvasElement;
+    // 建立 Matter 滑鼠，使用 Pixi 畫板接收滑鼠事件
+    const mouse = Mouse.create(canvas);
+    // 因 Pixi 舞台有經過平移及縮放，故要調整 Matter 滑鼠的位置與 Pixi 的滑鼠同步
+    const stage = this.game.gameApp.app.stage;
+    mouse.offset.x = -stage.x / stage.scale.x;
+    mouse.offset.y = -stage.y / stage.scale.y;
+    mouse.scale.x = 1 / stage.scale.x;
+    mouse.scale.y = 1 / stage.scale.y;
+    // 建立滑鼠約束
+    return MouseConstraint.create(this.game.engine, {
+      mouse
     });
   }
 }
