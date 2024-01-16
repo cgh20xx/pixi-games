@@ -105,7 +105,12 @@ export class Slingshot {
     mouse.scale.y = 1 / stage.scale.y;
     // 建立滑鼠約束
     return MouseConstraint.create(this.game.engine, {
-      mouse
+      mouse,
+      collisionFilter: {
+        // 因所有物件的 category 預設為 0b01
+        // 故將滑鼠的 mask 設為 0b10 使得 & 運算才不會有交集(不能碰撞)
+        mask: 0b10
+      }
     });
   }
 }

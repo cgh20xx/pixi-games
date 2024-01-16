@@ -112,6 +112,11 @@ export const BodyOptionsMap: { [key: string]: IBodyDefinition } = {
       fillStyle: 'transparent',
       strokeStyle: '#ffffff',
       lineWidth: 2
+    },
+    collisionFilter: {
+      // 因滑鼠的 category 為 0b10
+      // 故將石頭的 mask 設為 0b11 使得兩者 & 運算才會有交集(能碰撞)
+      category: 0b11
     }
   }
 };
