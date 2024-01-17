@@ -28,15 +28,12 @@ export class Slingshot {
 
   constructor(
     public game: CastleFallsGame,
-    data: ICFSlingshot
+    public data: ICFSlingshot
   ) {
     // 建立彈弓的精靈圖
     this.createSprites(data);
-    // 建立一顆石頭
-    const rock = this.createRock(data);
-    // 建立橡皮筋
-    const elastic = this.createElastic(data, rock);
-    Composite.add(this.game.engine.world, elastic);
+    // 將石頭上膛
+    this.loadRock();
     // 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
     const mouseConstraint = this.createMouseConstraint();
     Composite.add(this.game.engine.world, mouseConstraint);
@@ -48,6 +45,23 @@ export class Slingshot {
       // 移除滑鼠約束(白色彈簧)
       Composite.remove(this.game.engine.world, elastic);
     });
+  }
+
+  /**
+   * 將石頭上膛
+   */
+  private loadRock(): void {
+    const data = this.data;
+    // 建立一顆石頭
+    const rock = this.createRock(data);
+    // 建立橡皮筋
+    const elastic = this.createElastic(data, rock);
+    Composite.add(this.game.engine.world, elastic);
+    // 儲存這次上膛的資料
+    this.shootData = {
+      rock,
+      elastic
+    };
   }
 
   /**
