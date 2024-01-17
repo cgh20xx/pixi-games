@@ -9,13 +9,23 @@ import {
   Constraint,
   Events,
   Mouse,
-  MouseConstraint
+  MouseConstraint,
+  Vector
 } from 'matter-js';
 
 /**
  * 彈弓
  */
 export class Slingshot {
+  /**
+   * 石頭上膛後，記錄石頭與橡皮筋的資料
+   */
+  shootData?: {
+    rock: Body;
+    elastic: Constraint;
+    releaseStart?: Vector;
+  };
+
   constructor(
     public game: CastleFallsGame,
     data: ICFSlingshot
