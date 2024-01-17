@@ -12,6 +12,8 @@ import {
   MouseConstraint,
   Vector
 } from 'matter-js';
+import { playSound } from 'lib/SoundUtils';
+import shootSnd from 'sounds/missile-launch.mp3';
 
 /**
  * 彈弓
@@ -39,13 +41,24 @@ export class Slingshot {
     Composite.add(this.game.engine.world, mouseConstraint);
     // 偵聽 Matter 滑鼠約束被鬆開的事件(暫時版)
     // 補充："@types/matter-js": "0.19.5" 沒有 drag 相關事件的 type
-    Events.on(mouseConstraint, 'enddrag', async () => {
+    Events.on(mouseConstraint, 'enddrag', this.onMouseEndDrag);
+  }
+
+  /**
+   * 滑鼠拖曳後放開事件的 callback
+   */
+  private onMouseEndDrag = async () => {
+    if (this.shootData) {
+      // 播放發射音效
+      playSound(shootSnd);
       // 等待一個 tick 彈簧約束才會動作
       await this.game.gameApp.wait(1);
       // 移除滑鼠約束(白色彈簧)
-      Composite.remove(this.game.engine.world, elastic);
-    });
-  }
+      Composite.remove(this.game.engine.world, this.shootData.elastic);
+      // 發射後清除上膛的資料
+      this.shootData = undefined;
+    }
+  };
 
   /**
    * 將石頭上膛
