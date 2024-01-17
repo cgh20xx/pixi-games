@@ -39,7 +39,7 @@ export class Slingshot {
     // 建立滑鼠約束，讓玩家可以用滑鼠拉石頭
     const mouseConstraint = this.createMouseConstraint();
     Composite.add(this.game.engine.world, mouseConstraint);
-    // 偵聽 Matter 滑鼠約束被鬆開的事件(暫時版)
+    // 偵聽 Matter 滑鼠約束被鬆開的事件
     // 補充："@types/matter-js": "0.19.5" 沒有 drag 相關事件的 type
     Events.on(mouseConstraint, 'enddrag', this.onMouseEndDrag);
   }
