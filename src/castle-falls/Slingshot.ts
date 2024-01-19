@@ -51,14 +51,36 @@ export class Slingshot {
     if (this.shootData) {
       // 播放發射音效
       playSound(shootSnd);
-      // 等待一個 tick 彈簧約束才會動作
-      await this.game.gameApp.wait(1);
+      // 等待石頭飛得夠遠
+      await this.waitRockBackToAPoint();
       // 移除滑鼠約束(白色彈簧)
       Composite.remove(this.game.engine.world, this.shootData.elastic);
       // 發射後清除上膛的資料
       this.shootData = undefined;
     }
   };
+
+  /**
+   * 等待石頭從滑鼠飛至彈弓的 A 點 (尚有bug)
+   */
+  private async waitRockBackToAPoint() {
+    console.log(this.shootData);
+    if (this.shootData && this.shootData.releaseStart) {
+      const start = this.shootData.releaseStart;
+      const rock = this.shootData.rock;
+      const elastic = this.shootData.elastic;
+      // 建立石頭到滑鼠(S點)的向量
+      const vector = Vector.sub(rock.position, start);
+      // 建立彈弓A點到滑鼠(S點)的向量
+      const endVector = Vector.sub(elastic.pointA, start);
+      // 檢查石頭到滑鼠的距離是否還未超過彈弓 A 點到滑鼠的距離
+      if (Vector.magnitude(vector) < Vector.magnitude(endVector)) {
+        // 若還沒超過要切斷的距離，就等一個 tick 再檢查一次
+        await this.game.gameApp.wait(1);
+        await this.waitRockBackToAPoint();
+      }
+    }
+  }
 
   /**
    * 將石頭上膛
