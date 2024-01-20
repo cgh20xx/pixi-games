@@ -50,6 +50,8 @@ export class Slingshot {
   private onMouseEndDrag = async () => {
     if (this.shootData) {
       const rock = this.shootData.rock;
+      // 改變石頭的類別為預設值，因射出後不能再拖曳
+      rock.collisionFilter.category = 0b01;
       // 記錄發射石頭的出發點(S點)
       this.shootData.releaseStart = Vector.clone(rock.position);
       // 播放發射音效
