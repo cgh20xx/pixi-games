@@ -114,4 +114,19 @@ export class CastleFallsGame extends Container {
     this.objects[obj.body.id] = obj;
     return obj;
   }
+
+  /**
+   * 等待世界所有物體都睡著
+   */
+  async waitWorldPeace() {
+    // 尋找一個沒睡著的物體
+    const awaked = this.engine.world.bodies.find(body => {
+      return !body.isSleeping;
+    });
+    if (awaked) {
+      // 如果找到就先等一個 tick 再呼叫自己繼續等待
+      await this.gameApp.wait(1);
+      await this.waitWorldPeace();
+    }
+  }
 }
