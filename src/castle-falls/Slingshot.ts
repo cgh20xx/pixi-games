@@ -69,7 +69,6 @@ export class Slingshot {
    * 每隔一小段時間被執行一次，所以石頭的位置在每次更新時會改變。
    */
   private async waitRockBackToAPoint() {
-    console.log(this.shootData);
     if (this.shootData && this.shootData.releaseStart) {
       const start = this.shootData.releaseStart;
       const rock = this.shootData.rock;
