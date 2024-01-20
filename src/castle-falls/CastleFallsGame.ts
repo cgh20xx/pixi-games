@@ -9,7 +9,10 @@ import { MatterObject } from './MatterObject';
 import { Slingshot } from './Slingshot';
 
 export class CastleFallsGame extends Container {
-  engine = Engine.create();
+  engine = Engine.create({
+    // 把支援物體睡眠的開關打開
+    enableSleeping: true
+  });
   runner = Runner.create();
   matterRender: MatterRender;
   objects: { [key: string]: MatterObject } = {};
