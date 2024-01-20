@@ -62,6 +62,11 @@ export class Slingshot {
       Composite.remove(this.game.engine.world, this.shootData.elastic);
       // 發射後清除上膛的資料
       this.shootData = undefined;
+
+      // 等待世界睡著
+      await this.game.waitWorldPeace();
+      // 將新石頭上膛
+      this.loadRock();
     }
   };
 
