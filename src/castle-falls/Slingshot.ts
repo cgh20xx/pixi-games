@@ -65,6 +65,8 @@ export class Slingshot {
 
       // 等待世界睡著
       await this.game.waitWorldPeace();
+      // 補充：Matter 的除錯器在畫物體的時候，會將睡著的物體變成半透明，更容易觀察。
+
       // 將新石頭上膛
       this.loadRock();
     }
