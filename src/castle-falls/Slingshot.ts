@@ -49,6 +49,9 @@ export class Slingshot {
    */
   private onMouseEndDrag = async () => {
     if (this.shootData) {
+      const rock = this.shootData.rock;
+      // 記錄發射石頭的出發點(S點)
+      this.shootData.releaseStart = Vector.clone(rock.position);
       // 播放發射音效
       playSound(shootSnd);
       // 等待石頭飛得夠遠
@@ -61,7 +64,9 @@ export class Slingshot {
   };
 
   /**
-   * 等待石頭從滑鼠飛至彈弓的 A 點 (尚有bug)
+   * 等待石頭從滑鼠飛至彈弓的 A 點
+   *
+   * 每隔一小段時間被執行一次，所以石頭的位置在每次更新時會改變。
    */
   private async waitRockBackToAPoint() {
     console.log(this.shootData);
