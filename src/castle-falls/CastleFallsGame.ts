@@ -1,6 +1,6 @@
 import { Container, Sprite } from 'pixi.js';
 import { CastleFalls } from './CastleFalls';
-import { Engine, Runner } from 'matter-js';
+import { Engine, Events, Runner } from 'matter-js';
 import { MatterRender } from 'lib/matter/MatterRender';
 import { getStageSize, stageSizeEvent } from 'lib/rwd-stage';
 import bgImg from 'images/castle-gamebg.png';
@@ -36,6 +36,8 @@ export class CastleFallsGame extends Container {
     stageSizeEvent.on('resize', this.matterRender.align, this.matterRender);
     // 啟動遊戲前先讀取關卡資料
     this.loadAndStartLevel(level);
+    // 監聽碰撞事件
+    this.setupCollisionListener();
   }
 
   destroy() {
@@ -128,5 +130,28 @@ export class CastleFallsGame extends Container {
       await this.gameApp.wait(1);
       await this.waitWorldPeace();
     }
+  }
+
+  /**
+   * 偵聽`碰撞活動`事件，這個事件帶有衝撞力量的資料
+   */
+  private setupCollisionListener(): void {
+    Events.on(
+      this.engine,
+      'collisionActive',
+      (event: Matter.IEventCollision<Engine>) => {
+        // 取得碰撞事件中一對一對的物體
+        for (const pair of event.pairs) {
+          //console.log(`--撞碰事件--`);
+          const objA = pair.bodyA;
+          const objB = pair.bodyB;
+          const maObjA = this.objects[objA.id];
+          const maObjB = this.objects[objB.id];
+          // 呼叫各自的受撞函式，並以對方作為參數 (等一下寫)
+          maObjA.onCollisionActive(maObjB, pair);
+          maObjB.onCollisionActive(maObjA, pair);
+        }
+      }
+    );
   }
 }
