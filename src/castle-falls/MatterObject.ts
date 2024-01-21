@@ -1,4 +1,4 @@
-import { Bodies, Body, Composite, Events } from 'matter-js';
+import { Bodies, Body, Composite, Events, Pair } from 'matter-js';
 import { Container, DEG_TO_RAD, Sprite, TilingSprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
@@ -150,5 +150,15 @@ export class MatterObject extends Container {
       return sprite;
     }
     throw new Error('不支援的物體類別');
+  }
+
+  /**
+   * 受碰撞的回呼函式
+   * @param other 另一個 MatterObject 物件
+   * @param pair collisionActive 事件裡的 event.pairs 其中一對
+   */
+  onCollisionActive(other: MatterObject, pair: Pair) {
+    // 處理碰撞
+    console.log(`${this.type} 撞到了 ${other.type}`);
   }
 }
