@@ -143,6 +143,8 @@ export class CastleFallsGame extends Container {
         // 取得碰撞事件中一對一對的物體
         for (const pair of event.pairs) {
           //console.log(`--撞碰事件--`);
+          // console.log('depth:', pair.collision.depth);
+          // 使用 collisionStart 事件，然後衝力使用 depth 判斷是否可行？
           const objA = pair.bodyA;
           const objB = pair.bodyB;
           const maObjA = this.objects[objA.id];

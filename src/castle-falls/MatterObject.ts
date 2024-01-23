@@ -158,7 +158,18 @@ export class MatterObject extends Container {
    * @param pair collisionActive 事件裡的 event.pairs 其中一對
    */
   onCollisionActive(other: MatterObject, pair: Pair) {
-    // 處理碰撞
-    console.log(`${this.type} 撞到了 ${other.type}`);
+    // 處理 boss 碰撞
+    if (this.type === 'boss') {
+      // console.log(`${this.type} 撞到了 ${other.type}`);
+      let impulse = 0; // 衝力
+      for (const contact of pair.activeContacts) {
+        impulse += Math.abs(contact.normalImpulse);
+      }
+      console.log('impulse:', impulse);
+      if (impulse > 50) {
+        // 魔王自我銷毀/播放動畫/遊戲結束
+        this.destroy();
+      }
+    }
   }
 }
