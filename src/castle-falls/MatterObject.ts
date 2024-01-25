@@ -159,7 +159,7 @@ export class MatterObject extends Container {
    * @param other 另一個 MatterObject 物件
    * @param pair collisionActive 事件裡的 event.pairs 其中一對
    */
-  onCollisionActive(other: MatterObject, pair: Pair) {
+  onCollisionActive(_other: MatterObject, pair: Pair) {
     // 處理 boss 碰撞
     if (this.type === 'boss') {
       // console.log(`${this.type} 撞到了 ${other.type}`);
