@@ -1,4 +1,4 @@
-import { Bodies, Body, Composite, Events, Pair } from 'matter-js';
+import { Bodies, Body, Composite, Events, Pair, Vector } from 'matter-js';
 import { Container, DEG_TO_RAD, Sprite, TilingSprite } from 'pixi.js';
 import { CastleFallsGame } from './CastleFallsGame';
 import { BodyOptionsMap, ICFObject } from './CastleFallsLevelData';
@@ -7,6 +7,8 @@ import brickImg from 'images/castle-brick.png';
 import woodImg from 'images/castle-wood.png';
 import bossImg from 'images/castle-boss.png';
 import rockImg from 'images/castle-rock.png';
+import { gifFrom } from 'lib/PixiGifUtils';
+import poofGif from 'images/poof.gif';
 
 /**
  * 關卡物件類別
@@ -165,11 +167,34 @@ export class MatterObject extends Container {
       for (const contact of pair.activeContacts) {
         impulse += Math.abs(contact.normalImpulse);
       }
-      console.log('impulse:', impulse);
+      // console.log('impulse:', impulse);
       if (impulse > 50) {
         // 魔王自我銷毀/播放動畫/遊戲結束
         this.destroy();
+        this.playPoofGif(this.body.position);
       }
     }
+  }
+
+  /**
+   * 播放 poof.gif 動畫，並在播放結束時自我銷毀
+   * @param position 位置向量
+   */
+  private async playPoofGif(position: Vector) {
+    const gif = await gifFrom(poofGif, {
+      animationSpeed: 2,
+      loop: false,
+      autoPlay: true,
+      onComplete: () => {
+        gif.destroy();
+      }
+    });
+    gif.anchor.set(0.5);
+    gif.scale.set(0.6);
+    gif.position.copyFrom(position);
+    // 圖層調高才不會被其它物件遮住
+    gif.zIndex = 10;
+    // 將動畫放到遊戲容器裡
+    this.game.addChild(gif);
   }
 }
