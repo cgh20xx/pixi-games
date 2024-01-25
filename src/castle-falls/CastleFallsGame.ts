@@ -1,4 +1,4 @@
-import { Container, Sprite } from 'pixi.js';
+import { Container, Sprite, Text } from 'pixi.js';
 import { CastleFalls } from './CastleFalls';
 import { Engine, Events, Runner } from 'matter-js';
 import { MatterRender } from 'lib/matter/MatterRender';
@@ -155,5 +155,32 @@ export class CastleFallsGame extends Container {
         }
       }
     );
+  }
+
+  /**
+   * 遊戲結束顯示過關文字，並在 3 秒後回到選關畫面
+   */
+  async gameOver() {
+    // 取得遊戲舞台尺寸
+    const stageSize = getStageSize();
+    // 建立過關文字
+    const text = new Text('You beat the boss', {
+      fontSize: 32,
+      fill: 0xffffff,
+      stroke: 0x000000,
+      strokeThickness: 5
+    });
+    text.anchor.set(0.5);
+    // 移動文字到畫面中心
+    text.position.set(stageSize.width / 2, stageSize.height / 2);
+    text.zIndex = 100;
+    this.addChild(text);
+
+    // 等待 3 秒
+    await this.gameApp.wait(180);
+    // 銷毀遊戲
+    this.destroy();
+    // 重新打開選關畫面
+    this.gameApp.openLevelsUI();
   }
 }

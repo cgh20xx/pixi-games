@@ -169,9 +169,10 @@ export class MatterObject extends Container {
       }
       // console.log('impulse:', impulse);
       if (impulse > 50) {
-        // 魔王自我銷毀/播放動畫/遊戲結束
+        // 魔王自我銷毀 -> 播放動畫 -> 遊戲結束
         this.destroy();
         this.playPoofGif(this.body.position);
+        this.game.gameOver();
       }
     }
   }
