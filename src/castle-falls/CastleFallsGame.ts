@@ -7,6 +7,7 @@ import bgImg from 'images/castle-gamebg.png';
 import { ICFObject, ICastleFallsLevelData } from './CastleFallsLevelData';
 import { MatterObject } from './MatterObject';
 import { Slingshot } from './Slingshot';
+import { Easing, Tween } from '@tweenjs/tween.js';
 
 export class CastleFallsGame extends Container {
   engine = Engine.create({
@@ -175,6 +176,15 @@ export class CastleFallsGame extends Container {
     text.position.set(stageSize.width / 2, stageSize.height / 2);
     text.zIndex = 100;
     this.addChild(text);
+    // 將文字縮小
+    text.scale.set(0.1);
+    // 利用 Tween，在兩秒內放大至原尺寸
+    const tween = new Tween(text.scale)
+      .to({ x: 1, y: 1 }, 2000)
+      .easing(Easing.Elastic.Out)
+      .start();
+    // 等待 Tween 動畫完成
+    await this.gameApp.waitForTween(tween);
 
     // 等待 3 秒
     await this.gameApp.wait(180);
