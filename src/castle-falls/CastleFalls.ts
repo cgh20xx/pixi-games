@@ -49,7 +49,8 @@ export class CastleFalls {
    * @param tween Tween 實例
    * @returns Promise
    */
-  waitForTween(tween: Tween<Record<string, unknown>>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  waitForTween(tween: Tween<any>) {
     return new Promise(resolve => {
       tween.onComplete(resolve);
     });
