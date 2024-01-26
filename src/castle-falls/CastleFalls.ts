@@ -2,6 +2,7 @@ import { Application } from 'pixi.js';
 import { LevelsUI } from './LevelsUI';
 import { CastleFallsGame } from './CastleFallsGame';
 import { WaitManager } from 'lib/WaitManager';
+import { Tween } from '@tweenjs/tween.js';
 
 /**
  * 魔王城的隕落遊戲選擇頁
@@ -41,5 +42,16 @@ export class CastleFalls {
    */
   wait(ticks: number): Promise<void> {
     return this.waitManager.add(ticks);
+  }
+
+  /**
+   * 等待 Tween 播放完畢
+   * @param tween Tween 實例
+   * @returns Promise
+   */
+  waitForTween(tween: Tween<Record<string, unknown>>) {
+    return new Promise(resolve => {
+      tween.onComplete(resolve);
+    });
   }
 }
