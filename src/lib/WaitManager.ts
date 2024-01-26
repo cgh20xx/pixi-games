@@ -1,5 +1,6 @@
 import { Ticker } from 'pixi.js';
 import { ArrayUtils } from './ArrayUtils';
+import { update } from '@tweenjs/tween.js';
 
 class WaitProxy {
   constructor(
@@ -67,6 +68,8 @@ export class WaitManager {
       // 兌現等待的承諾
       first.resolve();
     }
+    // 呼叫 Tween.js 的更新函式
+    update(performance.now());
   }
 
   /**
