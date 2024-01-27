@@ -150,9 +150,12 @@ export class CastleFallsGame extends Container {
           const objB = pair.bodyB;
           const maObjA = this.objects[objA.id];
           const maObjB = this.objects[objB.id];
-          // 呼叫各自的受撞函式，並以對方作為參數 (等一下寫)
-          maObjA.onCollisionActive(maObjB, pair);
-          maObjB.onCollisionActive(maObjA, pair);
+          // 當有物件被 destroy 瞬間，偶爾會發生 maObjA 或 maObjB 為 undefined
+          if (maObjA && maObjB) {
+            // 呼叫各自的受撞函式，並以對方作為參數 (等一下寫)
+            maObjA.onCollisionActive(maObjB, pair);
+            maObjB.onCollisionActive(maObjA, pair);
+          }
         }
       }
     );
