@@ -1,6 +1,6 @@
 # Pixi Games 🕹️
 
-此專案為學習 pixi.js + TypeScript 開發小遊戲，搭配 Vitest 進行單元測試及 React router 切換不同小遊戲。
+此專案為學習 pixi.js + TypeScript 開發小遊戲，搭配 Vitest 進行單元測試及使用 React Router 切換不同遊戲。
 
 ## 🔧 技術棧：
 
@@ -9,6 +9,14 @@
 - Vite
 - Vitest
 - React
+- React Router
+
+## 🕹️ 遊戲列表：
+
+1. 小樹開朵花
+2. 太空小蜜蜂
+3. 怪獸掃蕩隊
+4. 魔王城的隕落
 
 ## 📁 專案結構：
 
