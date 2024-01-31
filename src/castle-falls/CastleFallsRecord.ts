@@ -30,10 +30,11 @@ export class CastleFallsRecord {
   }
 
   /**
-   * 儲存遊戲紀錄
+   * 儲存遊戲紀錄至 localStorage
    */
   private save(): void {
-    // todo
+    const strData = JSON.stringify(this.levelRecords);
+    localStorage.setItem('castleFallsRecords', strData);
   }
 
   /**
