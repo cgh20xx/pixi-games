@@ -26,7 +26,12 @@ export class CastleFallsRecord {
    * 讀取之前的遊戲紀錄
    */
   private load(): void {
-    // todo
+    const strData = localStorage.getItem('castleFallsRecords');
+    if (strData) {
+      this.levelRecords = JSON.parse(strData);
+    } else {
+      this.levelRecords = {};
+    }
   }
 
   /**
