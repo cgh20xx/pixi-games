@@ -57,7 +57,8 @@ export class CastleFallsRecord {
    * @param level 關卡
    */
   isLevelCleared(level: number): boolean {
-    // todo
+    const record = this.levelRecords[level];
+    return record && record.cleared;
   }
 
   /**
