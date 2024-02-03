@@ -25,6 +25,16 @@
       }
     },
     {
+      "type": "brick",
+      "x": 400,
+      "y": 280,
+      "angleDeg": 0,
+      "rect": {
+        "width": 100,
+        "height": 40
+      }
+    },
+    {
       "type": "boss",
       "x": 500,
       "y": 350,
