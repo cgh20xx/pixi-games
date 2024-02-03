@@ -3,6 +3,7 @@ import { LevelsUI } from './LevelsUI';
 import { CastleFallsGame } from './CastleFallsGame';
 import { WaitManager } from 'lib/WaitManager';
 import { Tween } from '@tweenjs/tween.js';
+import { CastleFallsRecord } from './CastleFallsRecord';
 
 /**
  * 魔王城的隕落遊戲選擇頁
@@ -13,10 +14,16 @@ export class CastleFalls {
    */
   waitManager: WaitManager;
 
+  /**
+   * 遊戲進度的記錄物件
+   */
+  record = new CastleFallsRecord();
+
   constructor(public app: Application) {
     this.waitManager = new WaitManager(app.ticker);
     // 一開始要先打開選關畫面
     this.openLevelsUI();
+    console.log(this.record);
   }
 
   /**

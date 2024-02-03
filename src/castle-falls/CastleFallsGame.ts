@@ -165,6 +165,10 @@ export class CastleFallsGame extends Container {
    * 遊戲結束顯示過關文字，並在 3 秒後回到選關畫面
    */
   async gameOver() {
+    // 儲存遊戲進度
+    this.gameApp.record.setLevelRecord(this.level, {
+      cleared: true
+    });
     // 取得遊戲舞台尺寸
     const stageSize = getStageSize();
     // 建立過關文字
