@@ -16,9 +16,29 @@
     },
     {
       "type": "brick",
-      "x": 400,
+      "x": 450,
       "y": 380,
       "angleDeg": 90,
+      "rect": {
+        "width": 100,
+        "height": 40
+      }
+    },
+    {
+      "type": "brick",
+      "x": 550,
+      "y": 380,
+      "angleDeg": 90,
+      "rect": {
+        "width": 100,
+        "height": 40
+      }
+    },
+    {
+      "type": "brick",
+      "x": 500,
+      "y": 250,
+      "angleDeg": 0,
       "rect": {
         "width": 100,
         "height": 40
