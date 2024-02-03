@@ -12,7 +12,7 @@ const Castle: React.FC = () => {
     initApp(app);
     setStageSize(640, 480); // setStageSize() 後要手動 refreshCanvasAndStage()
     refreshCanvasAndStage(app);
-    new CastleFalls(app);
+    const castleFalls = new CastleFalls(app);
     const divRefCurrent = divRef.current;
     divRefCurrent?.appendChild(app.view);
     // 偵聽視窗的 resize 事件
@@ -23,6 +23,7 @@ const Castle: React.FC = () => {
     return () => {
       window.removeEventListener('resize', resizeHandler);
       divRefCurrent?.removeChild(app.view);
+      castleFalls.game?.destroy();
       app.destroy();
     };
   }, []);

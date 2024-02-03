@@ -10,6 +10,11 @@ import { CastleFallsRecord } from './CastleFallsRecord';
  */
 export class CastleFalls {
   /**
+   * 遊戲本體
+   */
+  game?: CastleFallsGame;
+
+  /**
    * 等待管理員
    */
   waitManager: WaitManager;
@@ -38,8 +43,8 @@ export class CastleFalls {
    * @param level 關卡
    */
   startGame(level: number) {
-    const game = new CastleFallsGame(this, level);
-    this.app.stage.addChild(game);
+    this.game = new CastleFallsGame(this, level);
+    this.app.stage.addChild(this.game);
   }
 
   /**
