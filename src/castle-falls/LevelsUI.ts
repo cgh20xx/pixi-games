@@ -13,7 +13,12 @@ export class LevelsUI extends Container {
     // 建立選關按鈕
     const maxLevel = 3;
     for (let lv = 1; lv <= maxLevel; lv++) {
-      this.createLevelButton(lv);
+      const button = this.createLevelButton(lv);
+      // 檢查該 button 的關卡是否上鎖，上鎖的話要關閉按鈕互動及呈現半透明。
+      if (!this.gameApp.record.isLevelUnlocked(lv)) {
+        button.eventMode = 'none';
+        button.alpha = 0.5;
+      }
     }
   }
 
