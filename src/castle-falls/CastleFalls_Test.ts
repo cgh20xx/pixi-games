@@ -90,6 +90,8 @@ export class CastleFallsTest {
       for (const pair of pairs) {
         // 取得其中一個碰撞的一對物體
         const { bodyA, bodyB, collision } = pair;
+        console.log('bodyA:', bodyA);
+        console.log('bodyB:', bodyB);
         // 碰撞資料 depth: 沿碰撞法線向量，值越高表碰撞力量越大。(碰撞的力量)
         console.log(collision.depth);
         // 碰撞資料 normal: 碰撞法線向量 (碰撞的方向)

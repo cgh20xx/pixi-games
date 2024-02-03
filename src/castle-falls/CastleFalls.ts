@@ -23,7 +23,6 @@ export class CastleFalls {
     this.waitManager = new WaitManager(app.ticker);
     // 一開始要先打開選關畫面
     this.openLevelsUI();
-    console.log(this.record);
   }
 
   /**
