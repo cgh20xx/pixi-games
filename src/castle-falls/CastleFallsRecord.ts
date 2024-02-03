@@ -66,6 +66,8 @@ export class CastleFallsRecord {
    * @param level 關卡
    */
   isLevelUnlocked(level: number): boolean {
-    // todo
+    // 第一關預設開啟
+    // 否則檢查第二關以後的關卡，需先檢查上一關是否通關。
+    return level === 1 || this.isLevelCleared(level - 1);
   }
 }
