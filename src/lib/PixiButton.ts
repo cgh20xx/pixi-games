@@ -92,6 +92,10 @@ export class PixiButton extends Container {
       text.style.fill = labelColor.hover;
       this.options.onClick();
     });
+    // 手機的觸碰結束事件
+    this.on('touchend', event => {
+      this.emit('click', event);
+    });
     // 滑鼠懸浮在按鈕上方
     this.on('pointerover', () => {
       bg.tint = backgroundColor.hover;

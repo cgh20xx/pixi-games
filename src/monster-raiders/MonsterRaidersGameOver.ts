@@ -112,6 +112,11 @@ export class MonsterRaidersGameOver extends Container {
       new MonsterRaidersGame(this.game.app);
     });
 
+    // 手機的觸碰結束事件
+    button.on('touchend', event => {
+      button.emit('click', event);
+    });
+
     // 滑鼠滑入
     button.on('pointerover', () => {
       bg.tint = 0x3f51b5;
