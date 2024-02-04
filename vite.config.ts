@@ -7,5 +7,6 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './', // build 出的資源改為相對路徑
   plugins: [react(), tsconfigPaths()]
 });
