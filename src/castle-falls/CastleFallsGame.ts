@@ -81,7 +81,7 @@ export class CastleFallsGame extends Container {
    * @param level 關卡
    */
   async loadLevel(level: number) {
-    const url = `./castle-falls/level_${level}.json`;
+    const url = `./castle-falls/level_${level}.json?time=${Date.now()}`;
     const res = await fetch(url);
     const data = (await res.json()) as ICastleFallsLevelData;
     return data;
