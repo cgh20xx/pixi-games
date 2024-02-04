@@ -8,5 +8,8 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './', // build 出的資源改為相對路徑
+  server: {
+    host: '0.0.0.0'
+  },
   plugins: [react(), tsconfigPaths()]
 });
