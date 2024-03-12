@@ -3,6 +3,7 @@ import { Rectangle } from 'pixi.js';
  * 擴充 PIXI.Rectangle 的函式庫
  */
 
+// 注意：以下只使用於 pixi.js v7 版本，v8 不適用
 // 侵入 pixi.js 模組，在模組裡為 Rectangle 增加新的方法。
 declare module 'pixi.js' {
   class Rectangle {

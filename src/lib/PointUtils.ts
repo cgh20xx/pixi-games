@@ -3,10 +3,11 @@ import { IPoint, ObservablePoint, Point } from 'pixi.js';
  * 擴充 PIXI.Point 的函式庫
  */
 
+// 注意：以下只使用於 pixi.js v7 版本，v8 不適用
 // 侵入 pixi.js 模組，在模組裡為 IPoint 介面增加新的方法。
 declare module 'pixi.js' {
   // 這裡擴充 IPoint 介面而不是 Point 類別，原因是 Point.d.ts 裡面有兩個同名的 Point 宣告被一起
-  // 滙出到專案，讓專案產生重覆宣告的錯誤，但因 Point 類別是作了 IPoint 判面，所以我們改寫 IPoint
+  // 滙出到專案，讓專案產生重覆宣告的錯誤，但因 Point 類別是作了 IPoint 介面，所以我們改寫 IPoint
   // 也可以達到定義新函式的目的。而 TS 中同名的 interface 會被合併所以是沒關係的。
   interface IPoint {
     /**
