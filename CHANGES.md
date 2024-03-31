@@ -75,3 +75,32 @@ function collides(obj1: Container, obj2: Container): boolean {
   return bounds1.rectangle.intersects(bounds2.rectangle);
 }
 ```
+
+## Point 與 Rectangle
+
+原本的專案中有幫 Point 與 Rectangle 加了許多功能，比如 length(), dot() 等向量的計算，但在 v8 中都有內建這些功能了。
+
+不過 dot(內積), cross(外積), add(向量相加)等功能是寫在 math-extras 的外掛模組中，所以雖然寫程式時可以看到 Point 有這些功能，但實際在執行的時候呼叫這些函式會出錯。
+
+所以在PointUtils.ts裏面，我們需要手動將 math-extras 載入我們的專案。
+
+```typescript
+/** PointUtils.ts */
+...
+import 'pixi.js/math-extras';
+...
+```
+
+pixi.js v8 中給 Point 配上的 normalize() 和先前我們專案寫的不一樣。我們寫的 normalize(length?: number): number 可以給一個最後要給向量的長度作為參數，並回傳執行前的向量長度。
+
+v8的normalize() 不接受參數，且回傳值為一個新的向量。所以要將向量調整成我們要的長度，就要用新的方法。
+
+```typescript
+// 在 v8 調整向量長度的方法
+let point = new Point(3, 4);
+// 將向量長度拉長到 50
+let currentLength = point.length();
+if (currentLength) {
+  point.scale(50 / currentLength);
+}
+```
