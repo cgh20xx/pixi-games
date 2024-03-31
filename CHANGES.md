@@ -2,9 +2,9 @@
 
 待補
 
-# v7升級到v8的重點
+# v7 升級到 v8 的重點
 
-## App的初始化
+## App 的初始化
 
 Application 的初始化改成非同步，所以在 main.ts 要用非同步的方式啟動 Application，再設定其他有用到 Application 的物件。
 
@@ -51,5 +51,27 @@ async function startGame() {
   // 然後再將材質取出來用
   let texture = Assets.get('myImage');
   let sprite = new Sprite({ texture: texture });
+}
+```
+
+## Bounds
+
+用來檢查繪圖物件邊界範圍的Bounds長得和 v7 的不一樣了。在 v7 的 Bounds 實際上就是一個 Rectangle，但在 v8 中的 Bounds 有自己的類別。
+
+```typescript
+// v7 的bounds
+function collides(obj1: DisplayObject, obj2: DisplayObject): boolean {
+  let bounds1: Rectangle = obj1.getBounds();
+  let bounds2: Rectangle = obj2.getBounds();
+  return bounds1.intersects(bounds2);
+}
+```
+
+```typescript
+// v8 的bounds
+function collides(obj1: Container, obj2: Container): boolean {
+  let bounds1: Bounds = obj1.getBounds();
+  let bounds2: Bounds = obj2.getBounds();
+  return bounds1.rectangle.intersects(bounds2.rectangle);
 }
 ```
